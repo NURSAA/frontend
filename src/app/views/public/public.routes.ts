@@ -4,7 +4,11 @@ import {LoginComponent} from "./login/login.component";
 
 export const publicRoutes: Routes = [
     {
-        path: '',
+        path: 'login',
         component: LoginComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'login'
     }
 ];
