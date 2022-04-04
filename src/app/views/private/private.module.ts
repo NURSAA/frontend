@@ -6,13 +6,13 @@ import {RestaurantListComponent} from "./restaurants/restaurant-list/restaurant-
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(privateRoutes)
-  ],
-  declarations: [
-    RestaurantListComponent
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(privateRoutes)
+    ],
+    declarations: [
+        RestaurantListComponent
+    ]
 })
 export class PrivateModule {
 }

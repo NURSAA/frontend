@@ -5,10 +5,10 @@ import {restaurantsRoutes} from "./restaurants.routes";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(restaurantsRoutes)
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(restaurantsRoutes)
+    ]
 })
 export class RestaurantsModule {
 }

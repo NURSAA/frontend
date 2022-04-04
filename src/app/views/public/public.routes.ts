@@ -3,8 +3,8 @@ import {LoginComponent} from "./login/login.component";
 
 
 export const publicRoutes: Routes = [
-  {
-    path: '',
-    component: LoginComponent
-  }
+    {
+        path: '',
+        component: LoginComponent
+    }
 ];

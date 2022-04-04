@@ -6,13 +6,13 @@ import {RouterModule} from "@angular/router";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(publicRoutes)
-  ],
-  declarations: [
-    LoginComponent
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(publicRoutes)
+    ],
+    declarations: [
+        LoginComponent
+    ]
 })
 export class PublicModule {
 }

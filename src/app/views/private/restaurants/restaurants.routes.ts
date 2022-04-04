@@ -3,8 +3,8 @@ import {RestaurantListComponent} from "./restaurant-list/restaurant-list.compone
 
 
 export const restaurantsRoutes: Routes = [
-  {
-    path: '',
-    component: RestaurantListComponent
-  }
+    {
+        path: '',
+        component: RestaurantListComponent
+    }
 ];
