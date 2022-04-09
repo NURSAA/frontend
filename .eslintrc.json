@@ -47,7 +47,8 @@
         "space-before-blocks": "error",
         "brace-style": "error",
         "indent": ["error", 4],
-        "space-in-parens": ["error", "never"]
+        "space-in-parens": ["error", "never"],
+        "@typescript-eslint/no-unsafe-argument": ["off"]
       }
     },
     {
