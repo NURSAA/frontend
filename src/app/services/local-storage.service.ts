@@ -12,4 +12,12 @@ export abstract class LocalStorage {
 
         return JSON.parse(itemString) as T;
     }
+
+    static clear(): void {
+        localStorage.clear();
+    }
+
+    static removeItem(key: string): void {
+        localStorage.removeItem(key);
+    }
 }

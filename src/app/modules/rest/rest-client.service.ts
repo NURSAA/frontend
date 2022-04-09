@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
+import {Injectable, Injector} from '@angular/core';
 import {IEndpointMap, IEndpointName} from 'src/app/_types/endpoint-map';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IRestCollection, RestCollection} from 'src/app/modules/rest/rest-collection';
-import {IRestObject} from 'src/app/modules/rest/rest-object';
+import {IRestObject, RestObject} from 'src/app/modules/rest/rest-object';
 
 
 @Injectable({
@@ -14,6 +14,7 @@ export class RestClient {
 
     constructor(
         private httpClient: HttpClient,
+        private injector: Injector
     ) {
     }
 
@@ -65,6 +66,13 @@ export class RestClient {
 
     private getUrl(endpoint: string): string {
         return this.API_PATH + endpoint;
+    }
+
+    createObject<T extends IEndpointName, TItem extends IEndpointMap[T] = IEndpointMap[T]>(
+        endpoint: T,
+        source: TItem & {id: number}
+    ): IRestObject<T> {
+        return new RestObject(endpoint, source, this.injector) as IRestObject<T> ;
     }
 
     stripApiPath<T extends string>(url: T): T {

@@ -8,29 +8,37 @@ export type IRestObject<T extends IEndpointName> = {
 } & RestObject<T>;
 
 export class RestObject<T extends IEndpointName, TItem extends IEndpointMap[T] = IEndpointMap[T]> {
-    private readonly id: number;
-    private restClient: RestClient;
+    private id!: number;
 
     constructor(
         private readonly endpoint: T,
         source: TItem & {id: number},
-        injector: Injector
+        private injector: Injector
     ) {
+        this.assignProperties(source);
+        this.endpoint = this.restClient().stripApiPath(this.endpoint);
+    }
+
+    private assignProperties(source: TItem & {id: number}): void {
         if (typeof source.id === 'undefined') {
             throw new Error('Rest object always need id property!');
         }
         this.id = source.id;
         Object.assign<this, TItem>(this, source);
+    }
 
-        this.restClient = injector.get(RestClient);
-        this.endpoint = this.restClient.stripApiPath(this.endpoint);
+    /**
+     * It's workaround to avoid circular structure in JSON.stringify while performing requests.
+     */
+    private restClient(): RestClient {
+        return this.injector.get(RestClient);
     }
 
     update(): Observable<IRestObject<T>> {
-        return this.restClient.put(this.endpoint, this);
+        return this.restClient().put(this.endpoint, this);
     }
 
     delete(): Observable<IRestObject<T>> {
-        return this.restClient.delete(this.endpoint, this.id);
+        return this.restClient().delete(this.endpoint, this.id);
     }
 }

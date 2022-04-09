@@ -50,6 +50,12 @@ export class UserService {
         this.router.navigate(['/app/restaurants']);
     }
 
+    logout(): void {
+        this.userData = undefined;
+        LocalStorage.clear();
+        this.router.navigate(['']);
+    }
+
     getAuthorizationToken(): string | null {
         if (!this.userData) {
             return null;
