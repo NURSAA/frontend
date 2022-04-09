@@ -3,7 +3,12 @@
         <h1>Restaurants</h1>
         <button class="btn btn-primary"
                 routerLink="/login">
-            Login page
+            Login page (won't work, for test purpose)
+        </button>
+
+        <button class="btn btn-danger ms-3"
+                (click)="userService.logout()">
+            Logout
         </button>
     </div>
 </div>

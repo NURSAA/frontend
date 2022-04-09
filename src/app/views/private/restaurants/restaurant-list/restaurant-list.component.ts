@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import {UserService} from 'src/app/services/user.service';
 
 
 @Component({
@@ -6,4 +7,8 @@ import {Component} from "@angular/core";
     templateUrl: './restaurant-list.component.html'
 })
 export class RestaurantListComponent {
+    constructor(
+        public userService: UserService
+    ) {
+    }
 }
