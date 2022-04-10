@@ -23,10 +23,6 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "@angular-eslint/directive-selector": [
-          "error",
-          { "type": "attribute", "prefix": "app", "style": "camelCase" }
-        ],
         "@angular-eslint/component-selector": [
           "error",
           { "type": "element", "style": "kebab-case" }
@@ -51,7 +47,15 @@
         "@typescript-eslint/no-unsafe-argument": ["off"],
         "@typescript-eslint/unbound-method": ["off"],
         "@typescript-eslint/no-floating-promises": ["off"],
-        "@typescript-eslint/no-unsafe-assignment": ["off"]
+        "@typescript-eslint/no-unsafe-assignment": ["off"],
+        "no-restricted-imports": [
+            "error",
+            {
+                "name": "@angular/forms",
+                "importNames": ["ReactiveFormsModule", "FormsModule"],
+                "message": "Please use AppFormsModule instead."
+            }
+        ]
       }
     },
     {

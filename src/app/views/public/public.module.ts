@@ -3,15 +3,14 @@ import {CommonModule} from "@angular/common";
 import {LoginComponent} from "./login/login.component";
 import {publicRoutes} from "./public.routes";
 import {RouterModule} from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 
 
 @NgModule({
     imports: [
+        AppFormsModule,
         CommonModule,
         RouterModule.forChild(publicRoutes),
-        ReactiveFormsModule,
-        FormsModule
     ],
     declarations: [
         LoginComponent
