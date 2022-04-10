@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
-import {map, Observable} from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {IUser} from 'src/app/_types/user';
 import {Router} from '@angular/router';
 import {LocalStorage} from 'src/app/services/local-storage.service';
@@ -35,10 +35,8 @@ export class UserService {
             {username, password}
         )
             .pipe(
-                map((userData) => {
+                tap((userData) => {
                     this.handleSuccessfulLogin(userData);
-
-                    return this.userData as IUserData;
                 })
             );
     }

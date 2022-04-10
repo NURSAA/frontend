@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from 'src/app/services/user.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {finalize} from 'rxjs';
 
 
 @Component({
@@ -10,8 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
     loginForm!: FormGroup;
-
-    test!: string;
+    loading = false;
 
     constructor(
         private userService: UserService
@@ -28,10 +28,20 @@ export class LoginComponent implements OnInit {
     login(): void {
         const {username, password} = this.loginForm.value;
 
+        this.loading = true;
         this.userService.tryLogin(
             username,
             password
         )
-            .subscribe()
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                })
+            )
+            .subscribe({
+                error: () => {
+                    this.loginForm.reset();
+                }
+            })
     }
 }
