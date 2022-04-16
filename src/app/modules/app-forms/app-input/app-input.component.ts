@@ -45,6 +45,11 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
     }
 
     ngOnInit(): void {
+        this.syncInputValue();
+        this.accessParentControl();
+    }
+
+    private syncInputValue(): void {
         this.inputControl.valueChanges
             .pipe(takeUntil(this._destroy$))
             .subscribe((value) => {
@@ -52,10 +57,10 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
                     this._onChange(value);
                 }
             });
-        this.accessParentControl();
     }
 
     private accessParentControl(): void {
+        // Wait to next cycle so parent control can be created.
         setTimeout(() => {
             this.parentControl = this.injector.get(NgControl).control as AbstractControl;
             this.isRequired = this.parentControl.hasValidator(Validators.required);
