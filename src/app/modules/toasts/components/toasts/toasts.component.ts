@@ -22,7 +22,6 @@ export class ToastsComponent implements OnInit, OnDestroy {
         this.toastsService.getToast$()
             .pipe(takeUntil(this._onDestroy$))
             .subscribe((toast) => {
-                console.log(toast);
                 this.toasts.push(toast);
             })
     }

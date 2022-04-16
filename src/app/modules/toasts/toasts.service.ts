@@ -4,7 +4,7 @@ import {Observable, Subject} from 'rxjs';
 export type IToast = {
     type: 'danger' | 'warning' | 'info' | 'success';
     title: string;
-    description: string;
+    description?: string;
 }
 
 @Injectable({

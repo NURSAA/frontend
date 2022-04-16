@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
                     this.toastService.push({
                         type: 'danger',
                         title: 'Login error',
-                        description: 'Something went wrong while login in.'
                     });
                 }
             })
