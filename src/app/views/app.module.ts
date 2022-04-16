@@ -5,6 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {httpInterceptorProviders} from 'src/app/modules/rest/interceptors';
+import {ToastsModule} from 'src/app/modules/toasts/toasts.module';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import {httpInterceptorProviders} from 'src/app/modules/rest/interceptors';
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
+        ToastsModule,
     ],
     providers: [
         httpInterceptorProviders

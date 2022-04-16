@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from 'src/app/services/user.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {finalize} from 'rxjs';
+import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
     test!: string;
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private toastService: ToastsService
     ) {
     }
 
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
         this.loginForm = new FormGroup({
             username: new FormControl(null, [Validators.required, Validators.email]),
             password: new FormControl(null, Validators.required),
-        })
+        });
     }
 
     login(): void {
@@ -42,6 +44,11 @@ export class LoginComponent implements OnInit {
             .subscribe({
                 error: () => {
                     this.loginForm.reset();
+                    this.toastService.push({
+                        type: 'danger',
+                        title: 'Login error',
+                        description: 'Something went wrong while login in.'
+                    });
                 }
             })
     }

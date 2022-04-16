@@ -1,0 +1,16 @@
+<div class="toast" #toastEl role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <div class="toast-type me-2"
+             [ngClass]="'bg-' + toast.type">
+        </div>
+        <strong class="me-auto">{{toast.title}}</strong>
+        <button type="button"
+                class="btn-close"
+                (click)="bsToast.hide()"
+                aria-label="Close">
+        </button>
+    </div>
+    <div class="toast-body">
+        {{toast.description}}
+    </div>
+</div>
