@@ -1,7 +1,7 @@
 <div class="mb-3">
     <label for="username" class="form-label">
         {{name}}
-        <span *ngIf="parentControl.errors && parentControl.errors['required']"
+        <span *ngIf="isRequired"
               class="text-danger">
             *
         </span>
@@ -14,8 +14,8 @@
     />
     <ng-container *ngIf="inputControl.touched">
         <div class="text-danger small ms-1"
-             *ngFor="let error of $any(parentControl.errors) | keyvalue">
-            {{error.key}}
+             *ngFor="let error of $any(parentControl?.errors) | keyvalue">
+            {{$any(error.key) | translate}}
         </div>
     </ng-container>
 </div>

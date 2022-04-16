@@ -1,6 +1,13 @@
 import {Component, Injector, Input, OnDestroy, OnInit} from '@angular/core';
 import {IInputType} from 'src/app/modules/app-forms/interfaces';
-import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl} from '@angular/forms';
+import {
+    AbstractControl,
+    ControlValueAccessor,
+    FormControl,
+    NG_VALUE_ACCESSOR,
+    NgControl,
+    Validators
+} from '@angular/forms';
 import {Subject, takeUntil} from 'rxjs';
 
 
@@ -20,8 +27,9 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
     @Input() name!: string;
     @Input() type: IInputType = 'text';
 
-    parentControl!: NgControl;
+    parentControl!: AbstractControl;
     inputControl = new FormControl();
+    isRequired = false;
     _onChange?: (value: unknown) => void;
     _onTouched?: () => unknown;
 
@@ -37,8 +45,6 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
     }
 
     ngOnInit(): void {
-        this.parentControl = this.injector.get(NgControl);
-
         this.inputControl.valueChanges
             .pipe(takeUntil(this._destroy$))
             .subscribe((value) => {
@@ -46,6 +52,14 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
                     this._onChange(value);
                 }
             });
+        this.accessParentControl();
+    }
+
+    private accessParentControl(): void {
+        setTimeout(() => {
+            this.parentControl = this.injector.get(NgControl).control as AbstractControl;
+            this.isRequired = this.parentControl.hasValidator(Validators.required);
+        })
     }
 
     registerOnChange(fn: (value: unknown) => unknown): void {

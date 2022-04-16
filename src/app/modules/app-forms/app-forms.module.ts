@@ -5,13 +5,15 @@ import {FormDirective} from 'src/app/modules/app-forms/directives/form.directive
 import {SubmitDirective} from 'src/app/modules/app-forms/directives/submit.directive';
 import {AppInputComponent} from 'src/app/modules/app-forms/app-input/app-input.component';
 import {CommonModule} from '@angular/common';
+import {TranslationsModule} from 'src/app/modules/translate/translate.module';
 
 
 @NgModule({
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        CommonModule
+        CommonModule,
+        TranslationsModule
     ],
     declarations: [
         AppInputComponent,
