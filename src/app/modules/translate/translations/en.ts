@@ -17,5 +17,13 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'LOGIN',
         value: 'Log in'
+    },
+    {
+        key: 'ERROR',
+        value: 'Error'
+    },
+    {
+        key: 'ERROR_DESCRIPTION',
+        value: 'Something went wrong.'
     }
 ];

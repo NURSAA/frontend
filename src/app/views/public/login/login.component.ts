@@ -32,10 +32,7 @@ export class LoginComponent implements OnInit {
         const {username, password} = this.loginForm.value;
 
         this.loading = true;
-        this.userService.tryLogin(
-            username,
-            password
-        )
+        this.userService.tryLogin(username, password)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -44,10 +41,7 @@ export class LoginComponent implements OnInit {
             .subscribe({
                 error: () => {
                     this.loginForm.reset();
-                    this.toastService.push({
-                        type: 'danger',
-                        title: 'Login error',
-                    });
+                    this.toastService.pushError();
                 }
             })
     }
