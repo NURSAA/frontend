@@ -5,27 +5,13 @@
               (ngSubmit)="login()">
             <h1 class="mb-5 text-center">Login page</h1>
 
-            <div class="mb-3">
-                <label for="username" class="form-label">
-                    Email:
-                </label>
-                <input type="text"
-                       id="username"
-                       class="form-control"
-                       formControlName="username"
-                />
-            </div>
+            <app-input name="Email:"
+                       formControlName="username">
+            </app-input>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">
-                    Password:
-                </label>
-                <input type="password"
-                       id="password"
-                       class="form-control"
-                       formControlName="password"
-                />
-            </div>
+            <app-input name="Password:"
+                       formControlName="password">
+            </app-input>
 
             <button type="submit"
                     [disabled]="loading"

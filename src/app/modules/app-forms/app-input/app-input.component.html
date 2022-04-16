@@ -1,0 +1,21 @@
+<div class="mb-3">
+    <label for="username" class="form-label">
+        {{name}}
+        <span *ngIf="parentControl.errors && parentControl.errors['required']"
+              class="text-danger">
+            *
+        </span>
+    </label>
+    <input [type]="type"
+           id="username"
+           class="form-control"
+           [formControl]="inputControl"
+           (blur)="_onTouched ? _onTouched() : null"
+    />
+    <ng-container *ngIf="inputControl.touched">
+        <div class="text-danger small ms-1"
+             *ngFor="let error of $any(parentControl.errors) | keyvalue">
+            {{error.key}}
+        </div>
+    </ng-container>
+</div>

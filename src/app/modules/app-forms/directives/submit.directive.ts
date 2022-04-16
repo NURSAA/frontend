@@ -1,5 +1,5 @@
 import {Directive, HostBinding, OnDestroy, OnInit, Optional} from '@angular/core';
-import {FormDirective} from 'src/app/modules/app-forms/form.directive';
+import {FormDirective} from 'src/app/modules/app-forms/directives/form.directive';
 import {Subject, takeUntil} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 

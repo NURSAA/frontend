@@ -12,6 +12,7 @@ import {finalize} from 'rxjs';
 export class LoginComponent implements OnInit {
     loginForm!: FormGroup;
     loading = false;
+    test!: string;
 
     constructor(
         private userService: UserService
