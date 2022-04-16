@@ -9,5 +9,13 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'email',
         value: 'Use proper e-mail address'
+    },
+    {
+        key: 'LOGIN_PAGE',
+        value: 'Login page'
+    },
+    {
+        key: 'LOGIN',
+        value: 'Log in'
     }
 ];

@@ -3,7 +3,7 @@
         <form class="card-body my-5 py-5"
               [formGroup]="loginForm"
               (ngSubmit)="login()">
-            <h1 class="mb-5 text-center">Login page</h1>
+            <h1 class="mb-5 text-center">{{'LOGIN_PAGE' | translate}}</h1>
 
             <app-input name="Email:"
                        formControlName="username">
@@ -16,7 +16,7 @@
             <button type="submit"
                     [disabled]="loading"
                     class="btn btn-success">
-                Zaloguj się
+                {{'LOGIN' | translate}}
             </button>
         </form>
     </div>

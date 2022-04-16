@@ -4,6 +4,7 @@ import {LoginComponent} from "./login/login.component";
 import {publicRoutes} from "./public.routes";
 import {RouterModule} from "@angular/router";
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
+import {TranslationsModule} from 'src/app/modules/translate/translate.module';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
         AppFormsModule,
         CommonModule,
         RouterModule.forChild(publicRoutes),
+        TranslationsModule,
     ],
     declarations: [
         LoginComponent
