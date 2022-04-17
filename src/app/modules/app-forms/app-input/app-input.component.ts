@@ -63,8 +63,19 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
         // Wait to next cycle so parent control can be created.
         setTimeout(() => {
             this.parentControl = this.injector.get(NgControl).control as AbstractControl;
+
             this.isRequired = this.parentControl.hasValidator(Validators.required);
+
+            this.passResetMethod();
         })
+    }
+
+    private passResetMethod(): void {
+        const parentReset = this.parentControl.reset.bind(this.parentControl);
+        this.parentControl.reset = (value, options): void => {
+            parentReset(value, options);
+            this.inputControl.reset(value, options);
+        }
     }
 
     registerOnChange(fn: (value: unknown) => unknown): void {
