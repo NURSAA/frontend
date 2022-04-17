@@ -1,0 +1,22 @@
+<login-card>
+    <form [formGroup]="registerForm"
+          (ngSubmit)="register()"
+          class="card-body my-5 py-5">
+        <h1 class="mb-5 text-center">{{'REGISTER_PAGE' | translate}}</h1>
+
+        <app-input name="Email:"
+                   formControlName="email">
+        </app-input>
+
+        <app-input name="Password:"
+                   type="password"
+                   formControlName="password">
+        </app-input>
+
+        <button type="submit"
+                [disabled]="loading"
+                class="btn btn-success">
+            {{'CREATE_NEW_ACCOUNT' | translate}}
+        </button>
+    </form>
+</login-card>

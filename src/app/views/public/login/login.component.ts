@@ -8,7 +8,6 @@ import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 @Component({
     selector: 'login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
     loginForm!: FormGroup;

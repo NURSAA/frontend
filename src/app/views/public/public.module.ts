@@ -5,6 +5,8 @@ import {publicRoutes} from "./public.routes";
 import {RouterModule} from "@angular/router";
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 import {TranslationsModule} from 'src/app/modules/translate/translate.module';
+import {RegisterComponent} from 'src/app/views/public/register/register.component';
+import {ComponentsModule} from 'src/app/components/components.module';
 
 
 @NgModule({
@@ -13,9 +15,11 @@ import {TranslationsModule} from 'src/app/modules/translate/translate.module';
         CommonModule,
         RouterModule.forChild(publicRoutes),
         TranslationsModule,
+        ComponentsModule,
     ],
     declarations: [
-        LoginComponent
+        LoginComponent,
+        RegisterComponent
     ]
 })
 export class PublicModule {

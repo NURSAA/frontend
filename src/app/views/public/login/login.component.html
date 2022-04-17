@@ -1,24 +1,29 @@
-<div class="min-vh-100 d-flex justify-content-center align-items-center">
-    <div class="card login-card py-5">
-        <form class="card-body my-5 py-5"
-              [formGroup]="loginForm"
-              (ngSubmit)="login()">
-            <h1 class="mb-5 text-center">{{'LOGIN_PAGE' | translate}}</h1>
+<login-card>
+    <form class="card-body my-5 py-5"
+          [formGroup]="loginForm"
+          (ngSubmit)="login()">
+        <h1 class="mb-5 text-center">{{'LOGIN_PAGE' | translate}}</h1>
 
-            <app-input name="Email:"
-                       formControlName="username">
-            </app-input>
+        <app-input name="Email:"
+                   formControlName="username">
+        </app-input>
 
-            <app-input name="Password:"
-                       type="password"
-                       formControlName="password">
-            </app-input>
+        <app-input name="Password:"
+                   type="password"
+                   formControlName="password">
+        </app-input>
 
+        <div class="d-flex align-items-end">
             <button type="submit"
                     [disabled]="loading"
                     class="btn btn-success">
                 {{'LOGIN' | translate}}
             </button>
-        </form>
-    </div>
-</div>
+
+            <a class="link-dark ms-2"
+               routerLink="/register">
+                {{'OR_REGISTER' | translate}}
+            </a>
+        </div>
+    </form>
+</login-card>

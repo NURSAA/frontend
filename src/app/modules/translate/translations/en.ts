@@ -25,5 +25,17 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'ERROR_DESCRIPTION',
         value: 'Something went wrong.'
+    },
+    {
+        key: 'OR_REGISTER',
+        value: 'or register new account.'
+    },
+    {
+        key: 'REGISTER_PAGE',
+        value: 'Register'
+    },
+    {
+        key: 'CREATE_NEW_ACCOUNT',
+        value: 'Create new account'
     }
 ];
