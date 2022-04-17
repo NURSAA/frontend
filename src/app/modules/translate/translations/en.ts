@@ -37,5 +37,13 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'CREATE_NEW_ACCOUNT',
         value: 'Create new account'
+    },
+    {
+        key: 'BRAND_NAME',
+        value: 'E-restaurant'
+    },
+    {
+        key: 'RESTAURANTS',
+        value: 'Restaurants'
     }
 ];

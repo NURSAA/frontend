@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {httpInterceptorProviders} from 'src/app/modules/rest/interceptors';
 import {ToastsModule} from 'src/app/modules/toasts/toasts.module';
+import {ComponentsModule} from 'src/app/components/components.module';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {ToastsModule} from 'src/app/modules/toasts/toasts.module';
         AppRoutingModule,
         HttpClientModule,
         ToastsModule,
+        ComponentsModule,
     ],
     providers: [
         httpInterceptorProviders

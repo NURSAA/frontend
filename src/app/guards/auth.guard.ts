@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree {
-        if (!this.userService.isLoggedIn()) {
+        if (!this.userService.isLoggedIn) {
             this.userService.recoverSavedUser();
         }
 
@@ -26,14 +26,14 @@ export class AuthGuard implements CanActivate {
             return this.handleLoginPage();
         }
 
-        if (this.userService.isLoggedIn()) {
+        if (this.userService.isLoggedIn) {
             return true;
         }
         return this.router.createUrlTree(['/login']);
     }
 
     private handleLoginPage(): boolean | UrlTree {
-        if (!this.userService.isLoggedIn()) {
+        if (!this.userService.isLoggedIn) {
             return true;
         }
         return this.router.createUrlTree(['/app']);

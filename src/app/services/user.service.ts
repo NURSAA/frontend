@@ -17,6 +17,8 @@ interface IUserData extends IUser {
     providedIn: 'root'
 })
 export class UserService {
+    isLoggedIn = false;
+
     private readonly USER_KEY = 'userData';
     private userData?: IUserData;
 
@@ -42,6 +44,7 @@ export class UserService {
     }
 
     private handleSuccessfulLogin(userData: IUserData): void {
+        this.isLoggedIn = true;
         this.userData = userData;
         LocalStorage.set(this.USER_KEY, userData);
 
@@ -49,6 +52,7 @@ export class UserService {
     }
 
     logout(): void {
+        this.isLoggedIn = false;
         this.userData = undefined;
         LocalStorage.clear();
         this.router.navigate(['']);
@@ -61,16 +65,13 @@ export class UserService {
         return `Bearer ${this.userData.token}`;
     }
 
-    isLoggedIn(): boolean {
-        return !!this.userData;
-    }
-
     recoverSavedUser(): IUserData | null {
         const userData = LocalStorage.get<IUserData>(this.USER_KEY);
         if (!userData) {
             return null;
         }
 
+        this.isLoggedIn = true;
         this.userData = userData;
         return userData;
     }
