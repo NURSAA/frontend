@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import {Subject, takeUntil} from 'rxjs';
 
-
+let appInputId = 0;
 
 @Component({
     selector: 'app-input',
@@ -30,6 +30,7 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
     parentControl!: AbstractControl;
     inputControl = new FormControl();
     isRequired = false;
+    inputId = `app-input-${appInputId++}`;
     _onChange?: (value: unknown) => void;
     _onTouched?: () => unknown;
 

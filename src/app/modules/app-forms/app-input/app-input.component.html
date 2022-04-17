@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label for="username" class="form-label">
+    <label [for]="inputId" class="form-label">
         {{name}}
         <span *ngIf="isRequired"
               class="text-danger">
@@ -7,7 +7,7 @@
         </span>
     </label>
     <input [type]="type"
-           id="username"
+           [id]="inputId"
            class="form-control"
            [formControl]="inputControl"
            (blur)="_onTouched ? _onTouched() : null"
