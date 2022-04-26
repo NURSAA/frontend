@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
-import {map, Observable} from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {IUser} from 'src/app/_types/user';
 import {Router} from '@angular/router';
 import {LocalStorage} from 'src/app/services/local-storage.service';
@@ -17,6 +17,8 @@ interface IUserData extends IUser {
     providedIn: 'root'
 })
 export class UserService {
+    isLoggedIn = false;
+
     private readonly USER_KEY = 'userData';
     private userData?: IUserData;
 
@@ -35,15 +37,14 @@ export class UserService {
             {username, password}
         )
             .pipe(
-                map((userData) => {
+                tap((userData) => {
                     this.handleSuccessfulLogin(userData);
-
-                    return this.userData as IUserData;
                 })
             );
     }
 
     private handleSuccessfulLogin(userData: IUserData): void {
+        this.isLoggedIn = true;
         this.userData = userData;
         LocalStorage.set(this.USER_KEY, userData);
 
@@ -51,6 +52,7 @@ export class UserService {
     }
 
     logout(): void {
+        this.isLoggedIn = false;
         this.userData = undefined;
         LocalStorage.clear();
         this.router.navigate(['']);
@@ -63,16 +65,13 @@ export class UserService {
         return `Bearer ${this.userData.token}`;
     }
 
-    isLoggedIn(): boolean {
-        return !!this.userData;
-    }
-
     recoverSavedUser(): IUserData | null {
         const userData = LocalStorage.get<IUserData>(this.USER_KEY);
         if (!userData) {
             return null;
         }
 
+        this.isLoggedIn = true;
         this.userData = userData;
         return userData;
     }

@@ -6,6 +6,8 @@ import {UserService} from 'src/app/services/user.service';
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+    private publicUrls = ['/login', '/register']
+
     constructor(
         private userService: UserService,
         private router: Router
@@ -16,22 +18,22 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree {
-        if (!this.userService.isLoggedIn()) {
+        if (!this.userService.isLoggedIn) {
             this.userService.recoverSavedUser();
         }
 
-        if (state.url.startsWith('/login')) {
+        if (this.publicUrls.includes(state.url)) {
             return this.handleLoginPage();
         }
 
-        if (this.userService.isLoggedIn()) {
+        if (this.userService.isLoggedIn) {
             return true;
         }
         return this.router.createUrlTree(['/login']);
     }
 
     private handleLoginPage(): boolean | UrlTree {
-        if (!this.userService.isLoggedIn()) {
+        if (!this.userService.isLoggedIn) {
             return true;
         }
         return this.router.createUrlTree(['/app']);

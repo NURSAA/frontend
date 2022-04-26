@@ -1,0 +1,21 @@
+<div class="mb-3">
+    <label [for]="inputId" class="form-label">
+        {{name}}
+        <span *ngIf="isRequired"
+              class="text-danger">
+            *
+        </span>
+    </label>
+    <input [type]="type"
+           [id]="inputId"
+           class="form-control"
+           [formControl]="inputControl"
+           (blur)="_onTouched ? _onTouched() : null"
+    />
+    <ng-container *ngIf="inputControl.touched">
+        <div class="text-danger small ms-1"
+             *ngFor="let error of $any(parentControl?.errors) | keyvalue">
+            {{$any(error.key) | translate}}
+        </div>
+    </ng-container>
+</div>

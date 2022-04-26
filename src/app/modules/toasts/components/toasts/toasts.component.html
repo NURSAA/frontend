@@ -1,0 +1,9 @@
+<div class="fixed-toasts">
+    <div class="toast-container">
+        <div class="mb-3" *ngFor="let toast of toasts;let index=index">
+            <toast [toast]="toast"
+                   (closed)="removeToast(index)">
+            </toast>
+        </div>
+    </div>
+</div>

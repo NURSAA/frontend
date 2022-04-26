@@ -1,37 +1,30 @@
-<div class="min-vh-100 d-flex justify-content-center align-items-center">
-    <div class="card w-50 py-5">
-        <form class="card-body"
-              [formGroup]="loginForm"
-              (ngSubmit)="login()">
-            <h1>Login page</h1>
+<login-card>
+    <form class="card-body my-5 py-5"
+          [formGroup]="loginForm"
+          (ngSubmit)="login()">
+        <h1 class="mb-5 text-center">{{'LOGIN_PAGE' | translate}}</h1>
 
-            <div class="mb-3">
-                <label for="username" class="form-label">
-                    Email:
-                </label>
-                <input type="text"
-                       id="username"
-                       class="form-control"
-                       formControlName="username"
-                />
-            </div>
+        <app-input name="Email:"
+                   formControlName="username">
+        </app-input>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">
-                    Password:
-                </label>
-                <input type="password"
-                       id="password"
-                       class="form-control"
-                       formControlName="password"
-                />
-            </div>
+        <app-input name="Password:"
+                   type="password"
+                   formControlName="password">
+        </app-input>
 
-            <button type="submit"
-                    [disabled]="loginForm.invalid"
-                    class="btn btn-success">
-                Zaloguj się
-            </button>
-        </form>
-    </div>
-</div>
+
+        <button type="submit"
+                [disabled]="loading"
+                class="btn btn-success w-100">
+            {{'LOGIN' | translate}}
+        </button>
+
+        <div class="mt-3">
+            <a class="link-dark"
+               routerLink="/register">
+                {{'OR_REGISTER' | translate}}
+            </a>
+        </div>
+    </form>
+</login-card>
