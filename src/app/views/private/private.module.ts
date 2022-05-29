@@ -4,13 +4,15 @@ import {RouterModule} from "@angular/router";
 import {privateRoutes} from "./private.routes";
 import {RestaurantListComponent} from "./restaurants/restaurant-list/restaurant-list.component";
 import {ComponentsModule} from 'src/app/components/components.module';
+import {TranslationsModule} from 'src/app/modules/translate/translate.module';
 
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forChild(privateRoutes),
-        ComponentsModule
+        ComponentsModule,
+        TranslationsModule
     ],
     declarations: [
         RestaurantListComponent

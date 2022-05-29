@@ -1,7 +1,11 @@
 <div class="card">
     <div class="card-body">
-        <h1 class="my-5">Restaurants</h1>
+        <h1 class="my-4">{{'RESTAURANTS' | translate}}</h1>
 
-        <app-list endpoint="restaurants"></app-list>
+        <app-list endpoint="restaurants">
+            <ng-template let-restaurant>
+                {{restaurant | json}}
+            </ng-template>
+        </app-list>
     </div>
 </div>

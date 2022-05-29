@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ContentChild, Input, OnInit, TemplateRef} from '@angular/core';
 import {MockService} from 'src/app/services/mock.service';
 import {IRestCollection} from 'src/app/modules/rest/rest-collection';
 
@@ -9,6 +9,8 @@ import {IRestCollection} from 'src/app/modules/rest/rest-collection';
 })
 export class AppListComponent implements OnInit {
     @Input() endpoint!: string;
+
+    @ContentChild(TemplateRef) itemTemplate!: TemplateRef<{$implicit: unknown}>
 
     listItems!: IRestCollection<string>;
 
