@@ -1,0 +1,12 @@
+<loading [loading]="!listItems">
+</loading>
+
+<div class="app-list"
+     *ngIf="listItems">
+    <div class="card mb-3"
+         *ngFor="let item of listItems">
+        <div class="card-body">
+            {{item.name}}
+        </div>
+    </div>
+</div>

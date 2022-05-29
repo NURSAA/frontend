@@ -4,6 +4,8 @@ import {LoginCardComponent} from 'src/app/components/login-card/login-card.compo
 import {NavBarComponent} from 'src/app/components/nav-bar/nav-bar.component';
 import {TranslationsModule} from 'src/app/modules/translate/translate.module';
 import {RouterModule} from '@angular/router';
+import {AppListComponent} from 'src/app/components/app-list/app-list.component';
+import {LoadingComponent} from 'src/app/components/loading/loading.component';
 
 
 @NgModule({
@@ -13,12 +15,16 @@ import {RouterModule} from '@angular/router';
         RouterModule,
     ],
     declarations: [
+        AppListComponent,
         LoginCardComponent,
-        NavBarComponent
+        NavBarComponent,
+        LoadingComponent
     ],
     exports: [
+        AppListComponent,
         LoginCardComponent,
-        NavBarComponent
+        NavBarComponent,
+        LoadingComponent
     ]
 })
 export class ComponentsModule {

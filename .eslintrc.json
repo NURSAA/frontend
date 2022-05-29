@@ -42,7 +42,10 @@
         "keyword-spacing": ["error", { "before": true, "after": true }],
         "space-before-blocks": "error",
         "brace-style": "error",
-        "indent": ["error", 4],
+        "indent": ["error", 4, {
+            "SwitchCase": 1
+        }],
+        "no-case-declarations": ["off"],
         "space-in-parens": ["error", "never"],
         "@typescript-eslint/no-unsafe-argument": ["off"],
         "@typescript-eslint/unbound-method": ["off"],
