@@ -12,7 +12,10 @@
                         </div>
 
                         <div>
-                            <button class="btn btn-outline-secondary">{{'DETAILS' | translate}}</button>
+                            <button class="btn btn-outline-secondary"
+                                    [routerLink]="['.', restaurant.id]">
+                                {{'DETAILS' | translate}}
+                            </button>
                         </div>
                     </div>
 
