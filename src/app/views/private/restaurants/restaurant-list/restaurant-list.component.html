@@ -1,11 +1,26 @@
-<div class="card">
+<div class="card px-4">
     <div class="card-body">
-        <h1 class="my-4">{{'RESTAURANTS' | translate}}</h1>
+        <h1 class="mt-4">{{'RESTAURANTS' | translate}}</h1>
 
-        <app-list endpoint="restaurants">
-            <ng-template let-restaurant>
-                {{restaurant | json}}
-            </ng-template>
-        </app-list>
+        <div class="mt-5">
+            <app-list endpoint="restaurants">
+                <ng-template let-restaurant>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex row">
+                            <span class="fs-4">{{restaurant.name}}</span>
+                            <span class="text-muted">{{restaurant.url}}</span>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-outline-primary">{{'DETAILS' | translate}}</button>
+                        </div>
+                    </div>
+
+                    <p class="my-4">
+                        {{restaurant.description}}
+                    </p>
+                </ng-template>
+            </app-list>
+        </div>
     </div>
 </div>
