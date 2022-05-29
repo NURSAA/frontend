@@ -9,16 +9,22 @@ import {IRestaurant} from 'src/app/_types/restaurant';
     providedIn: 'root'
 })
 export class MockService {
-    data: Record<string, IRestCollection<string>> = {};
+    private data: Record<string, IRestCollection<string>> = {};
+    private removedData: Record<string, Set<number>> = {};
 
     get<T extends IEndpointName>(endpoint: T, id: number): Observable<IRestObject<T>> {
-        const mockData = this.computeData(endpoint),
-            searchedItem = mockData.find((item: unknown & {id?: number}) => {
-                return 'id' in item && item.id === id;
-            });
-
         return new Observable<IRestObject<T>>((subscriber) => {
             setTimeout(() => {
+                const mockData = this.computeData(endpoint),
+                    searchedItem = mockData.find((item: unknown & {id?: number}) => {
+                        return 'id' in item && item.id === id;
+                    });
+
+                if (!searchedItem) {
+                    subscriber.error();
+                    return;
+                }
+
                 subscriber.next(searchedItem as IRestObject<T>);
                 subscriber.complete();
             }, 1000)
@@ -34,13 +40,36 @@ export class MockService {
         });
     }
 
+    delete(endpoint: string, id: number): Observable<void> {
+        return new Observable<void>((subscriber) => {
+            if (typeof this.removedData[endpoint] === 'undefined') {
+                this.removedData[endpoint] = new Set();
+            }
+
+            this.removedData[endpoint].add(id);
+
+            setTimeout(() => {
+                subscriber.next();
+                subscriber.complete();
+            }, 1000)
+        });
+    }
+
     private computeData<T extends IEndpointName>(endpoint: T): IRestCollection<T> {
-        if (this.data[endpoint]) {
-            return this.data[endpoint] as IRestCollection<T>;
+        if (!this.data[endpoint]) {
+            this.createData(endpoint);
         }
 
-        this.createData(endpoint);
-        return this.data[endpoint] as IRestCollection<T>;
+        return this.filterData(endpoint, this.data[endpoint]) as IRestCollection<T>;
+    }
+
+    private filterData<T extends IEndpointName>(endpoint: T, rawData: IRestCollection<T>): IRestCollection<T> {
+        const filteredArray = rawData.filter((item: unknown & {id?: number}) => {
+                return !this.removedData[endpoint]
+                    || (item.id && !this.removedData[endpoint].has(item.id))
+            }),
+            filteredData = new RestCollection(endpoint, filteredArray, rawData.hydra);
+        return filteredData as IRestCollection<T>;
     }
 
     private createData(endpoint: string): void {
