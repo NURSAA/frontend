@@ -17,7 +17,7 @@ interface IUserData extends IUser {
     providedIn: 'root'
 })
 export class UserService {
-    isLoggedIn = false;
+    isLoggedIn = true;
 
     private readonly USER_KEY = 'userData';
     private userData?: IUserData;

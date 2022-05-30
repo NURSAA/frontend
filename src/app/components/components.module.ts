@@ -6,6 +6,7 @@ import {TranslationsModule} from 'src/app/modules/translate/translate.module';
 import {RouterModule} from '@angular/router';
 import {AppListComponent} from 'src/app/components/app-list/app-list.component';
 import {LoadingComponent} from 'src/app/components/loading/loading.component';
+import {AppDetailsComponent} from "./app-details/app-details.component";
 
 
 @NgModule({
@@ -16,12 +17,14 @@ import {LoadingComponent} from 'src/app/components/loading/loading.component';
     ],
     declarations: [
         AppListComponent,
+        AppDetailsComponent,
         LoginCardComponent,
         NavBarComponent,
         LoadingComponent
     ],
     exports: [
         AppListComponent,
+        AppDetailsComponent,
         LoginCardComponent,
         NavBarComponent,
         LoadingComponent
