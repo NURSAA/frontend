@@ -24,7 +24,7 @@ export class AppListComponent implements OnInit {
             throw new Error('App-list need specified endpoint!');
         }
 
-        this.mockService.getAll('restaurants')
+        this.mockService.getAll(this.endpoint)
             .subscribe((restaurants) => {
                 this.listItems = restaurants;
             });
