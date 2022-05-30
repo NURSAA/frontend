@@ -1,9 +1,17 @@
 <div class="card px-4">
     <div class="card-body">
-        <h1 class="mt-4">{{'RESTAURANTS' | translate}}</h1>
+        <div class="d-flex mt-4">
+            <h1>{{'RESTAURANTS' | translate}}</h1>
+            <div class="buttons ms-3 mt-1">
+                <button class="btn btn-outline-success"
+                        (click)="addRestaurant()">
+                    {{'ADD_RESTAURANT' | translate}}
+                </button>
+            </div>
+        </div>
 
         <div class="mt-5">
-            <app-list endpoint="restaurants">
+            <app-list endpoint="restaurants" [reload$]="reload$">
                 <ng-template let-restaurant>
                     <div class="d-flex justify-content-between">
                         <div class="d-flex row">
@@ -27,3 +35,41 @@
         </div>
     </div>
 </div>
+
+<app-modal [(open)]="isModalOpen">
+    <form (ngSubmit)="saveRestaurant()"
+          [formGroup]="form">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'ADD_RESTAURANT' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="toggleModal()"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-input formControlName="name"
+                       [name]="'NAME' | translate">
+            </app-input>
+
+            <app-input formControlName="description"
+                       [name]="'DESCRIPTION' | translate">
+            </app-input>
+
+            <app-input formControlName="url"
+                       [name]="'URL' | translate">
+            </app-input>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="toggleModal()">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>

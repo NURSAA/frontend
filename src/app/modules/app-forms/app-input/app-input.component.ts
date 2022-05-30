@@ -65,7 +65,8 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
         setTimeout(() => {
             this.parentControl = this.injector.get(NgControl).control as AbstractControl;
 
-            this.isRequired = this.parentControl.hasValidator(Validators.required);
+            this.isRequired = this.parentControl.hasValidator(Validators.required)
+                || this.parentControl.errors?.['required'];
 
             this.passResetMethod();
         })

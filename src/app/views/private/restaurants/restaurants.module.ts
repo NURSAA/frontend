@@ -8,6 +8,7 @@ import {
 import {RestaurantListComponent} from 'src/app/views/private/restaurants/restaurant-list/restaurant-list.component';
 import {ComponentsModule} from 'src/app/components/components.module';
 import {TranslationsModule} from 'src/app/modules/translate/translate.module';
+import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {TranslationsModule} from 'src/app/modules/translate/translate.module';
         CommonModule,
         ComponentsModule,
         RouterModule.forChild(restaurantsRoutes),
-        TranslationsModule
+        TranslationsModule,
+        AppFormsModule
     ],
     declarations: [
         RestaurantDetailsComponent,

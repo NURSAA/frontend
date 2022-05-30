@@ -55,6 +55,28 @@ export class MockService {
         });
     }
 
+    persist<T extends IEndpointName>(endpoint: string, payload: IRestObject<T>): Observable<IRestObject<T>> {
+        return new Observable((subscriber) => {
+            const mockData = this.computeData(endpoint),
+                searchedItem = mockData.find((item: unknown & {id?: number}) => {
+                    return 'id' in item && item.id === payload.id;
+                });
+
+            if (searchedItem) {
+                Object.entries(payload).forEach(([key, value]) => {
+                    searchedItem[key] = value;
+                });
+
+                subscriber.next(searchedItem);
+                subscriber.complete();
+            }
+
+            this.data[endpoint].push(payload);
+            subscriber.next(payload);
+            subscriber.complete();
+        });
+    }
+
     private computeData<T extends IEndpointName>(endpoint: T): IRestCollection<T> {
         if (!this.data[endpoint]) {
             this.createData(endpoint);
