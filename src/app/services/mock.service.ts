@@ -4,13 +4,44 @@ import {IRestCollection, RestCollection} from 'src/app/modules/rest/rest-collect
 import {IRestObject} from 'src/app/modules/rest/rest-object';
 import {Observable} from 'rxjs';
 import {IRestaurant} from 'src/app/_types/restaurant';
+import {LocalStorage} from 'src/app/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MockService {
+    private static customId = 1;
+
     private data: Record<string, IRestCollection<string>> = {};
     private removedData: Record<string, Set<number>> = {};
+    private readonly lsKey = {
+        DATA: 'mock_data',
+        REMOVED_DATA: 'mock_removed_data'
+    };
+
+    constructor() {
+        this.loadLocalStorageData();
+    }
+
+    private loadLocalStorageData(): void {
+        const savedData = LocalStorage.get<Record<string, unknown[]>>(this.lsKey.DATA);
+        if (savedData) {
+            Object.entries(savedData).forEach(([key, items]) => {
+                this.data[key] = new RestCollection(key, items, {});
+            });
+            this.data = savedData as MockService['data'];
+        }
+
+        const savedRemovedData = LocalStorage.get<Record<string, number[]>>(this.lsKey.REMOVED_DATA);
+        if (savedRemovedData) {
+            const removedDataSets: MockService['removedData'] = {};
+            Object.entries(savedRemovedData).forEach(([key, items]) => {
+                removedDataSets[key] = new Set(items);
+            });
+            this.removedData = removedDataSets;
+            console.log(this.removedData);
+        }
+    }
 
     get<T extends IEndpointName>(endpoint: T, id: number): Observable<IRestObject<T>> {
         return new Observable<IRestObject<T>>((subscriber) => {
@@ -71,6 +102,10 @@ export class MockService {
                 subscriber.complete();
             }
 
+
+            if (!payload.id) {
+                payload.id = MockService.customId++;
+            }
             this.data[endpoint].push(payload);
             subscriber.next(payload);
             subscriber.complete();
@@ -82,7 +117,18 @@ export class MockService {
             this.createData(endpoint);
         }
 
+        this.persistData();
         return this.filterData(endpoint, this.data[endpoint]) as IRestCollection<T>;
+    }
+
+    private persistData(): void {
+        LocalStorage.set(this.lsKey.DATA, this.data);
+
+        const preparedData: Record<string, number[]> = {};
+        Object.entries(this.removedData).forEach(([key, idSet]) => {
+            preparedData[key] = Array.from(idSet);
+        });
+        LocalStorage.set(this.lsKey.REMOVED_DATA, preparedData);
     }
 
     private filterData<T extends IEndpointName>(endpoint: T, rawData: IRestCollection<T>): IRestCollection<T> {
