@@ -10,27 +10,24 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 })
 export class AppDetailsComponent implements OnInit {
     @Input() endpoint!: string;
-    id =
+    @Input() id!: number;
 
     @ContentChild(TemplateRef) itemTemplate!: TemplateRef<{$implicit: unknown}>
 
     item!: RestObject<string>
 
     constructor(
-        private mockService: MockService,
-        private route: ActivatedRoute
-    ) {
-    }
+        private mockService: MockService
+    ) { }
 
     ngOnInit(): void {
         if (!this.endpoint) {
             throw new Error('App-details need specified endpoint!');
         }
+        console.log(this.id);
+        console.log(this.endpoint);
 
-        let id = this.route.paramMap.subscribe((params: ParamMap) => {
-            return params.get('id');
-        })
-        this.mockService.get(this.endpoint, id)
+        this.mockService.get(this.endpoint, this.id)
             .subscribe((items) => {
                 this.item = items;
             });

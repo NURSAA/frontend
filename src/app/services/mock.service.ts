@@ -17,8 +17,12 @@ export class MockService {
             setTimeout(() => {
                 const mockData = this.computeData(endpoint),
                     searchedItem = mockData.find((item: unknown & {id?: number}) => {
+                        console.log(item, id);
+                        console.log(item.id === id);
                         return 'id' in item && item.id === id;
                     });
+                console.log(mockData);
+                console.log(id);
 
                 if (!searchedItem) {
                     subscriber.error();

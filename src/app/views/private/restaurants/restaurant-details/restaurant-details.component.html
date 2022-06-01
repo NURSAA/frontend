@@ -1,13 +1,23 @@
 <div class="card mb-4">
     <div class="card-body">
-        <h1 class="mt-4">{{'RESTAURANTS' | translate}}</h1>
+        <h1 class="mt-4">{{'RESTAURANT' | translate}}</h1>
         <div class="mt-5">
-            <div class="d-flex justify-content-between">
-                <div class="d-flex row">
-                    <span class="fs-4">mini XD</span>
-                    <span class="text-muted">normal xd</span>
-                </div>
-            </div>
+
+            <app-details endpoint="restaurants" [id]="restaurantId">
+                <ng-template let-restaurant>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex row">
+                            <span class="fs-4">{{restaurant.name}}</span>
+                            <span class="text-muted">{{restaurant.url}}</span>
+                        </div>
+                    </div>
+
+                    <p class="my-4">
+                        {{restaurant.description}}
+                    </p>
+                </ng-template>
+            </app-details>
+
         </div>
     </div>
 </div>

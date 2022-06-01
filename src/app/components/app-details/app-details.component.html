@@ -1,12 +1,11 @@
 <div class="app-list my-3">
-    <loading [loading]="!listItems">
+    <loading [loading]="!item">
     </loading>
 
-    <ng-container *ngIf="listItems">
-        <div class="card mb-4"
-             *ngFor="let item of listItems; let index = index; let first = first; let last = last">
+    <ng-container *ngIf="item">
+        <div class="card mb-4">
             <div class="card-body">
-                <ng-container *ngTemplateOutlet="itemTemplate, context: {$implicit: item, index, first, last}">
+                <ng-container *ngTemplateOutlet="itemTemplate, context: {$implicit: item}">
                 </ng-container>
             </div>
         </div>

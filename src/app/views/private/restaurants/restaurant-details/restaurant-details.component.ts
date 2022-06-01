@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {OnInit} from "@angular/core";
 
 
@@ -9,17 +9,11 @@ import {OnInit} from "@angular/core";
 })
 export class RestaurantDetailsComponent implements OnInit {
 
-    private id?: number | null;
+    restaurantId!: number;
 
     constructor(private route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        this.route.paramMap.subscribe((params: ParamMap) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.id = +params.get('id');
-        });
-
-        console.log(this.id);
+        this.restaurantId = Number(this.route.snapshot.params['id']);
     }
 }
