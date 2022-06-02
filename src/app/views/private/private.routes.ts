@@ -10,9 +10,13 @@ export const privateRoutes: Routes = [
         path: 'menus',
         loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
     },
-    // {
-    //     path: '',
-    //     redirectTo: 'restaurants',
-    //     pathMatch: 'full',
-    // }
+    {
+        path: 'ingredients',
+        loadChildren: () => import('./ingredients/ingredients.module').then(m => m.IngredientsModule)
+    },
+    {
+        path: '',
+        redirectTo: 'restaurants',
+        pathMatch: 'full',
+    }
 ];
