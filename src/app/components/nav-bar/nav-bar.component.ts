@@ -27,6 +27,10 @@ export class NavBarComponent {
         {
             lang: 'RESERVATIONS',
             path: '/app/reservations'
+        },
+        {
+            lang: 'TABLES',
+            path: '/app/tables'
         }
     ];
 
