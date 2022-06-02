@@ -15,6 +15,10 @@ export const privateRoutes: Routes = [
         loadChildren: () => import('./ingredients/ingredients.module').then(m => m.IngredientsModule)
     },
     {
+        path: 'reservations',
+        loadChildren: () => import('./reservations/reservations.module').then(m => m.ReservationsModule)
+    },
+    {
         path: '',
         redirectTo: 'restaurants',
         pathMatch: 'full',
