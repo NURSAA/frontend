@@ -70,7 +70,7 @@ export class RestClient {
 
     createObject<T extends IEndpointName, TItem extends IEndpointMap[T] = IEndpointMap[T]>(
         endpoint: T,
-        source: TItem & {id: number}
+        source: TItem & {id?: number}
     ): IRestObject<T> {
         return new RestObject(endpoint, source, this.injector) as IRestObject<T> ;
     }

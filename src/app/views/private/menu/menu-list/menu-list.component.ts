@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {MockService} from 'src/app/services/mock.service';
-import {Observable, Subject} from 'rxjs';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
-    selector: 'restaurant-list',
-    templateUrl: './restaurant-list.component.html'
+    selector: 'menu-list',
+    templateUrl: './menu-list.component.html'
 })
-export class RestaurantListComponent implements OnInit {
+export class MenuListComponent implements OnInit {
     reload$: Observable<void>;
     isModalOpen = false;
     form!: FormGroup;
@@ -32,12 +32,10 @@ export class RestaurantListComponent implements OnInit {
     private createForm(): void {
         this.form = new FormGroup({
             name: new FormControl(null, Validators.required),
-            description: new FormControl(null, Validators.required),
-            url: new FormControl(null, Validators.required),
         });
     }
 
-    addRestaurant(): void {
+    addMenu(): void {
         this.isModalOpen = true;
         this.form.reset();
     }
@@ -46,8 +44,8 @@ export class RestaurantListComponent implements OnInit {
         this.isModalOpen = !this.isModalOpen;
     }
 
-    saveRestaurant(): void {
-        this.mockService.persist('restaurants', this.form.value)
+    saveMenu(): void {
+        this.mockService.persist('menus', this.form.value)
             .subscribe(() => {
                 this.toastService.saved();
                 this.isModalOpen = false;

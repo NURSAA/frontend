@@ -39,4 +39,12 @@ export class ToastsService {
             description: 'ERROR_DESCRIPTION'
         });
     }
+
+    saved(): void {
+        this.push({
+            type: 'success',
+            title: 'SAVED',
+            description: 'CHANGES_SAVED'
+        });
+    }
 }

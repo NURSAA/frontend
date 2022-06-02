@@ -8,22 +8,21 @@ export type IRestObject<T extends IEndpointName> = {
 } & RestObject<T>;
 
 export class RestObject<T extends IEndpointName, TItem extends IEndpointMap[T] = IEndpointMap[T]> {
-    private id!: number;
+    id!: number;
 
     constructor(
         private readonly endpoint: T,
-        source: TItem & {id: number},
+        source: TItem & {id?: number},
         private injector: Injector
     ) {
         this.assignProperties(source);
         this.endpoint = this.restClient().stripApiPath(this.endpoint);
     }
 
-    private assignProperties(source: TItem & {id: number}): void {
-        if (typeof source.id === 'undefined') {
-            throw new Error('Rest object always need id property!');
+    private assignProperties(source: TItem & {id?: number}): void {
+        if (source.id) {
+            this.id = source.id;
         }
-        this.id = source.id;
         Object.assign<this, TItem>(this, source);
     }
 
@@ -34,8 +33,11 @@ export class RestObject<T extends IEndpointName, TItem extends IEndpointMap[T] =
         return this.injector.get(RestClient);
     }
 
-    update(): Observable<IRestObject<T>> {
-        return this.restClient().put(this.endpoint, this);
+    persist(): Observable<IRestObject<T>> {
+        if (this.id) {
+            return this.restClient().put(this.endpoint, this);
+        }
+        return this.restClient().post(this.endpoint, this);
     }
 
     delete(): Observable<IRestObject<T>> {

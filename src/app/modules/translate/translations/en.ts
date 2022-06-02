@@ -45,5 +45,25 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'RESTAURANTS',
         value: 'Restaurants'
+    },
+    {
+        key: 'ADD_RESTAURANT',
+        value: 'Add'
+    },
+    {
+        key: 'DETAILS',
+        value: 'Details'
+    },
+    {
+        key: 'NAME',
+        value: 'Name'
+    },
+    {
+        key: 'DESCRIPTION',
+        value: 'Description'
+    },
+    {
+        key: 'URL',
+        value: 'URL'
     }
 ];
