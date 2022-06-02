@@ -5,6 +5,8 @@ import {IRestObject} from 'src/app/modules/rest/rest-object';
 import {Observable} from 'rxjs';
 import {IRestaurant} from 'src/app/_types/restaurant';
 import {LocalStorage} from 'src/app/services/local-storage.service';
+import {IMenu} from 'src/app/_types/menu';
+
 
 @Injectable({
     providedIn: 'root'
@@ -98,8 +100,10 @@ export class MockService {
                     searchedItem[key] = value;
                 });
 
+                this.persistData();
                 subscriber.next(searchedItem);
                 subscriber.complete();
+                return;
             }
 
 
@@ -107,6 +111,8 @@ export class MockService {
                 payload.id = MockService.customId++;
             }
             this.data[endpoint].push(payload);
+
+            this.persistData();
             subscriber.next(payload);
             subscriber.complete();
         });
@@ -153,17 +159,30 @@ export class MockService {
     private createMockEntry<T extends IEndpointName>(endpoint: T, id: number): IEndpointMap[T] {
         switch (endpoint) {
             case 'restaurants':
-                const restaurant: IRestaurant = {
-                    id,
-                    name: `Restaurant ${id}`,
-                    url: `www.restaurant-${id}.pl`,
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                };
-                return restaurant
+                return this.restaurantFactory(id);
+            case 'menus':
+                return this.menuFactory(id);
             default:
                 return {
                     id
                 };
         }
+    }
+
+    private restaurantFactory(id: number): IRestaurant {
+        return {
+            id,
+            name: `Restaurant ${id}`,
+            url: `www.restaurant-${id}.pl`,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        };
+    }
+
+    private menuFactory(id: number): IMenu {
+        return {
+            id,
+            name: `Menu ${id}`,
+            restaurant: this.restaurantFactory(id)
+        };
     }
 }

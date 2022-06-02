@@ -15,6 +15,10 @@ export class NavBarComponent {
         {
             lang: 'RESTAURANTS',
             path: '/app/restaurants'
+        },
+        {
+            lang: 'MENUS',
+            path: '/app/menus'
         }
     ];
 

@@ -41,7 +41,6 @@ export class AppListComponent implements OnInit, OnDestroy {
     private loadData(): void {
         this.mockService.getAll(this.endpoint)
             .subscribe((items) => {
-                console.log('test');
                 this.listItems = items;
             });
     }

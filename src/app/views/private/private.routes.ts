@@ -7,8 +7,12 @@ export const privateRoutes: Routes = [
         loadChildren: () => import('./restaurants/restaurants.module').then(m => m.RestaurantsModule)
     },
     {
-        path: '',
-        redirectTo: 'restaurants',
-        pathMatch: 'full',
-    }
+        path: 'menus',
+        loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
+    },
+    // {
+    //     path: '',
+    //     redirectTo: 'restaurants',
+    //     pathMatch: 'full',
+    // }
 ];
