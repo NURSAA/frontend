@@ -7,6 +7,7 @@ import {menuRoutes} from 'src/app/views/private/menu/menu.routes';
 import {MenuEditorComponent} from 'src/app/views/private/menu/menu-editor/menu-editor.component';
 import {MenuListComponent} from 'src/app/views/private/menu/menu-list/menu-list.component';
 import {MenuDetailsComponent} from 'src/app/views/private/menu/menu-details/menu-details.component';
+import {CommonModule} from '@angular/common';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {MenuDetailsComponent} from 'src/app/views/private/menu/menu-details/menu
         AppFormsModule,
         ComponentsModule,
         RouterModule.forChild(menuRoutes),
-        TranslationsModule
+        TranslationsModule,
+        CommonModule
     ],
     declarations: [
         MenuEditorComponent,
