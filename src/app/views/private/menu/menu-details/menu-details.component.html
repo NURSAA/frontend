@@ -3,7 +3,7 @@
         <div class="d-flex mt-4">
             <h1>{{'MENU_DETAILS' | translate}}</h1>
             <div class="buttons ms-3 mt-1">
-                <button class="btn btn-outline-success"
+                <button class="btn btn-outline-secondary"
                         routerLink="editor">
                     {{'EDIT_MENU' | translate}}
                 </button>
@@ -11,7 +11,21 @@
         </div>
 
         <div class="mt-5">
-            test
+            <div class="mb-4" *ngFor="let section of sections">
+                <app-collapse [(collapse)]="section.collapsed">
+                    <ng-template #headerTemplate>
+                        {{section.name}}
+                    </ng-template>
+
+                    <ng-template #bodyTemplate>
+                        <div class="card ms-4 my-2" *ngFor="let dish of section.dishes">
+                            <div class="card-body">
+                                {{dish.name}}
+                            </div>
+                        </div>
+                    </ng-template>
+                </app-collapse>
+            </div>
         </div>
     </div>
 </div>

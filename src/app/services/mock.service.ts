@@ -6,6 +6,8 @@ import {Observable} from 'rxjs';
 import {IRestaurant} from 'src/app/_types/restaurant';
 import {LocalStorage} from 'src/app/services/local-storage.service';
 import {IMenu} from 'src/app/_types/menu';
+import {IMenuSection} from 'src/app/_types/menu-section';
+import {IDish} from 'src/app/_types/dish';
 
 
 @Injectable({
@@ -162,6 +164,10 @@ export class MockService {
                 return this.restaurantFactory(id);
             case 'menus':
                 return this.menuFactory(id);
+            case 'menu_sections':
+                return this.menuSectionFactory(id);
+            case 'dishes':
+                return this.dishFactory(id);
             default:
                 return {
                     id
@@ -184,5 +190,28 @@ export class MockService {
             name: `Menu ${id}`,
             restaurant: this.restaurantFactory(id)
         };
+    }
+
+    private menuSectionFactory(id: number): IMenuSection {
+        return {
+            id,
+            name: `Section ${id}`,
+            dishes: this.createIdArray(4).map((id) => {
+                return this.dishFactory(id);
+            })
+        };
+    }
+
+    private dishFactory(id: number): IDish {
+        return {
+            id,
+            name: `Dish ${id}`,
+        };
+    }
+
+    private createIdArray(length = 10): number[] {
+        const customArray = [...Array(length + 1).keys()];
+        customArray.shift();
+        return customArray;
     }
 }

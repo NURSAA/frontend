@@ -8,7 +8,7 @@ export const privateRoutes: Routes = [
     },
     {
         path: 'menus',
-        loadChildren: () => import('./menu/menu.module').then(m => m.MenuModule)
+        loadChildren: () => import('src/app/views/private/menu/menu-views.module').then(m => m.MenuViewsModule)
     },
     {
         path: 'ingredients',

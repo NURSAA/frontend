@@ -16,7 +16,7 @@ import {CommonModule} from '@angular/common';
         ComponentsModule,
         RouterModule.forChild(menuRoutes),
         TranslationsModule,
-        CommonModule
+        CommonModule,
     ],
     declarations: [
         MenuEditorComponent,
@@ -24,5 +24,5 @@ import {CommonModule} from '@angular/common';
         MenuDetailsComponent
     ]
 })
-export class MenuModule {
+export class MenuViewsModule {
 }
