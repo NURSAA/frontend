@@ -10,16 +10,8 @@ export const privateRoutes: Routes = [
         loadChildren: () => import('src/app/views/private/menu/menu-views.module').then(m => m.MenuViewsModule)
     },
     {
-        path: 'ingredients',
-        loadChildren: () => import('./ingredients/ingredients.module').then(m => m.IngredientsModule)
-    },
-    {
         path: 'reservations',
         loadChildren: () => import('./reservations/reservations.module').then(m => m.ReservationsModule)
-    },
-    {
-        path: 'tables',
-        loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule)
     },
     {
         path: '',

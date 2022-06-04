@@ -17,7 +17,7 @@ import {Collapse} from 'bootstrap';
     templateUrl: './app-collapse.component.html'
 })
 export class AppCollapseComponent implements OnInit, OnDestroy {
-    @Input() set collapse(value: boolean) {
+    @Input() set collapse(value: boolean | undefined) {
         this._collapse = value;
         this.syncWithInput();
     }
@@ -29,7 +29,7 @@ export class AppCollapseComponent implements OnInit, OnDestroy {
     @ContentChild('bodyTemplate', {static: true}) bodyTemplate!: TemplateRef<{}>;
 
     bsCollapse!: Collapse;
-    _collapse = false;
+    _collapse? = false;
 
     private showListener!: () => void;
     private hiddenListener!: () => void;

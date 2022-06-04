@@ -1,23 +1,41 @@
 <div class="card mb-4">
     <div class="card-body">
-        <h1 class="mt-4">{{'RESTAURANT' | translate}}</h1>
-        <div class="mt-5">
+        <loading [loading]="!restaurant"></loading>
 
-            <app-details endpoint="restaurants" [id]="restaurantId">
-                <ng-template let-restaurant>
-                    <div class="d-flex justify-content-between">
-                        <div class="d-flex row">
-                            <span class="fs-4">{{restaurant.name}}</span>
-                            <span class="text-muted">{{restaurant.url}}</span>
-                        </div>
-                    </div>
+        <ng-container *ngIf="restaurant">
+            <h1 class="mt-4">{{restaurant.name}}</h1>
+            <span class="text-muted">{{restaurant.url}}</span>
 
-                    <p class="my-4">
-                        {{restaurant.description}}
-                    </p>
-                </ng-template>
-            </app-details>
+            <div class="mt-3">
+                <p class="my-4">
+                    {{restaurant.description}}
+                </p>
+            </div>
 
+            <hr />
+
+            <div class="btn-group">
+                <a [routerLink]="['/app/restaurants', restaurantId, 'tables']"
+                   routerLinkActive="active"
+                   class="btn btn-secondary">
+                    {{'TABLES' | translate}}
+                </a>
+                <a [routerLink]="['/app/restaurants', restaurantId, 'ingredients']"
+                   routerLinkActive="active"
+                   class="btn btn-secondary">
+                    {{'INGREDIENTS' | translate}}
+                </a>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="mt-4">
+            <div class="mt-2">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
 </div>

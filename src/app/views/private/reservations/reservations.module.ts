@@ -9,9 +9,9 @@ import {
 import {ComponentsModule} from 'src/app/components/components.module';
 import {AppFormsModule} from "../../../modules/app-forms/app-forms.module";
 import {AppDirectivesModule} from "../../../directives/app-directives.module";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {CommonModule} from "@angular/common";
 import {AppPipesModule} from "../../../pipes/app-pipes.module";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -21,9 +21,9 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
         TranslationsModule,
         ComponentsModule,
         AppDirectivesModule,
-        CommonModule,
         AppPipesModule,
         FontAwesomeModule,
+        CommonModule,
     ],
     declarations: [
         ReservationListComponent,
