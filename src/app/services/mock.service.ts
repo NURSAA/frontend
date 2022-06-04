@@ -10,6 +10,9 @@ import {IMenuSection} from 'src/app/_types/menu-section';
 import {IDish} from 'src/app/_types/dish';
 import {IIngredient} from 'src/app/_types/ingredient';
 import {IIngredientGroup} from 'src/app/_types/ingredient-group';
+import {IReservation} from 'src/app/_types/reservation';
+import {ITable} from 'src/app/_types/table';
+import {IFloor} from 'src/app/_types/floor';
 
 
 @Injectable({
@@ -205,6 +208,12 @@ export class MockService {
                 return this.ingredientFactory(id);
             case 'ingredient_groups':
                 return this.ingredientGroupFactory(id);
+            case 'reservations':
+                return this.reservationFactory(id);
+            case 'tables':
+                return this.tableFactory(id);
+            case 'floors':
+                return this.floorFactory(id);
             default:
                 return {
                     id
@@ -266,6 +275,41 @@ export class MockService {
             ingredients: this.createIdArray(4).map((id) => {
                 return this.ingredientFactory(id);
             })
+        };
+    }
+
+    private reservationFactory(id: number): IReservation {
+        return {
+            id,
+            restaurant: this.restaurantFactory(id),
+            user: {
+                name: 'Jan',
+                surname: 'Kowalski'
+            },
+            start: Date.now(),
+            end: Date.now(),
+            table: this.tableFactory(id)
+        };
+    }
+
+    private tableFactory(id: number): ITable {
+        return {
+            id,
+            floor: this.floorFactory(id, true)
+        };
+    }
+
+    private floorFactory(id: number, fromTable = false): IFloor {
+        const tables = fromTable
+            ? []
+            : this.createIdArray(4).map((id) => {
+                return this.tableFactory(id);
+            });
+        return {
+            id,
+            restaurant: this.restaurantFactory(id),
+            tables,
+            level: 1
         };
     }
 
