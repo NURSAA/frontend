@@ -6,7 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {httpInterceptorProviders} from 'src/app/modules/rest/interceptors';
 import {ToastsModule} from 'src/app/modules/toasts/toasts.module';
 import {ComponentsModule} from 'src/app/components/components.module';
-import {AppConfigService} from 'src/app/app-config.service';
+import {AppConfigService} from 'src/app/views/app-config.service';
 
 @NgModule({
     declarations: [
