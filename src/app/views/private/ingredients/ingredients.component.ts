@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MockService} from 'src/app/services/mock.service';
 import {IIngredientGroup} from 'src/app/_types/ingredient-group';
+import {ActivatedRoute} from '@angular/router';
 
 type IIngredientGroupsExtended = IIngredientGroup & {collapsed: boolean};
 
@@ -12,12 +13,14 @@ export class IngredientsComponent implements OnInit {
     ingredientGroups!: IIngredientGroupsExtended[];
 
     constructor(
-        private mockService: MockService
+        private mockService: MockService,
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit(): void {
-        this.mockService.getAll('ingredient_groups')
+        const restaurantId = Number(this.route.snapshot.parent?.params['id']);
+        this.mockService.getAll('ingredient_groups', {'restaurant.id': restaurantId})
             .subscribe((ingredientGroups) => {
                 this.ingredientGroups = ingredientGroups;
             })
