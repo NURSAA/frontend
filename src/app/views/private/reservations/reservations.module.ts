@@ -7,6 +7,8 @@ import {
     ReservationDetailsComponent
 } from 'src/app/views/private/reservations/reservation-details/reservation-details.component';
 import {ComponentsModule} from 'src/app/components/components.module';
+import {CommonModule} from "@angular/common";
+import {AppPipesModule} from "../../../pipes/app-pipes.module";
 
 
 @NgModule({
@@ -14,6 +16,8 @@ import {ComponentsModule} from 'src/app/components/components.module';
         RouterModule.forChild(reservationsRoutes),
         TranslationsModule,
         ComponentsModule,
+        CommonModule,
+        AppPipesModule
     ],
     declarations: [
         ReservationListComponent,

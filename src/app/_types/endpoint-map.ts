@@ -7,6 +7,7 @@ import {IIngredientGroup} from 'src/app/_types/ingredient-group';
 import {IReservation} from 'src/app/_types/reservation';
 import {ITable} from 'src/app/_types/table';
 import {IFloor} from 'src/app/_types/floor';
+import {IOrder} from "./order";
 
 export interface IEndpointMap {
     'users': IUser;
@@ -19,6 +20,7 @@ export interface IEndpointMap {
     'reservations': IReservation;
     'tables': ITable;
     'floors': IFloor;
+    'orders': IOrder;
     [key: string]: unknown;
 }
 

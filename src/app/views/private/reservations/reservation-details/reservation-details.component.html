@@ -1,11 +1,46 @@
-<div class="card px-4">
+<div class="card mb-4">
     <div class="card-body">
-        <div class="d-flex mt-4">
-            <h1>{{'RESERVATION_DETAILS' | translate}}</h1>
-        </div>
+        <loading [loading]="!reservation"></loading>
 
-        <div class="mt-5">
-            reservation details WIP
-        </div>
+        <ng-container *ngIf="reservation">
+            <h1 class="mt-4">#{{reservation.id}}</h1>
+            <span class="text-muted">
+                {{reservation.start | date:'short'}} - {{reservation.end | date:'short'}}
+            </span>
+
+
+            <div class="d-flex">
+                <div class="">
+                    <span class="text-muted">{{'RESTAURANT' | translate}}</span>:
+                    {{reservation.restaurant.name}}
+                </div>
+                <div class="ms-2">
+                    <span class="text-muted">{{'FLOOR' | translate}}</span>:
+                    {{reservation.table.floor.name}}
+                </div>
+                <div class="ms-2">
+                    <span class="text-muted">{{'TABLE' | translate}}</span>:
+                    {{reservation.table.name}}
+                </div>
+                <div class="ms-2">
+                    <span class="text-muted">{{'USERNAME' | translate}}</span>:
+                    {{reservation.user.name}} {{reservation.user.surname}}
+                </div>
+            </div>
+
+            <app-list endpoint="orders">
+
+                <ng-template let-order>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex row">
+                            <span class="fs-4">#{{order.id}}</span>
+                            <span class="fs-4">{{order.status}}</span>
+                            <span class="fs-4">{{order.price | price}}</span>
+<!--                            <span class="text-muted">{{order}}</span>-->
+                        </div>
+                    </div>
+                </ng-template>
+            </app-list>
+        </ng-container>
     </div>
 </div>

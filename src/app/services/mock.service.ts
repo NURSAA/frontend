@@ -13,6 +13,7 @@ import {IIngredientGroup} from 'src/app/_types/ingredient-group';
 import {IReservation} from 'src/app/_types/reservation';
 import {ITable} from 'src/app/_types/table';
 import {IFloor} from 'src/app/_types/floor';
+import {IOrder} from "../_types/order";
 
 
 @Injectable({
@@ -219,6 +220,8 @@ export class MockService {
                 return this.tableFactory(id);
             case 'floors':
                 return this.floorFactory(id);
+            case 'orders':
+                return this.orderFactory(id);
             default:
                 return {
                     id
@@ -319,6 +322,18 @@ export class MockService {
             restaurant: this.restaurantFactory(id),
             tables,
             level: 1
+        };
+    }
+
+    private orderFactory(id: number): IOrder {
+        return {
+            id,
+            dishes: this.createIdArray(4).map((id) => {
+                return this.dishFactory(id);
+            }),
+            reservation: this.reservationFactory(id),
+            price: 2137,
+            status: 'COMPLETE'
         };
     }
 
