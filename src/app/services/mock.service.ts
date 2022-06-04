@@ -8,6 +8,7 @@ import {LocalStorage} from 'src/app/services/local-storage.service';
 import {IMenu} from 'src/app/_types/menu';
 import {IMenuSection} from 'src/app/_types/menu-section';
 import {IDish} from 'src/app/_types/dish';
+import {IIngredient} from 'src/app/_types/ingredient';
 
 
 @Injectable({
@@ -167,6 +168,8 @@ export class MockService {
                 return this.menuSectionFactory(id);
             case 'dishes':
                 return this.dishFactory(id);
+            case 'ingredients':
+                return this.ingredientFactory(id);
             default:
                 return {
                     id
@@ -205,6 +208,17 @@ export class MockService {
         return {
             id,
             name: `Dish ${id}`,
+            ingredients: this.createIdArray(4).map((id) => {
+                return this.ingredientFactory(id);
+            }),
+            price: 3500
+        };
+    }
+
+    private ingredientFactory(id: number): IIngredient {
+        return {
+            id,
+            name: `Ingredient ${id}`,
         };
     }
 

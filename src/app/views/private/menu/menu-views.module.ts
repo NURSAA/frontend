@@ -8,6 +8,7 @@ import {MenuEditorComponent} from 'src/app/views/private/menu/menu-editor/menu-e
 import {MenuListComponent} from 'src/app/views/private/menu/menu-list/menu-list.component';
 import {MenuDetailsComponent} from 'src/app/views/private/menu/menu-details/menu-details.component';
 import {CommonModule} from '@angular/common';
+import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import {CommonModule} from '@angular/common';
         RouterModule.forChild(menuRoutes),
         TranslationsModule,
         CommonModule,
+        AppPipesModule,
     ],
     declarations: [
         MenuEditorComponent,

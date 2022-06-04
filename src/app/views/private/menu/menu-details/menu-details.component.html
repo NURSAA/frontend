@@ -11,6 +11,9 @@
         </div>
 
         <div class="mt-5">
+            <loading [loading]="!sections">
+            </loading>
+
             <div class="mb-4" *ngFor="let section of sections">
                 <app-collapse [(collapse)]="section.collapsed">
                     <ng-template #headerTemplate>
@@ -20,7 +23,23 @@
                     <ng-template #bodyTemplate>
                         <div class="card ms-4 my-2" *ngFor="let dish of section.dishes">
                             <div class="card-body">
-                                {{dish.name}}
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div>
+                                            {{dish.name}}
+                                        </div>
+                                        <div class="ingredients">
+                                            <span class="text-muted small"
+                                                 *ngFor="let ingredient of dish.ingredients;let last = last">
+                                                {{ingredient.name}}<ng-container *ngIf="!last">,</ng-container>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        {{dish.price | price}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </ng-template>
