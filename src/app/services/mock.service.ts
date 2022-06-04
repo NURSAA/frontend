@@ -166,13 +166,18 @@ export class MockService {
     }
 
     private persistData(): void {
-        LocalStorage.set(this.lsKey.DATA, this.data);
+        try {
+            LocalStorage.set(this.lsKey.DATA, this.data);
 
-        const preparedData: Record<string, number[]> = {};
-        Object.entries(this.removedData).forEach(([key, idSet]) => {
-            preparedData[key] = Array.from(idSet);
-        });
-        LocalStorage.set(this.lsKey.REMOVED_DATA, preparedData);
+            const preparedData: Record<string, number[]> = {};
+            Object.entries(this.removedData).forEach(([key, idSet]) => {
+                preparedData[key] = Array.from(idSet);
+            });
+
+            LocalStorage.set(this.lsKey.REMOVED_DATA, preparedData);
+        } catch (error) {
+            // It's just a mock data, do nothing.
+        }
     }
 
     private filterData<T extends IEndpointName>(endpoint: T, rawData: IRestCollection<T>): IRestCollection<T> {
