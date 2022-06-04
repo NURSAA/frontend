@@ -99,7 +99,7 @@ export class TablesComponent implements OnInit {
         this.mockService.persist('tables', this.tableForm.value)
             .subscribe(() => {
                 this.toastService.saved();
-                this.isFloorModalOpen = false;
+                this.isTableModalOpen = false;
                 this.loadFloors();
                 this.assignInCurrentFloor(this.tableForm.value);
             })
