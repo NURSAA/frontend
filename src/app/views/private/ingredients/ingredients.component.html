@@ -1,0 +1,59 @@
+<div class="card px-4">
+    <div class="card-body">
+        <div class="d-flex mt-4">
+            <h1>{{'INGREDIENTS' | translate}}</h1>
+            <div class="buttons ms-3 mt-1">
+                <button class="btn btn-outline-success">
+                    {{'ADD_INGREDIENT' | translate}}
+                </button>
+
+                <button class="btn btn-outline-success ms-2">
+                    {{'ADD_INGREDIENT_GROUP' | translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <loading [loading]="!ingredientGroups">
+            </loading>
+
+            <div class="mb-4" *ngFor="let ingredientGroup of ingredientGroups">
+                <app-collapse [(collapse)]="ingredientGroup.collapsed">
+                    <ng-template #headerTemplate>
+                        <div class="d-flex justify-content-between">
+                            {{ingredientGroup.name}}
+
+<!--                            <div class="buttons fs-5"-->
+<!--                                 *ngIf="isEditView"-->
+<!--                                 (click)="$event.stopPropagation()">-->
+<!--                                <div class="text-success"-->
+<!--                                     (click)="addDish(section)"-->
+<!--                                     [title]="'ADD_DISH' | translate">-->
+<!--                                    <fa-icon icon="plus-square"></fa-icon>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </ng-template>
+
+                    <ng-template #bodyTemplate>
+                        <div class="card ms-4 my-2" *ngFor="let ingredient of ingredientGroup.ingredients">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div>
+                                            {{ingredient.name}}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        {{ingredient.price | price}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </app-collapse>
+            </div>
+        </div>
+    </div>
+</div>

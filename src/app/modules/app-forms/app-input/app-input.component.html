@@ -6,12 +6,27 @@
             *
         </span>
     </label>
-    <input [type]="type"
-           [id]="inputId"
-           class="form-control"
-           [formControl]="inputControl"
-           (blur)="_onTouched ? _onTouched() : null"
-    />
+    <ng-container [ngSwitch]="type">
+        <select *ngSwitchCase="'select'"
+                class="form-select"
+                [formControl]="inputControl">
+            <option [ngValue]="null" *ngIf="!inputControl.value">
+                {{'CHOOSE_OPTION' | translate}}
+            </option>
+            <option *ngFor="let option of options"
+                    [ngValue]="option.value">
+                {{option.label}}
+            </option>
+        </select>
+
+        <input [type]="type"
+               *ngSwitchDefault
+               [id]="inputId"
+               class="form-control"
+               [formControl]="inputControl"
+               (blur)="_onTouched ? _onTouched() : null"
+        />
+    </ng-container>
     <ng-container *ngIf="inputControl.touched">
         <div class="text-danger small ms-1"
              *ngFor="let error of $any(parentControl?.errors) | keyvalue">

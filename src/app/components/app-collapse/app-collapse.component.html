@@ -1,0 +1,20 @@
+<div (click)="bsCollapse.toggle()"
+     class="card mb-3"
+     style="cursor: pointer;">
+    <div class="card-body">
+        <div class="d-flex">
+            <div class="me-2">
+                <fa-icon icon="chevron-right" *ngIf="_collapse"></fa-icon>
+                <fa-icon icon="chevron-down" *ngIf="!_collapse"></fa-icon>
+            </div>
+
+            <div class="d-block w-100">
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="collapse" #collapseEl>
+    <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+</div>
