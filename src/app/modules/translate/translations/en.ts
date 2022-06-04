@@ -65,5 +65,93 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'URL',
         value: 'URL'
+    },
+    {
+        key: 'LOGOUT',
+        value: 'Logout'
+    },
+    {
+        key: 'MENUS',
+        value: 'Menus'
+    },
+    {
+        key: 'INGREDIENTS',
+        value: 'Ingredients'
+    },
+    {
+        key: 'RESERVATIONS',
+        value: 'Reservations'
+    },
+    {
+        key: 'TABLES',
+        value: 'Tables'
+    },
+    {
+        key: 'SAVE',
+        value: 'Save'
+    },
+    {
+        key: 'CLOSE_MODAL',
+        value: 'Close'
+    },
+    {
+        key: 'RESTAURANT',
+        value: 'Restaurant'
+    },
+    {
+        key: 'ADD_INGREDIENT',
+        value: 'Add Ingredient'
+    },
+    {
+        key: 'ADD_INGREDIENT_GROUP',
+        value: 'Add Ingredient Group'
+    },
+    {
+        key: 'ADD_MENU',
+        value: 'Add Menu'
+    },
+    {
+        key: 'MENU_DETAILS',
+        value: 'Menu Details'
+    },
+    {
+        key: 'ADD_SECTION',
+        value: 'Add Section'
+    },
+    {
+        key: 'ZL',
+        value: 'ZL'
+    },
+    {
+        key: 'EDIT_MENU',
+        value: 'Edit Menu'
+    },
+    {
+        key: 'ADD_DISH',
+        value: 'Add Dish'
+    },
+    {
+        key: 'CHOOSE_OPTION',
+        value: 'Choose Option'
+    },
+    {
+        key: 'FLOOR',
+        value: 'Floor'
+    },
+    {
+        key: 'TABLE',
+        value: 'Table'
+    },
+    {
+        key: 'ADD_FLOOR',
+        value: 'Add Floor'
+    },
+    {
+        key: 'ADD_TABLE',
+        value: 'Add Table'
+    },
+    {
+        key: 'RESERVATION_DETAILS',
+        value: 'Reservation Details'
     }
 ];
