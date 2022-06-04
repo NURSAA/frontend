@@ -9,6 +9,7 @@ import {IMenu} from 'src/app/_types/menu';
 import {IMenuSection} from 'src/app/_types/menu-section';
 import {IDish} from 'src/app/_types/dish';
 import {IIngredient} from 'src/app/_types/ingredient';
+import {IIngredientGroup} from 'src/app/_types/ingredient-group';
 
 
 @Injectable({
@@ -202,6 +203,8 @@ export class MockService {
                 return this.dishFactory(id);
             case 'ingredients':
                 return this.ingredientFactory(id);
+            case 'ingredient_groups':
+                return this.ingredientGroupFactory(id);
             default:
                 return {
                     id
@@ -252,6 +255,17 @@ export class MockService {
         return {
             id,
             name: `Ingredient ${id}`,
+            price: 1500
+        };
+    }
+
+    private ingredientGroupFactory(id: number): IIngredientGroup {
+        return {
+            id,
+            name: `Ingredient group ${id}`,
+            ingredients: this.createIdArray(4).map((id) => {
+                return this.ingredientFactory(id);
+            })
         };
     }
 
