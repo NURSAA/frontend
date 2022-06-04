@@ -153,5 +153,17 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'RESERVATION_DETAILS',
         value: 'Reservation Details'
+    },
+    {
+        key: 'ORDERS',
+        value: 'Orders'
+    },
+    {
+        key: 'USERNAME',
+        value: 'User'
+    },
+    {
+        key: 'RESERVATION',
+        value: 'Reservation'
     }
 ];
