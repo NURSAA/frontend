@@ -17,7 +17,10 @@ import {Collapse} from 'bootstrap';
     templateUrl: './app-collapse.component.html'
 })
 export class AppCollapseComponent implements OnInit, OnDestroy {
-    @Input() collapse = false;
+    @Input() set collapse(value: boolean) {
+        this._collapse = value;
+        this.syncWithInput();
+    }
     @Output() readonly collapseChange = new EventEmitter<boolean>();
 
     @ViewChild('collapseEl', {static: true}) private collapseEl!: ElementRef<HTMLDivElement>;
@@ -26,20 +29,28 @@ export class AppCollapseComponent implements OnInit, OnDestroy {
     @ContentChild('bodyTemplate', {static: true}) bodyTemplate!: TemplateRef<{}>;
 
     bsCollapse!: Collapse;
+    _collapse = false;
 
     private showListener!: () => void;
     private hiddenListener!: () => void;
 
     ngOnInit(): void {
         this.createBsCollapse();
+        this.syncWithInput();
         this.outputCollapseShow();
         this.outputCollapseClosing();
     }
 
     private createBsCollapse(): void {
         this.bsCollapse = new Collapse(this.collapseEl.nativeElement);
+    }
 
-        if (this.collapse) {
+    private syncWithInput(): void {
+        if (!this.bsCollapse) {
+            return;
+        }
+
+        if (this._collapse) {
             this.bsCollapse.hide();
         } else {
             this.bsCollapse.show()
@@ -49,6 +60,7 @@ export class AppCollapseComponent implements OnInit, OnDestroy {
     private outputCollapseShow(): void {
         this.showListener = (): void => {
             this.collapseChange.emit(false);
+            this._collapse = false;
         };
         this.collapseEl.nativeElement.addEventListener(
             'show.bs.collapse',
@@ -59,6 +71,7 @@ export class AppCollapseComponent implements OnInit, OnDestroy {
     private outputCollapseClosing(): void {
         this.hiddenListener = (): void => {
             this.collapseChange.emit(true);
+            this._collapse = true;
         };
         this.collapseEl.nativeElement.addEventListener(
             'hide.bs.collapse',

@@ -3,8 +3,8 @@
      style="cursor: pointer;">
     <div class="card-body">
         <span class="me-2">
-            <fa-icon icon="chevron-right" *ngIf="collapse"></fa-icon>
-            <fa-icon icon="chevron-down" *ngIf="!collapse"></fa-icon>
+            <fa-icon icon="chevron-right" *ngIf="_collapse"></fa-icon>
+            <fa-icon icon="chevron-down" *ngIf="!_collapse"></fa-icon>
         </span>
         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
     </div>

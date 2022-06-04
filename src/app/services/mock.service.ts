@@ -43,7 +43,6 @@ export class MockService {
                 removedDataSets[key] = new Set(items);
             });
             this.removedData = removedDataSets;
-            console.log(this.removedData);
         }
     }
 
