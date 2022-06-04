@@ -299,7 +299,9 @@ export class MockService {
     private tableFactory(id: number): ITable {
         return {
             id,
-            floor: this.floorFactory(id, true)
+            name: `Table ${id}`,
+            floor: this.floorFactory(id, true),
+            seats: id + 1
         };
     }
 
@@ -311,6 +313,7 @@ export class MockService {
             });
         return {
             id,
+            name: `Floor ${id}`,
             restaurant: this.restaurantFactory(id),
             tables,
             level: 1
