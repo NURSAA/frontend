@@ -9,6 +9,10 @@ import {IngredientsComponent} from 'src/app/views/private/ingredients/ingredient
 
 export const restaurantsRoutes: Routes = [
     {
+        path: ":id",
+        redirectTo: ':id/tables',
+    },
+    {
         path: ':id',
         component: RestaurantDetailsComponent,
         children: [

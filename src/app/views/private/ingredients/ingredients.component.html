@@ -1,11 +1,14 @@
 <div class="d-flex mt-4 align-items-center">
     <h3 class="m-0">{{'INGREDIENTS' | translate}}</h3>
-    <div class="buttons ms-3">
-        <button class="btn btn-outline-success">
+
+    <div class="buttons ms-3" *ngIf="ingredientGroups">
+        <button class="btn btn-outline-success"
+                (click)="addIngredient()">
             {{'ADD_INGREDIENT' | translate}}
         </button>
 
-        <button class="btn btn-outline-success ms-2">
+        <button class="btn btn-outline-success ms-2"
+                (click)="addIngredientGroup()">
             {{'ADD_INGREDIENT_GROUP' | translate}}
         </button>
     </div>
