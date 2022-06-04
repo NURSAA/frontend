@@ -11,10 +11,6 @@ export const menuRoutes: Routes = [
         path: ':id',
         children: [
             {
-                path: 'edit',
-                component: MenuDetailsComponent,
-            },
-            {
                 path: '',
                 component: MenuDetailsComponent,
             },

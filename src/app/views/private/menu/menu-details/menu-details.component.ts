@@ -29,7 +29,6 @@ export class MenuDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadMenuSections();
-        this.checkEditView();
     }
 
     private loadMenuSections(): void {
@@ -41,12 +40,6 @@ export class MenuDetailsComponent implements OnInit {
             .subscribe((sections) => {
                 this.sections = sections;
             });
-    }
-
-    private checkEditView(): void {
-        if (this.route.snapshot.url?.length) {
-            this.isEditView = this.route.snapshot.url[0].path === 'edit';
-        }
     }
 
     openSectionModal(): void {

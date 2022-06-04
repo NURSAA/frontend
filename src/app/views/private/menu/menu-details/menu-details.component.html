@@ -5,11 +5,10 @@
                 {{(isEditView ? 'EDIT_MENU' : 'MENU_DETAILS') | translate}}
             </h1>
 
-            <div class="buttons ms-3 mt-1"
-                 *ngIf="!isEditView">
+            <div class="buttons ms-3 mt-1">
                 <button class="btn btn-outline-secondary"
-                        routerLink="edit">
-                    {{'EDIT_MENU' | translate}}
+                        (click)="isEditView = !isEditView">
+                    <fa-icon [icon]="!isEditView ? 'edit': 'arrow-left'"></fa-icon>
                 </button>
             </div>
 
@@ -33,6 +32,7 @@
                             {{section.name}}
 
                             <div class="buttons fs-5"
+                                 *ngIf="isEditView"
                                  (click)="$event.stopPropagation()">
                                 <div class="text-success"
                                      (click)="addDish(section)"
