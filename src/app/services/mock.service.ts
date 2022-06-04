@@ -295,8 +295,8 @@ export class MockService {
                 name: 'Jan',
                 surname: 'Kowalski'
             },
-            start: Date.now(),
-            end: Date.now(),
+            start: Date.now().toString(),
+            end: Date.now().toString(),
             table: this.tableFactory(id)
         };
     }

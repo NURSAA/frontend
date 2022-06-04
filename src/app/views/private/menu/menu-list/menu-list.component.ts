@@ -6,7 +6,6 @@ import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {MockService} from 'src/app/services/mock.service';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
 
-
 @Component({
     selector: 'menu-list',
     templateUrl: './menu-list.component.html'

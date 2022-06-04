@@ -9,7 +9,7 @@ export interface IReservation {
         name: string;
         surname: string;
     }
-    start: number;
-    end: number;
+    start: string;
+    end: string;
     table: ITable;
 }
