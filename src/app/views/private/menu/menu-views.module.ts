@@ -4,9 +4,12 @@ import {ComponentsModule} from 'src/app/components/components.module';
 import {TranslationsModule} from 'src/app/modules/translate/translate.module';
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 import {menuRoutes} from 'src/app/views/private/menu/menu.routes';
-import {MenuEditorComponent} from 'src/app/views/private/menu/menu-editor/menu-editor.component';
 import {MenuListComponent} from 'src/app/views/private/menu/menu-list/menu-list.component';
 import {MenuDetailsComponent} from 'src/app/views/private/menu/menu-details/menu-details.component';
+import {CommonModule} from '@angular/common';
+import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
 
 
 @NgModule({
@@ -14,13 +17,16 @@ import {MenuDetailsComponent} from 'src/app/views/private/menu/menu-details/menu
         AppFormsModule,
         ComponentsModule,
         RouterModule.forChild(menuRoutes),
-        TranslationsModule
+        TranslationsModule,
+        CommonModule,
+        AppPipesModule,
+        FontAwesomeModule,
+        AppDirectivesModule
     ],
     declarations: [
-        MenuEditorComponent,
         MenuListComponent,
         MenuDetailsComponent
     ]
 })
-export class MenuModule {
+export class MenuViewsModule {
 }

@@ -6,6 +6,13 @@ import {Observable} from 'rxjs';
 import {IRestaurant} from 'src/app/_types/restaurant';
 import {LocalStorage} from 'src/app/services/local-storage.service';
 import {IMenu} from 'src/app/_types/menu';
+import {IMenuSection} from 'src/app/_types/menu-section';
+import {IDish} from 'src/app/_types/dish';
+import {IIngredient} from 'src/app/_types/ingredient';
+import {IIngredientGroup} from 'src/app/_types/ingredient-group';
+import {IReservation} from 'src/app/_types/reservation';
+import {ITable} from 'src/app/_types/table';
+import {IFloor} from 'src/app/_types/floor';
 
 
 @Injectable({
@@ -41,7 +48,6 @@ export class MockService {
                 removedDataSets[key] = new Set(items);
             });
             this.removedData = removedDataSets;
-            console.log(this.removedData);
         }
     }
 
@@ -64,13 +70,45 @@ export class MockService {
         });
     }
 
-    getAll<T extends IEndpointName>(endpoint: T): Observable<IRestCollection<T>> {
+    getAll<T extends IEndpointName>(
+        endpoint: T,
+        searchQuery?: Record<string, unknown>
+    ): Observable<IRestCollection<T>> {
         return new Observable<IRestCollection<T>>((subscriber) => {
             setTimeout(() => {
-                subscriber.next(this.computeData(endpoint));
+                let data = this.computeData(endpoint);
+
+                if (searchQuery) {
+                    data = this.filterBasedOnSearchQuery(data, searchQuery)
+                }
+
+                subscriber.next(data);
                 subscriber.complete();
             }, 1000)
         });
+    }
+
+    private filterBasedOnSearchQuery<T extends RestCollection<string>>(
+        data: T,
+        searchQuery: Record<string, unknown>
+    ): T {
+        return data.filter((item: Record<string, unknown>) => {
+            return Object.entries(searchQuery).find(([key, value]) => {
+                const nested = key.split('.');
+                if (nested.length > 1) {
+                    let nestedProperty;
+                    nested.forEach((nestedKey) => {
+                        nestedProperty = item[nestedKey];
+                    });
+                    return nestedProperty === value;
+                }
+
+                if (key in item) {
+                    return item[key] === value;
+                }
+                return false;
+            });
+        }) as T;
     }
 
     delete(endpoint: string, id: number): Observable<void> {
@@ -162,6 +200,20 @@ export class MockService {
                 return this.restaurantFactory(id);
             case 'menus':
                 return this.menuFactory(id);
+            case 'menu_sections':
+                return this.menuSectionFactory(id);
+            case 'dishes':
+                return this.dishFactory(id);
+            case 'ingredients':
+                return this.ingredientFactory(id);
+            case 'ingredient_groups':
+                return this.ingredientGroupFactory(id);
+            case 'reservations':
+                return this.reservationFactory(id);
+            case 'tables':
+                return this.tableFactory(id);
+            case 'floors':
+                return this.floorFactory(id);
             default:
                 return {
                     id
@@ -184,5 +236,86 @@ export class MockService {
             name: `Menu ${id}`,
             restaurant: this.restaurantFactory(id)
         };
+    }
+
+    private menuSectionFactory(id: number): IMenuSection {
+        return {
+            id,
+            name: `Section ${id}`,
+            menu: this.menuFactory(id),
+            dishes: this.createIdArray(4).map((id) => {
+                return this.dishFactory(id);
+            })
+        };
+    }
+
+    private dishFactory(id: number): IDish {
+        return {
+            id,
+            name: `Dish ${id}`,
+            ingredients: this.createIdArray(4).map((id) => {
+                return this.ingredientFactory(id);
+            }),
+            price: 3500
+        };
+    }
+
+    private ingredientFactory(id: number): IIngredient {
+        return {
+            id,
+            name: `Ingredient ${id}`,
+            price: 1500
+        };
+    }
+
+    private ingredientGroupFactory(id: number): IIngredientGroup {
+        return {
+            id,
+            name: `Ingredient group ${id}`,
+            ingredients: this.createIdArray(4).map((id) => {
+                return this.ingredientFactory(id);
+            })
+        };
+    }
+
+    private reservationFactory(id: number): IReservation {
+        return {
+            id,
+            restaurant: this.restaurantFactory(id),
+            user: {
+                name: 'Jan',
+                surname: 'Kowalski'
+            },
+            start: Date.now(),
+            end: Date.now(),
+            table: this.tableFactory(id)
+        };
+    }
+
+    private tableFactory(id: number): ITable {
+        return {
+            id,
+            floor: this.floorFactory(id, true)
+        };
+    }
+
+    private floorFactory(id: number, fromTable = false): IFloor {
+        const tables = fromTable
+            ? []
+            : this.createIdArray(4).map((id) => {
+                return this.tableFactory(id);
+            });
+        return {
+            id,
+            restaurant: this.restaurantFactory(id),
+            tables,
+            level: 1
+        };
+    }
+
+    private createIdArray(length = 10): number[] {
+        const customArray = [...Array(length + 1).keys()];
+        customArray.shift();
+        return customArray;
     }
 }

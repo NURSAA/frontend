@@ -1,17 +1,102 @@
 <div class="card px-4">
     <div class="card-body">
         <div class="d-flex mt-4">
-            <h1>{{'MENU_DETAILS' | translate}}</h1>
+            <h1>
+                {{(isEditView ? 'EDIT_MENU' : 'MENU_DETAILS') | translate}}
+            </h1>
+
             <div class="buttons ms-3 mt-1">
+                <button class="btn btn-outline-secondary"
+                        (click)="isEditView = !isEditView">
+                    <fa-icon [icon]="!isEditView ? 'edit': 'arrow-left'"></fa-icon>
+                </button>
+            </div>
+
+            <div class="buttons ms-3 mt-1"
+                 *ngIf="isEditView">
                 <button class="btn btn-outline-success"
-                        routerLink="editor">
-                    {{'EDIT_MENU' | translate}}
+                        (click)="openSectionModal()">
+                    {{'ADD_SECTION' | translate}}
                 </button>
             </div>
         </div>
 
         <div class="mt-5">
-            test
+            <loading [loading]="!sections">
+            </loading>
+
+            <div class="mb-4" *ngFor="let section of sections">
+                <app-collapse [(collapse)]="section.collapsed">
+                    <ng-template #headerTemplate>
+                        <div class="d-flex justify-content-between">
+                            {{section.name}}
+
+                            <div class="buttons fs-5"
+                                 *ngIf="isEditView"
+                                 (click)="$event.stopPropagation()">
+                                <div class="text-success"
+                                     (click)="addDish(section)"
+                                     [title]="'ADD_DISH' | translate">
+                                    <fa-icon icon="plus-square"></fa-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #bodyTemplate>
+                        <div class="card ms-4 my-2" *ngFor="let dish of section.dishes">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <div>
+                                            {{dish.name}}
+                                        </div>
+                                        <div class="ingredients">
+                                            <span class="text-muted small"
+                                                 *ngFor="let ingredient of dish.ingredients;let last = last">
+                                                {{ingredient.name}}<ng-container *ngIf="!last">,</ng-container>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        {{dish.price | price}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </app-collapse>
+            </div>
         </div>
     </div>
 </div>
+
+<app-modal [(open)]="isSectionModalOpen">
+    <form [formGroup]="sectionForm" (ngSubmit)="saveSection()">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'ADD_SECTION' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="isSectionModalOpen = !isSectionModalOpen"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-input formControlName="name"
+                       [name]="'NAME' | translate">
+            </app-input>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="isSectionModalOpen = !isSectionModalOpen">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>

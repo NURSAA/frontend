@@ -12,6 +12,11 @@ import {Subject, takeUntil} from 'rxjs';
 
 let appInputId = 0;
 
+export interface IAppInputOptions {
+    value: unknown;
+    label: string;
+}
+
 @Component({
     selector: 'app-input',
     templateUrl: './app-input.component.html',
@@ -26,6 +31,7 @@ let appInputId = 0;
 export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccessor {
     @Input() name!: string;
     @Input() type: IInputType = 'text';
+    @Input() options?: IAppInputOptions[];
 
     parentControl!: AbstractControl;
     inputControl = new FormControl();

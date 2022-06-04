@@ -16,6 +16,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex row">
                             <span class="fs-4">{{menu.name}}</span>
+                            <span class="text-muted">{{menu.restaurant.name}}</span>
                         </div>
 
                         <div>
@@ -43,9 +44,19 @@
             </button>
         </div>
         <div class="modal-body">
-            <app-input formControlName="name"
-                       [name]="'NAME' | translate">
-            </app-input>
+            <loading [loading]="loading"></loading>
+
+            <ng-container *ngIf="!loading">
+                <app-input formControlName="name"
+                           [name]="'NAME' | translate">
+                </app-input>
+
+                <app-input formControlName="restaurant"
+                           type="select"
+                           [options]="restaurantOptions"
+                           [name]="'RESTAURANT' | translate">
+                </app-input>
+            </ng-container>
         </div>
         <div class="modal-footer">
             <button type="button"
