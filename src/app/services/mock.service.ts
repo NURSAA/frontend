@@ -66,13 +66,45 @@ export class MockService {
         });
     }
 
-    getAll<T extends IEndpointName>(endpoint: T): Observable<IRestCollection<T>> {
+    getAll<T extends IEndpointName>(
+        endpoint: T,
+        searchQuery?: Record<string, unknown>
+    ): Observable<IRestCollection<T>> {
         return new Observable<IRestCollection<T>>((subscriber) => {
             setTimeout(() => {
-                subscriber.next(this.computeData(endpoint));
+                let data = this.computeData(endpoint);
+
+                if (searchQuery) {
+                    data = this.filterBasedOnSearchQuery(data, searchQuery)
+                }
+
+                subscriber.next(data);
                 subscriber.complete();
             }, 1000)
         });
+    }
+
+    private filterBasedOnSearchQuery<T extends RestCollection<string>>(
+        data: T,
+        searchQuery: Record<string, unknown>
+    ): T {
+        return data.filter((item: Record<string, unknown>) => {
+            return Object.entries(searchQuery).find(([key, value]) => {
+                const nested = key.split('.');
+                if (nested.length > 1) {
+                    let nestedProperty;
+                    nested.forEach((nestedKey) => {
+                        nestedProperty = item[nestedKey];
+                    });
+                    return nestedProperty === value;
+                }
+
+                if (key in item) {
+                    return item[key] === value;
+                }
+                return false;
+            });
+        }) as T;
     }
 
     delete(endpoint: string, id: number): Observable<void> {
@@ -198,6 +230,7 @@ export class MockService {
         return {
             id,
             name: `Section ${id}`,
+            menu: this.menuFactory(id),
             dishes: this.createIdArray(4).map((id) => {
                 return this.dishFactory(id);
             })
