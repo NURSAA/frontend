@@ -56,12 +56,8 @@ export class MockService {
             setTimeout(() => {
                 const mockData = this.computeData(endpoint),
                     searchedItem = mockData.find((item: unknown & {id?: number}) => {
-                        console.log(item, id);
-                        console.log(item.id === id);
                         return 'id' in item && item.id === id;
                     });
-                console.log(mockData);
-                console.log(id);
 
                 if (!searchedItem) {
                     subscriber.error();
@@ -170,13 +166,18 @@ export class MockService {
     }
 
     private persistData(): void {
-        LocalStorage.set(this.lsKey.DATA, this.data);
+        try {
+            LocalStorage.set(this.lsKey.DATA, this.data);
 
-        const preparedData: Record<string, number[]> = {};
-        Object.entries(this.removedData).forEach(([key, idSet]) => {
-            preparedData[key] = Array.from(idSet);
-        });
-        LocalStorage.set(this.lsKey.REMOVED_DATA, preparedData);
+            const preparedData: Record<string, number[]> = {};
+            Object.entries(this.removedData).forEach(([key, idSet]) => {
+                preparedData[key] = Array.from(idSet);
+            });
+
+            LocalStorage.set(this.lsKey.REMOVED_DATA, preparedData);
+        } catch (error) {
+            // It's just a mock data, do nothing.
+        }
     }
 
     private filterData<T extends IEndpointName>(endpoint: T, rawData: IRestCollection<T>): IRestCollection<T> {
@@ -276,6 +277,7 @@ export class MockService {
         return {
             id,
             name: `Ingredient group ${id}`,
+            restaurant: this.restaurantFactory(id),
             ingredients: this.createIdArray(4).map((id) => {
                 return this.ingredientFactory(id);
             })
@@ -299,7 +301,9 @@ export class MockService {
     private tableFactory(id: number): ITable {
         return {
             id,
-            floor: this.floorFactory(id, true)
+            name: `Table ${id}`,
+            floor: this.floorFactory(id, true),
+            seats: id + 1
         };
     }
 
@@ -311,6 +315,7 @@ export class MockService {
             });
         return {
             id,
+            name: `Floor ${id}`,
             restaurant: this.restaurantFactory(id),
             tables,
             level: 1

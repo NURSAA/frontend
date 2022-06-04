@@ -1,21 +1,127 @@
-<div class="card px-4">
-    <div class="card-body">
-        <div class="d-flex mt-4">
-            <h1>{{'TABLES' | translate}}</h1>
+<div class="d-flex mt-4 align-items-center">
+    <h3 class="m-0">{{'TABLES' | translate}}</h3>
 
-            <div class="buttons ms-3 mt-1">
-                <button class="btn btn-outline-success">
-                    {{'ADD_FLOOR' | translate}}
-                </button>
+    <div class="buttons ms-3" *ngIf="floors">
+        <button class="btn btn-outline-success"
+                (click)="openFloorModal()">
+            {{'ADD_FLOOR' | translate}}
+        </button>
 
-                <button class="btn btn-outline-success ms-2">
-                    {{'ADD_TABLE' | translate}}
-                </button>
-            </div>
-        </div>
-
-        <div class="mt-5">
-            Tables WIP
-        </div>
+        <button class="btn btn-outline-success ms-2"
+                (click)="openTableModal()">
+            {{'ADD_TABLE' | translate}}
+        </button>
     </div>
 </div>
+
+<div class="mt-5">
+    <loading [loading]="!floors">
+    </loading>
+
+    <div class="mb-4" *ngFor="let floor of floors">
+        <app-collapse [(collapse)]="floor.collapsed">
+            <ng-template #headerTemplate>
+                <div class="d-flex justify-content-between">
+                    {{floor.name}}
+                </div>
+            </ng-template>
+
+            <ng-template #bodyTemplate>
+                <div class="card ms-4 my-2" *ngFor="let table of floor.tables">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div>
+                                    {{table.name}}
+                                </div>
+                            </div>
+
+                            <div>
+                                {{table.seats}} {{'SEATS' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </app-collapse>
+    </div>
+</div>
+
+<app-modal [(open)]="isFloorModalOpen">
+    <form [formGroup]="floorForm"
+          (ngSubmit)="saveFloor()">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'ADD_FLOOR' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="isFloorModalOpen = !isFloorModalOpen"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-input formControlName="name"
+                       [name]="'NAME' | translate">
+            </app-input>
+
+            <app-input formControlName="restaurant"
+                       [name]="'RESTAURANT' | translate">
+            </app-input>
+
+            <app-input formControlName="level"
+                       [name]="'LEVEL' | translate">
+            </app-input>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="isFloorModalOpen = !isFloorModalOpen">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>
+
+<app-modal [(open)]="isTableModalOpen">
+    <form [formGroup]="tableForm"
+          (ngSubmit)="saveTable()">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'ADD_TABLE' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="isTableModalOpen = !isTableModalOpen"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-input formControlName="name"
+                       [name]="'NAME' | translate">
+            </app-input>
+
+            <app-input formControlName="floor"
+                       type="select"
+                       [options]="tableOptions"
+                       [name]="'FLOOR' | translate">
+            </app-input>
+
+            <app-input formControlName="seats"
+                       type="number"
+                       [name]="'SEATS' | translate">
+            </app-input>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="isTableModalOpen = !isTableModalOpen">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>

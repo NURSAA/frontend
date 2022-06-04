@@ -21,16 +21,8 @@ export class NavBarComponent {
             path: '/app/menus'
         },
         {
-            lang: 'INGREDIENTS',
-            path: '/app/ingredients'
-        },
-        {
             lang: 'RESERVATIONS',
             path: '/app/reservations'
-        },
-        {
-            lang: 'TABLES',
-            path: '/app/tables'
         }
     ];
 
