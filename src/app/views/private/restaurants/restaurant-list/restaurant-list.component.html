@@ -4,7 +4,7 @@
             <h1>{{'RESTAURANTS' | translate}}</h1>
             <div class="buttons ms-3 mt-1">
                 <button class="btn btn-outline-success"
-                        (click)="addRestaurant()">
+                        (click)="editRestaurant()">
                     {{'ADD_RESTAURANT' | translate}}
                 </button>
             </div>
@@ -20,7 +20,12 @@
                         </div>
 
                         <div>
-                            <button class="btn btn-outline-secondary"
+                            <button class="btn btn-outline-primary"
+                                    (click)="editRestaurant(restaurant)">
+                                {{'EDIT' | translate}}
+                            </button>
+
+                            <button class="btn ms-2 btn-outline-secondary"
                                     [routerLink]="['.', restaurant.id]">
                                 {{'DETAILS' | translate}}
                             </button>

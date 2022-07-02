@@ -3,6 +3,7 @@ import {Observable, Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 
 @Component({
@@ -29,15 +30,16 @@ export class RestaurantListComponent implements OnInit {
 
     private createForm(): void {
         this.form = new FormGroup({
+            id: new FormControl(null, Validators.required),
             name: new FormControl(null, Validators.required),
             description: new FormControl(null, Validators.required),
             url: new FormControl(null, Validators.required),
         });
     }
 
-    addRestaurant(): void {
+    editRestaurant(restaurant?: IRestObject<'restaurants'>): void {
         this.isModalOpen = true;
-        this.form.reset();
+        this.form.reset(restaurant);
     }
 
     toggleModal(): void {

@@ -35,7 +35,7 @@ export class RestObject<T extends IEndpointName, TItem extends IEndpointMap[T] =
 
     persist(): Observable<IRestObject<T>> {
         if (this.id) {
-            return this.restClient().put(this.endpoint, this);
+            return this.restClient().put(`${this.endpoint}/${this.id}`, this);
         }
         return this.restClient().post(this.endpoint, this);
     }
