@@ -18,6 +18,10 @@
     <loading [loading]="!floors">
     </loading>
 
+    <div *ngIf="floors && !floors?.length">
+        {{'NO_FLOORS_FOUND' | translate}}
+    </div>
+
     <div class="mb-4" *ngFor="let floor of floors">
         <app-collapse [(collapse)]="floor.collapsed">
             <ng-template #headerTemplate>
