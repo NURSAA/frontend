@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {RestClient} from 'src/app/modules/rest/rest-client.service';
+import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 
 
 @Component({
@@ -15,6 +17,8 @@ export class RestaurantListComponent implements OnInit {
     private reloadSubject = new Subject<void>();
 
     constructor(
+        private restClient: RestClient,
+        private toastsService: ToastsService
     ) {
         this.reload$ = this.reloadSubject.asObservable();
     }
@@ -41,11 +45,15 @@ export class RestaurantListComponent implements OnInit {
     }
 
     saveRestaurant(): void {
-        // this.restClient.persist('restaurants', this.form.value)
-        //     .subscribe(() => {
-        //         this.toastService.saved();
-        //         this.isModalOpen = false;
-        //         this.reloadSubject.next();
-        //     })
+        const model = this.restClient.createObject(
+            'restaurants',
+            this.form.value
+        );
+        model.persist()
+            .subscribe(() => {
+                this.toastsService.saved();
+                this.isModalOpen = false;
+                this.reloadSubject.next();
+            })
     }
 }
