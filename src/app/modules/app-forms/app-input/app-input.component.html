@@ -19,6 +19,14 @@
             </option>
         </select>
 
+        <input type="number"
+               *ngSwitchCase="'number'"
+               [id]="inputId"
+               class="form-control"
+               [formControl]="inputControl"
+               (blur)="_onTouched ? _onTouched() : null"
+        />
+
         <input [type]="type"
                *ngSwitchDefault
                [id]="inputId"
