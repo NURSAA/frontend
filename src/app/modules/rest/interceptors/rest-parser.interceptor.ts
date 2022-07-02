@@ -1,14 +1,15 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {RestCollection} from 'src/app/modules/rest/rest-collection';
 import {RestObject} from 'src/app/modules/rest/rest-object';
+import {RestClient} from 'src/app/modules/rest/rest-client.service';
 
 
 @Injectable()
 export class RestParser implements HttpInterceptor {
     constructor(
-        private injector: Injector
+        private restClient: RestClient
     ) {
     }
 
@@ -51,7 +52,7 @@ export class RestParser implements HttpInterceptor {
             return new RestObject(
                 req.url,
                 body as unknown & {id: number},
-                this.injector
+                this.restClient
             );
         }
         return body;
