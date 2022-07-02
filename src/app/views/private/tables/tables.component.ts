@@ -55,12 +55,13 @@ export class TablesComponent implements OnInit {
     }
 
     private loadFloors(): void {
-        const query = {
-            'restaurant.id': this.restaurantDetails.restaurantId,
-            'with': ['tables']
+        const config = {
+            id: this.restaurantDetails.restaurantId,
+            endpoint: 'restaurants',
+            subresourceEndpoint: 'floors'
         };
 
-        this.restClient.getAll('floors', query)
+        this.restClient.getSubresource(config)
             .subscribe((floors) => {
                 this.floors = floors;
             });

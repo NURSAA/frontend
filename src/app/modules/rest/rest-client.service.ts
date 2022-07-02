@@ -1,4 +1,4 @@
-import {Injectable, Injector} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {IEndpointMap, IEndpointName} from 'src/app/_types/endpoint-map';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
@@ -16,7 +16,6 @@ export class RestClient {
 
     constructor(
         private httpClient: HttpClient,
-        private injector: Injector
     ) {
     }
 
@@ -37,6 +36,20 @@ export class RestClient {
             this.getUrl(endpoint),
             {params: this.getParams(query)}
         );
+    }
+
+    getSubresource<T extends IEndpointName>(
+        config: {
+            id: number,
+            endpoint: IEndpointName,
+            subresourceEndpoint: T,
+        },
+        query?: IQueryObject
+    ): Observable<IRestCollection<T>> {
+        const {id, endpoint, subresourceEndpoint} = config,
+            subresourcePath = `${endpoint}/${id}/${subresourceEndpoint}`;
+
+        return this.getAll(subresourcePath as T, query);
     }
 
     private getParams(query?: IQueryObject): HttpParams | undefined {
