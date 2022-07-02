@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {OnInit} from "@angular/core";
-import {IRestaurant} from 'src/app/_types/restaurant';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 
 @Component({
@@ -11,7 +11,7 @@ import {RestClient} from 'src/app/modules/rest/rest-client.service';
 })
 export class RestaurantDetailsComponent implements OnInit {
     restaurantId!: number;
-    restaurant!: IRestaurant;
+    restaurant!: IRestObject<'restaurants'>;
 
     constructor(
         private route: ActivatedRoute,

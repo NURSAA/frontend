@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {MockService} from 'src/app/services/mock.service';
-import {IFloor} from 'src/app/_types/floor';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {
     RestaurantDetailsComponent
 } from 'src/app/views/private/restaurants/restaurant-details/restaurant-details.component';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
-import {ITable} from 'src/app/_types/table';
+import {RestClient} from 'src/app/modules/rest/rest-client.service';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
-type IFloorExtended = IFloor & {collapsed: boolean};
+type IFloorExtended = IRestObject<'floors'> & {collapsed: boolean};
 
 @Component({
     selector: 'tables',
@@ -26,7 +25,7 @@ export class TablesComponent implements OnInit {
     tableOptions: IAppInputOptions[] = [];
 
     constructor(
-        private mockService: MockService,
+        private restClient: RestClient,
         private toastService: ToastsService,
         private restaurantDetails: RestaurantDetailsComponent
     ) {
@@ -56,7 +55,12 @@ export class TablesComponent implements OnInit {
     }
 
     private loadFloors(): void {
-        this.mockService.getAll('floors', {'restaurant.id': this.restaurantDetails.restaurantId})
+        const query = {
+            'restaurant.id': this.restaurantDetails.restaurantId,
+            'with': ['tables']
+        };
+
+        this.restClient.getAll('floors', query)
             .subscribe((floors) => {
                 this.floors = floors;
             });
@@ -70,12 +74,15 @@ export class TablesComponent implements OnInit {
     }
 
     saveFloor(): void {
-        const payload = {
-            ...this.floorForm.value,
-            restaurant: this.restaurantDetails.restaurant,
-            tables: []
-        }
-        this.mockService.persist('floors', payload)
+        const model = this.restClient.createObject(
+            'floors',
+            {
+                ...this.floorForm.value,
+                restaurant: this.restaurantDetails.restaurant['@id'],
+                tables: []
+            }
+        );
+        model.persist()
             .subscribe(() => {
                 this.toastService.saved();
                 this.isFloorModalOpen = false;
@@ -87,7 +94,7 @@ export class TablesComponent implements OnInit {
         this.tableOptions = this.floors.map((floor) => {
             return {
                 label: floor.name,
-                value: floor
+                value: floor['@id']
             }
         });
 
@@ -96,17 +103,15 @@ export class TablesComponent implements OnInit {
     }
 
     saveTable(): void {
-        this.mockService.persist('tables', this.tableForm.value)
+        const model = this.restClient.createObject(
+            'tables',
+            this.tableForm.value
+        );
+        model.persist()
             .subscribe(() => {
                 this.toastService.saved();
                 this.isTableModalOpen = false;
                 this.loadFloors();
-                this.assignInCurrentFloor(this.tableForm.value);
             })
-    }
-
-    private assignInCurrentFloor(table: ITable): void {
-        const {floor}: {floor: IFloor} = table;
-        floor.tables.push(table);
     }
 }
