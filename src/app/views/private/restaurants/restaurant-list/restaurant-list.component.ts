@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {RestClient} from 'src/app/modules/rest/rest-client.service';
-import {ToastsService} from 'src/app/modules/toasts/toasts.service';
-import {MockService} from 'src/app/services/mock.service';
 import {Observable, Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -18,9 +15,6 @@ export class RestaurantListComponent implements OnInit {
     private reloadSubject = new Subject<void>();
 
     constructor(
-        private restClient: RestClient,
-        private toastService: ToastsService,
-        private mockService: MockService
     ) {
         this.reload$ = this.reloadSubject.asObservable();
     }
@@ -47,11 +41,11 @@ export class RestaurantListComponent implements OnInit {
     }
 
     saveRestaurant(): void {
-        this.mockService.persist('restaurants', this.form.value)
-            .subscribe(() => {
-                this.toastService.saved();
-                this.isModalOpen = false;
-                this.reloadSubject.next();
-            })
+        // this.restClient.persist('restaurants', this.form.value)
+        //     .subscribe(() => {
+        //         this.toastService.saved();
+        //         this.isModalOpen = false;
+        //         this.reloadSubject.next();
+        //     })
     }
 }

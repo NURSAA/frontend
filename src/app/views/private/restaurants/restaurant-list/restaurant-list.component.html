@@ -28,7 +28,7 @@
                     </div>
 
                     <p class="my-4">
-                        {{restaurant.description}}
+                        {{(restaurant.description || 'RESTAURANT_EMPTY_DESCRIPTION') | translate}}
                     </p>
                 </ng-template>
             </app-list>

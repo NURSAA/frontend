@@ -1,7 +1,7 @@
 import {Component, ContentChild, Input, OnDestroy, OnInit, TemplateRef} from '@angular/core';
-import {MockService} from 'src/app/services/mock.service';
 import {IRestCollection} from 'src/app/modules/rest/rest-collection';
 import {isObservable, Observable, Subject, takeUntil} from 'rxjs';
+import {RestClient} from 'src/app/modules/rest/rest-client.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class AppListComponent implements OnInit, OnDestroy {
     private _destroy$ = new Subject<void>();
 
     constructor(
-        private mockService: MockService
+        private restClient: RestClient
     ) {
     }
 
@@ -39,7 +39,7 @@ export class AppListComponent implements OnInit, OnDestroy {
     }
 
     private loadData(): void {
-        this.mockService.getAll(this.endpoint)
+        this.restClient.getAll(this.endpoint)
             .subscribe((items) => {
                 this.listItems = items;
             });

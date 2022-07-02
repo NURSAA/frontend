@@ -26,6 +26,7 @@ export class UserService {
         private restClient: RestClient,
         private router: Router
     ) {
+        this.recoverSavedUser();
     }
 
     tryLogin(
