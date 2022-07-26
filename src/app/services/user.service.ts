@@ -10,7 +10,8 @@ interface ILoginCheckPayload {
     password: string;
 }
 interface IUserData extends IUser {
-    token: string
+    token: string;
+    '@id': string;
 }
 
 @Injectable({
