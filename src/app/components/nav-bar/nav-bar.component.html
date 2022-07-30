@@ -17,14 +17,15 @@
         <div class="collapse navbar-collapse"
              id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"
-                    *ngFor="let item of menuItems">
-                    <a class="nav-link"
-                       [routerLink]="item.path"
-                       routerLinkActive="active">
-                        {{item.lang | translate}}
-                    </a>
-                </li>
+                <ng-container *ngFor="let item of menuItems">
+                    <li class="nav-item" *ngIf="item.lang | lowercase | hasAccess">
+                        <a class="nav-link"
+                           [routerLink]="item.path"
+                           routerLinkActive="active">
+                            {{item.lang | translate}}
+                        </a>
+                    </li>
+                </ng-container>
             </ul>
             <div class="d-flex">
                 <button class="btn btn-danger btn-sm ms-3"

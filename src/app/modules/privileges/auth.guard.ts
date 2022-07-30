@@ -6,7 +6,7 @@ import {UserService} from 'src/app/services/user.service';
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-    private publicUrls = ['/login', '/register']
+    private LOGOUT_URLS = ['/login', '/register'];
 
     constructor(
         private userService: UserService,
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
             this.userService.recoverSavedUser();
         }
 
-        if (this.publicUrls.includes(state.url)) {
+        if (this.LOGOUT_URLS.includes(state.url)) {
             return this.handleLoginPage();
         }
 
