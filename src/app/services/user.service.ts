@@ -10,14 +10,15 @@ interface ILoginCheckPayload {
     password: string;
 }
 interface IUserData extends IUser {
-    token: string
+    token: string;
+    '@id': string;
 }
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    isLoggedIn = true;
+    isLoggedIn = false;
 
     private readonly USER_KEY = 'userData';
     private userData?: IUserData;
