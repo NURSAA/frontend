@@ -30,7 +30,7 @@ export class RestaurantListComponent implements OnInit {
 
     private createForm(): void {
         this.form = new FormGroup({
-            id: new FormControl(null, Validators.required),
+            id: new FormControl(null),
             name: new FormControl(null, Validators.required),
             description: new FormControl(null, Validators.required),
             url: new FormControl(null, Validators.required),
