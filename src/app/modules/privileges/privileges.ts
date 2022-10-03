@@ -5,6 +5,14 @@ const featurePrivileges: IFeaturePrivilege[] = [
     {
         name: 'menus:add',
         roles: ['admin']
+    },
+    {
+        name: 'menus:edit',
+        roles: ['admin']
+    },
+    {
+        name: 'menus:order',
+        roles: ['user']
     }
 ];
 
