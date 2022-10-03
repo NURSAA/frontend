@@ -1,6 +1,14 @@
-import {IPrivilege} from 'src/app/modules/privileges/interfaces';
+import {IFeaturePrivilege, IPrivilege, IRoutePrivilege} from 'src/app/modules/privileges/interfaces';
 
-export const PRIVILEGES: IPrivilege[] = [
+
+const featurePrivileges: IFeaturePrivilege[] = [
+    {
+        name: 'menus:add',
+        roles: ['admin']
+    }
+];
+
+const routePrivileges: IRoutePrivilege[] = [
     {
         path: 'login',
         roles: ['admin', 'user']
@@ -21,5 +29,10 @@ export const PRIVILEGES: IPrivilege[] = [
     {
         path: 'reservations',
         roles: ['admin']
-    }
-]
+    },
+];
+
+export const PRIVILEGES: IPrivilege[] = [
+    ...routePrivileges,
+    ...featurePrivileges
+];

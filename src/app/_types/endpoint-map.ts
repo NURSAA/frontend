@@ -8,6 +8,7 @@ import {IReservation} from 'src/app/_types/reservation';
 import {ITable} from 'src/app/_types/table';
 import {IFloor} from 'src/app/_types/floor';
 import {IOrder} from "./order";
+import {IMenu} from 'src/app/_types/menu';
 
 export interface IEndpointMap {
     'users': IUser;
@@ -21,6 +22,7 @@ export interface IEndpointMap {
     'tables': ITable;
     'floors': IFloor;
     'orders': IOrder;
+    'menus': IMenu;
     [key: string]: unknown;
 }
 
