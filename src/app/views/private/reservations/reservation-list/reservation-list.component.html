@@ -10,7 +10,7 @@
         </div>
 
         <div class="mt-5">
-            <app-list endpoint="reservations">
+            <app-list endpoint="reservations" [reload$]="reload$">
                 <ng-template let-reservation>
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
@@ -42,7 +42,7 @@
 </div>
 
 <app-modal [(open)]="isModalOpen">
-    <form
+    <form (ngSubmit)="saveReservation()"
           [formGroup]="form">
         <div class="modal-header">
             <h5 class="modal-title">{{'ADD_RESTAURANT' | translate}}</h5>

@@ -3,8 +3,8 @@ import {Observable, Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
-import {MockService} from 'src/app/services/mock.service';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
+import {UserService} from "../../../../services/user.service";
 
 @Component({
     selector: 'reservation-list',
@@ -23,7 +23,7 @@ export class ReservationListComponent implements OnInit {
     constructor(
         private restClient: RestClient,
         private toastService: ToastsService,
-        private mockService: MockService
+        private userService: UserService
     ) {
         this.reload$ = this.reloadSubject.asObservable();
     }
@@ -33,7 +33,7 @@ export class ReservationListComponent implements OnInit {
         this.loading = true;
         this.form.reset();
 
-        this.mockService.getAll('restaurants')
+        this.restClient.getAll('restaurants')
             .subscribe((restaurants) => {
                 this.restaurantOptions = restaurants.map((restaurants) => {
                     return {
@@ -61,5 +61,23 @@ export class ReservationListComponent implements OnInit {
 
     toggleModal(): void {
         this.isModalOpen = !this.isModalOpen;
+    }
+
+    saveReservation(): void {
+        const payload = this.restClient.createObject(
+            'reservations',
+            {
+                user:this.userService.recoverSavedUser()?.["@id"],
+                ...this.form.value
+            }
+        );
+        console.log(payload);
+        payload.persist()
+            .subscribe((response) => {
+                console.log(response);
+
+                this.toastService.saved();
+                this.reloadSubject.next();
+            });
     }
 }
