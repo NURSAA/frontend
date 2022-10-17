@@ -3,8 +3,9 @@ import {Observable, Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
-import {MockService} from 'src/app/services/mock.service';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
+import {UtilsService} from 'src/app/services/utils.service';
+
 
 @Component({
     selector: 'menu-list',
@@ -22,7 +23,6 @@ export class MenuListComponent implements OnInit {
     constructor(
         private restClient: RestClient,
         private toastService: ToastsService,
-        private mockService: MockService
     ) {
         this.reload$ = this.reloadSubject.asObservable();
     }
@@ -43,7 +43,7 @@ export class MenuListComponent implements OnInit {
         this.loading = true;
         this.form.reset();
 
-        this.mockService.getAll('restaurants')
+        this.restClient.getAll('restaurants')
             .subscribe((restaurants) => {
                 this.restaurantOptions = restaurants.map((restaurant) => {
                     return {
@@ -60,7 +60,14 @@ export class MenuListComponent implements OnInit {
     }
 
     saveMenu(): void {
-        this.mockService.persist('menus', this.form.value)
+        const model = this.restClient.createObject(
+            'menus',
+            this.form.value
+        );
+
+        UtilsService.shortenNestedObjects(model, ['restaurant']);
+
+        model.persist()
             .subscribe(() => {
                 this.toastService.saved();
                 this.isModalOpen = false;

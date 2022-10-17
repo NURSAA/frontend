@@ -5,7 +5,8 @@
                 {{(isEditView ? 'EDIT_MENU' : 'MENU_DETAILS') | translate}}
             </h1>
 
-            <div class="buttons ms-3 mt-1">
+            <div *ngIf="'menus:edit' | hasAccess"
+                 class="buttons ms-3 mt-1">
                 <button class="btn btn-outline-secondary"
                         (click)="isEditView = !isEditView">
                     <fa-icon [icon]="!isEditView ? 'edit': 'arrow-left'"></fa-icon>
@@ -59,8 +60,17 @@
                                         </div>
                                     </div>
 
-                                    <div>
+                                    <div class="d-flex justify-content-between align-items-center">
                                         {{dish.price | price}}
+
+                                        <div *ngIf="'menus:order' | hasAccess"
+                                             class="ms-4"
+                                             (click)="$event.stopPropagation()">
+                                            <div class="text-success"
+                                                 [title]="'ORDER_DISH' | translate">
+                                                <fa-icon icon="shopping-basket"></fa-icon>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
