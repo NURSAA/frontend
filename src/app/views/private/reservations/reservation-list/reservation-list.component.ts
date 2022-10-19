@@ -4,7 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
-import {UserService} from "../../../../services/user.service";
+import {UserService} from "src/app/services/user.service";
 
 @Component({
     selector: 'reservation-list',
@@ -71,10 +71,8 @@ export class ReservationListComponent implements OnInit {
                 ...this.form.value
             }
         );
-        console.log(payload);
         payload.persist()
-            .subscribe((response) => {
-                console.log(response);
+            .subscribe(() => {
 
                 this.toastService.saved();
                 this.reloadSubject.next();
