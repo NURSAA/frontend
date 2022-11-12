@@ -6,14 +6,11 @@ import {Observable} from 'rxjs';
 import {IRestaurant} from 'src/app/_types/restaurant';
 import {LocalStorage} from 'src/app/services/local-storage.service';
 import {IMenu} from 'src/app/_types/menu';
-import {IMenuSection} from 'src/app/_types/menu-section';
-import {IDish} from 'src/app/_types/dish';
 import {IIngredient} from 'src/app/_types/ingredient';
 import {IIngredientGroup} from 'src/app/_types/ingredient-group';
 import {IReservation} from 'src/app/_types/reservation';
 import {ITable} from 'src/app/_types/table';
 import {IFloor} from 'src/app/_types/floor';
-import {IOrder} from "../_types/order";
 
 
 @Injectable({
@@ -206,10 +203,6 @@ export class MockService {
                 return this.restaurantFactory(id);
             case 'menus':
                 return this.menuFactory(id);
-            case 'menu_sections':
-                return this.menuSectionFactory(id);
-            case 'dishes':
-                return this.dishFactory(id);
             case 'ingredients':
                 return this.ingredientFactory(id);
             case 'ingredient_groups':
@@ -220,8 +213,6 @@ export class MockService {
                 return this.tableFactory(id);
             case 'floors':
                 return this.floorFactory(id);
-            case 'orders':
-                return this.orderFactory(id);
             default:
                 return {
                     id
@@ -243,28 +234,6 @@ export class MockService {
             id,
             name: `Menu ${id}`,
             restaurant: this.restaurantFactory(id)
-        };
-    }
-
-    private menuSectionFactory(id: number): IMenuSection {
-        return {
-            id,
-            name: `Section ${id}`,
-            menu: this.menuFactory(id),
-            dishes: this.createIdArray(4).map((id) => {
-                return this.dishFactory(id);
-            })
-        };
-    }
-
-    private dishFactory(id: number): IDish {
-        return {
-            id,
-            name: `Dish ${id}`,
-            ingredients: this.createIdArray(4).map((id) => {
-                return this.ingredientFactory(id);
-            }),
-            price: 3500
         };
     }
 
@@ -322,18 +291,6 @@ export class MockService {
             restaurant: this.restaurantFactory(id),
             tables,
             level: 1
-        };
-    }
-
-    private orderFactory(id: number): IOrder {
-        return {
-            id,
-            dishes: this.createIdArray(4).map((id) => {
-                return this.dishFactory(id);
-            }),
-            reservation: this.reservationFactory(id),
-            price: 2137,
-            status: 'COMPLETE'
         };
     }
 

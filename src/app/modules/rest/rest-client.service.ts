@@ -120,4 +120,8 @@ export class RestClient {
         }
         return url.replace(this.API_PATH, '') as T;
     }
+
+    getIri(endpoint: IEndpointName, id: number): string {
+        return `${this.API_PATH}${endpoint}/${id}`;
+    }
 }

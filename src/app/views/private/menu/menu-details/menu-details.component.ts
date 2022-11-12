@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {MockService} from 'src/app/services/mock.service';
-import {IMenuSection} from 'src/app/_types/menu-section';
 import {ActivatedRoute} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {IDish} from 'src/app/_types/dish';
+import {RestClient} from 'src/app/modules/rest/rest-client.service';
+import {ToastsService} from 'src/app/modules/toasts/toasts.service';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 
-type IMenuDetailsSection = IMenuSection & {collapsed: boolean;};
+type IMenuDetailsSection = IRestObject<'menu_sections'> & {collapsed: boolean;};
 
 @Component({
     selector: 'menu-details',
@@ -15,16 +15,32 @@ type IMenuDetailsSection = IMenuSection & {collapsed: boolean;};
 export class MenuDetailsComponent implements OnInit {
     isEditView = false;
     sections!: IMenuDetailsSection[];
+    loading = true;
 
     isSectionModalOpen = false;
     sectionForm = new FormGroup({
-        name: new FormControl(null, Validators.required)
-    })
+        name: new FormControl(null, Validators.required),
+        description: new FormControl(null),
+        sectionOrder: new FormControl(1, Validators.required),
+    });
+
+    isDishModalOpen = false;
+    dishParentSection: IMenuDetailsSection | null = null;
+    dishForm = new FormGroup({
+        name: new FormControl(null, Validators.required),
+        description: new FormControl(null),
+        price: new FormControl(0, Validators.required),
+        dishOrder: new FormControl(1, Validators.required),
+    });
+
+    menuId: number;
 
     constructor(
-        private mockService: MockService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private restClient: RestClient,
+        private toastsService: ToastsService
     ) {
+        this.menuId = Number(this.route.snapshot.params['id']);
     }
 
     ngOnInit(): void {
@@ -32,13 +48,15 @@ export class MenuDetailsComponent implements OnInit {
     }
 
     private loadMenuSections(): void {
-        const menuId = Number(this.route.snapshot.params['id']);
-        this.mockService.getAll(
+        this.loading = true;
+
+        this.restClient.getAll(
             'menu_sections',
-            {'menu.id': menuId}
+            {'menu.id': this.menuId}
         )
             .subscribe((sections) => {
                 this.sections = sections;
+                this.loading = false;
             });
     }
 
@@ -48,15 +66,49 @@ export class MenuDetailsComponent implements OnInit {
     }
 
     saveSection(): void {
-        this.sections.push(this.sectionForm.value);
-        this.isSectionModalOpen = false;
+        const model = this.restClient.createObject(
+            'menu_sections',
+            {
+                ...this.sectionForm.value,
+                menu: this.restClient.getIri('menus', this.menuId)
+            }
+        );
+
+        this.loading = true;
+        model.persist()
+            .subscribe(() => {
+                this.toastsService.saved();
+                this.isSectionModalOpen = false;
+                this.loadMenuSections();
+            })
     }
 
-    addDish(parentSection: IMenuDetailsSection): void {
-        parentSection.dishes.push({
-            name: 'Test',
-            ingredients: [],
-            price: 2500
-        } as IDish);
+    openDishModal(parentSection: IMenuDetailsSection): void {
+        this.dishParentSection = parentSection;
+        this.dishForm.reset();
+        this.isDishModalOpen = true;
+    }
+
+    saveDish(): void {
+        if (!this.dishParentSection) {
+            return;
+        }
+
+        const model = this.restClient.createObject(
+            'dishes',
+            {
+                ...this.dishForm.value,
+                menuSection: this.dishParentSection['@id']
+            }
+        );
+
+        this.loading = true;
+        model.persist()
+            .subscribe(() => {
+                this.toastsService.saved();
+                this.dishParentSection = null;
+                this.isDishModalOpen = false;
+                this.loadMenuSections();
+            })
     }
 }

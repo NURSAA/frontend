@@ -18,6 +18,6 @@ export class PricePipe implements PipeTransform {
             firstPart = stringValue.slice(0, 2),
             secondPart = stringValue.slice(2, 4),
             translation = this.translate.get('ZL');
-        return `${firstPart},${secondPart} ${translation}`;
+        return `${firstPart || '0'},${secondPart || '00'} ${translation}`;
     }
 }

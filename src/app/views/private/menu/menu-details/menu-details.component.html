@@ -23,7 +23,7 @@
         </div>
 
         <div class="mt-5">
-            <loading [loading]="!sections">
+            <loading [loading]="loading">
             </loading>
 
             <div class="mb-4" *ngFor="let section of sections">
@@ -36,7 +36,7 @@
                                  *ngIf="isEditView"
                                  (click)="$event.stopPropagation()">
                                 <div class="text-success"
-                                     (click)="addDish(section)"
+                                     (click)="openDishModal(section)"
                                      [title]="'ADD_DISH' | translate">
                                     <fa-icon icon="plus-square"></fa-icon>
                                 </div>
@@ -96,11 +96,63 @@
             <app-input formControlName="name"
                        [name]="'NAME' | translate">
             </app-input>
+
+            <app-input formControlName="description"
+                       [name]="'DESCRIPTION' | translate">
+            </app-input>
+
+            <app-input formControlName="sectionOrder"
+                       type="number"
+                       [name]="'ORDER' | translate">
+            </app-input>
         </div>
         <div class="modal-footer">
             <button type="button"
                     class="btn btn-secondary"
                     (click)="isSectionModalOpen = !isSectionModalOpen">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>
+
+<app-modal [(open)]="isDishModalOpen">
+    <form [formGroup]="dishForm" (ngSubmit)="saveDish()">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'ADD_DISH' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="isDishModalOpen = !isDishModalOpen"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-input formControlName="name"
+                       [name]="'NAME' | translate">
+            </app-input>
+
+            <app-input formControlName="description"
+                       [name]="'DESCRIPTION' | translate">
+            </app-input>
+
+            <app-input formControlName="price"
+                       type="number"
+                       [name]="'PRICE' | translate">
+            </app-input>
+
+            <app-input formControlName="dishOrder"
+                       type="number"
+                       [name]="'ORDER' | translate">
+            </app-input>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="isDishModalOpen = !isDishModalOpen">
                 {{'CLOSE_MODAL' | translate}}
             </button>
             <button type="submit"
