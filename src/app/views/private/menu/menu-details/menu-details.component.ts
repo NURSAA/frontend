@@ -109,6 +109,6 @@ export class MenuDetailsComponent implements OnInit {
                 this.dishParentSection = null;
                 this.isDishModalOpen = false;
                 this.loadMenuSections();
-            })
+            });
     }
 }

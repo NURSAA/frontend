@@ -6,8 +6,6 @@ import {Observable} from 'rxjs';
 import {IRestaurant} from 'src/app/_types/restaurant';
 import {LocalStorage} from 'src/app/services/local-storage.service';
 import {IMenu} from 'src/app/_types/menu';
-import {IIngredient} from 'src/app/_types/ingredient';
-import {IIngredientGroup} from 'src/app/_types/ingredient-group';
 import {IReservation} from 'src/app/_types/reservation';
 import {ITable} from 'src/app/_types/table';
 import {IFloor} from 'src/app/_types/floor';
@@ -203,10 +201,6 @@ export class MockService {
                 return this.restaurantFactory(id);
             case 'menus':
                 return this.menuFactory(id);
-            case 'ingredients':
-                return this.ingredientFactory(id);
-            case 'ingredient_groups':
-                return this.ingredientGroupFactory(id);
             case 'reservations':
                 return this.reservationFactory(id);
             case 'tables':
@@ -234,25 +228,6 @@ export class MockService {
             id,
             name: `Menu ${id}`,
             restaurant: this.restaurantFactory(id)
-        };
-    }
-
-    private ingredientFactory(id: number): IIngredient {
-        return {
-            id,
-            name: `Ingredient ${id}`,
-            price: 1500
-        };
-    }
-
-    private ingredientGroupFactory(id: number): IIngredientGroup {
-        return {
-            id,
-            name: `Ingredient group ${id}`,
-            restaurant: this.restaurantFactory(id),
-            ingredients: this.createIdArray(4).map((id) => {
-                return this.ingredientFactory(id);
-            })
         };
     }
 
