@@ -6,7 +6,7 @@ const UserRoles = {
 } as const;
 
 export interface IUser {
-    id: number;
+    id?: number;
     email: string,
     roles: typeof UserRoles[keyof typeof UserRoles][],
 }

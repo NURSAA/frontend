@@ -3,14 +3,14 @@
         <div class="d-flex mt-4">
             <h1>{{'USERS' | translate}}</h1>
             <div class="buttons ms-3 mt-1">
-                <button class="btn btn-outline-success">
+                <button class="btn btn-outline-success" (click)="addUser()">
                     {{'ADD_USER' | translate}}
                 </button>
             </div>
         </div>
 
         <div class="mt-5">
-            <app-list endpoint="users">
+            <app-list endpoint="users" [reload$]="reload$">
                 <ng-template let-user>
                     <div class="d-flex justify-content-between">
                         <div class="d-flex row">
@@ -29,3 +29,39 @@
         </div>
     </div>
 </div>
+
+<app-modal [(open)]="isUserModalOpen">
+    <form (ngSubmit)="saveUser()"
+          [formGroup]="userForm">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'ADD_USER' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="isUserModalOpen = !isUserModalOpen"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-input formControlName="email"
+                       type="email"
+                       [name]="'EMAIL' | translate">
+            </app-input>
+
+            <app-input formControlName="password"
+                       type="password"
+                       [name]="'PASSWORD' | translate">
+            </app-input>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="isUserModalOpen = !isUserModalOpen">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>
