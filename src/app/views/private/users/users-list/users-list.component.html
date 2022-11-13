@@ -1,0 +1,31 @@
+<div class="card px-4">
+    <div class="card-body">
+        <div class="d-flex mt-4">
+            <h1>{{'USERS' | translate}}</h1>
+            <div class="buttons ms-3 mt-1">
+                <button class="btn btn-outline-success">
+                    {{'ADD_USER' | translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <app-list endpoint="users">
+                <ng-template let-user>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex row">
+                            <span class="fs-4">{{user.email}}</span>
+                            <span class="text-muted">{{user.roles}}</span>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-outline-primary">
+                                {{'EDIT' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+            </app-list>
+        </div>
+    </div>
+</div>

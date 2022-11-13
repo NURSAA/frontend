@@ -21,6 +21,12 @@ export const privateRoutes: Routes = [
         canActivate: [RouteAccessGuard]
     },
     {
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        canLoad: [RouteAccessGuard],
+        canActivate: [RouteAccessGuard]
+    },
+    {
         path: '',
         redirectTo: 'restaurants',
         pathMatch: 'full',

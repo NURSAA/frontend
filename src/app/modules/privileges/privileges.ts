@@ -38,6 +38,10 @@ const routePrivileges: IRoutePrivilege[] = [
         path: 'reservations',
         roles: ['admin']
     },
+    {
+        path: 'users',
+        roles: ['admin']
+    },
 ];
 
 export const PRIVILEGES: IPrivilege[] = [
