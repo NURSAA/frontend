@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
+import {mergeMap, of} from 'rxjs';
 
 
 type IMenuDetailsSection = IRestObject<'menu_sections'> & {collapsed: boolean;};
@@ -32,6 +33,9 @@ export class MenuDetailsComponent implements OnInit {
         price: new FormControl(0, Validators.required),
         dishOrder: new FormControl(1, Validators.required),
     });
+    dishSelectedIngredients: IRestObject<'ingredients'>[] = [];
+
+    ingredients: IRestObject<'ingredients'>[] = [];
 
     menuId: number;
 
@@ -44,7 +48,31 @@ export class MenuDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loadRestaurantIngredients();
         this.loadMenuSections();
+    }
+
+    private loadRestaurantIngredients(): void {
+        this.restClient.get('menus', this.menuId)
+            .pipe(
+                mergeMap(({restaurant}) => {
+                    if (!restaurant.id) {
+                        return of(null);
+                    }
+                    const query = {
+                        'restaurant.id': restaurant.id
+                    };
+                    return this.restClient.getAll('ingredient_groups', query);
+                })
+            )
+            .subscribe((ingredientGroups) => {
+                if (!ingredientGroups) {
+                    return;
+                }
+                this.ingredients = ingredientGroups.reduce((ingredients: IRestObject<'ingredients'>[], ingredientGroup) => {
+                    return ingredients.concat(ingredientGroup.ingredients);
+                }, []);
+            });
     }
 
     private loadMenuSections(): void {
@@ -85,6 +113,7 @@ export class MenuDetailsComponent implements OnInit {
 
     openDishModal(parentSection: IMenuDetailsSection): void {
         this.dishParentSection = parentSection;
+        this.dishSelectedIngredients = [];
         this.dishForm.reset();
         this.isDishModalOpen = true;
     }
@@ -98,7 +127,10 @@ export class MenuDetailsComponent implements OnInit {
             'dishes',
             {
                 ...this.dishForm.value,
-                menuSection: this.dishParentSection['@id']
+                menuSection: this.dishParentSection['@id'],
+                ingredients: this.dishSelectedIngredients.map((ingredient) => {
+                    return ingredient['@id'];
+                })
             }
         );
 

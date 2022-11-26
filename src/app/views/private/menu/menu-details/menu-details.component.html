@@ -148,6 +148,11 @@
                        type="number"
                        [name]="'ORDER' | translate">
             </app-input>
+
+            <multiple-options-creator [items]="ingredients"
+                                      [(selectedItems)]="dishSelectedIngredients"
+                                      itemLabelKey="name">
+            </multiple-options-creator>
         </div>
         <div class="modal-footer">
             <button type="button"

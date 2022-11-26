@@ -10,6 +10,9 @@ import {AppModalComponent} from 'src/app/components/app-modal/app-modal.componen
 import {AppCollapseComponent} from 'src/app/components/app-collapse/app-collapse.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
+import {
+    MultipleOptionsCreatorComponent
+} from 'src/app/components/multiple-options-creator/multiple-options-creator.component';
 
 
 @NgModule({
@@ -26,7 +29,8 @@ import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
         LoginCardComponent,
         NavBarComponent,
         LoadingComponent,
-        AppCollapseComponent
+        AppCollapseComponent,
+        MultipleOptionsCreatorComponent
     ],
     exports: [
         AppListComponent,
@@ -34,7 +38,8 @@ import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
         LoginCardComponent,
         NavBarComponent,
         LoadingComponent,
-        AppCollapseComponent
+        AppCollapseComponent,
+        MultipleOptionsCreatorComponent
     ]
 })
 export class ComponentsModule {
