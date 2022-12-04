@@ -5,6 +5,17 @@ export const ROLES = {
     USER: 'user'
 } as const;
 
+export const ROLES_OPTIONS = [
+    {
+        label: 'ADMIN',
+        value: 'admin',
+    },
+    {
+        label: 'USER',
+        value: 'user',
+    }
+]
+
 export interface IBasePrivilege {
     roles: typeof ROLES[keyof typeof ROLES][];
 }

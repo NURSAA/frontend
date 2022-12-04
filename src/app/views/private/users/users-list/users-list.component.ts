@@ -3,6 +3,9 @@ import {Observable, Subject} from 'rxjs';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {IUser} from 'src/app/_types/user';
+import {ROLES_OPTIONS} from 'src/app/modules/privileges/interfaces';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 
 @Component({
@@ -12,11 +15,20 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class UsersListComponent {
     reload$: Observable<void>;
 
-    isUserModalOpen = false;
-    userForm = new FormGroup({
+    isAddModalOpen = false;
+    userAddForm = new FormGroup({
         email: new FormControl(null, [Validators.email, Validators.required]),
         password: new FormControl(null, Validators.required),
     });
+
+    isEditModalOpen = false;
+    userEditForm = new FormGroup({
+        id: new FormControl(null),
+        role: new FormControl(null, Validators.required),
+    });
+
+    userRoles = ROLES_OPTIONS;
+
 
     private reloadSubject = new Subject<void>();
 
@@ -28,20 +40,40 @@ export class UsersListComponent {
     }
 
     addUser(): void {
-        this.userForm.reset();
-        this.isUserModalOpen = true;
+        this.userAddForm.reset();
+        this.isAddModalOpen = true;
+    }
+
+    editUser(user: IUser): void {
+        this.isEditModalOpen = true;
+        this.userEditForm.reset({
+            id: user.id,
+            role: user.roles[0]
+        });
     }
 
     saveUser(): void {
-        const model = this.restClient.createObject(
-            'register',
-            this.userForm.value
-        );
+        let model: IRestObject<string>;
+        if (this.isAddModalOpen) {
+            model = this.restClient.createObject(
+                'register',
+                this.userAddForm.value
+            );
+        } else {
+            model = this.restClient.createObject<string, {id: number; roles: string[];}>(
+                'users',
+                {
+                    id: this.userEditForm.value.id,
+                    roles: [this.userEditForm.value['role']]
+                }
+            );
+        }
 
         model.persist()
             .subscribe(() => {
                 this.toastService.saved();
-                this.isUserModalOpen = false;
+                this.isAddModalOpen = false;
+                this.isEditModalOpen = false;
                 this.reloadSubject.next();
             });
     }

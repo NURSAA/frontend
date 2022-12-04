@@ -19,7 +19,7 @@
                         </div>
 
                         <div>
-                            <button class="btn btn-outline-primary">
+                            <button class="btn btn-outline-primary" (click)="editUser(user)">
                                 {{'EDIT' | translate}}
                             </button>
                         </div>
@@ -30,14 +30,14 @@
     </div>
 </div>
 
-<app-modal [(open)]="isUserModalOpen">
+<app-modal [(open)]="isAddModalOpen">
     <form (ngSubmit)="saveUser()"
-          [formGroup]="userForm">
+          [formGroup]="userAddForm">
         <div class="modal-header">
             <h5 class="modal-title">{{'ADD_USER' | translate}}</h5>
             <button type="button"
                     class="btn-close"
-                    (click)="isUserModalOpen = !isUserModalOpen"
+                    (click)="isAddModalOpen = !isAddModalOpen"
                     aria-label="Close">
             </button>
         </div>
@@ -55,7 +55,39 @@
         <div class="modal-footer">
             <button type="button"
                     class="btn btn-secondary"
-                    (click)="isUserModalOpen = !isUserModalOpen">
+                    (click)="isAddModalOpen = !isAddModalOpen">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>
+
+<app-modal [(open)]="isEditModalOpen">
+    <form (ngSubmit)="saveUser()"
+          [formGroup]="userEditForm">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'EDIT_USER' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="isEditModalOpen = !isEditModalOpen"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-input formControlName="role"
+                       type="select"
+                       [options]="userRoles"
+                       [name]="'ROLE' | translate">
+            </app-input>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="isEditModalOpen = !isEditModalOpen">
                 {{'CLOSE_MODAL' | translate}}
             </button>
             <button type="submit"
