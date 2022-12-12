@@ -49,8 +49,6 @@ export class UserService {
         this.isLoggedIn = true;
         this.userData = userData;
         LocalStorage.set(this.USER_KEY, userData);
-
-        this.router.navigate(['/app/restaurants']);
     }
 
     logout(): void {

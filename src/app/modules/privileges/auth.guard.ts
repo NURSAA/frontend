@@ -7,6 +7,7 @@ import {UserService} from 'src/app/services/user.service';
 })
 export class AuthGuard implements CanActivate {
     private LOGOUT_URLS = ['/login', '/register'];
+    private firstUrl?: string | null;
 
     constructor(
         private userService: UserService,
@@ -18,6 +19,10 @@ export class AuthGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): boolean | UrlTree {
+        if (typeof this.firstUrl === 'undefined') {
+            this.firstUrl = state.url;
+        }
+
         if (!this.userService.isLoggedIn) {
             this.userService.recoverSavedUser();
         }
@@ -36,6 +41,13 @@ export class AuthGuard implements CanActivate {
         if (!this.userService.isLoggedIn) {
             return true;
         }
+        this.firstUrl = null;
         return this.router.createUrlTree(['/app']);
+    }
+
+    useFirstUrl(): string | null | undefined {
+        const firstUrlValue = this.firstUrl;
+        this.firstUrl = null;
+        return firstUrlValue;
     }
 }

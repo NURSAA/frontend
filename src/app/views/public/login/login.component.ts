@@ -3,6 +3,8 @@ import {UserService} from 'src/app/services/user.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {finalize} from 'rxjs';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
+import {Router} from '@angular/router';
+import {AuthGuard} from 'src/app/modules/privileges/auth.guard';
 
 
 @Component({
@@ -16,7 +18,9 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private userService: UserService,
-        private toastService: ToastsService
+        private toastService: ToastsService,
+        private router: Router,
+        private authGuard: AuthGuard
     ) {
     }
 
@@ -38,6 +42,9 @@ export class LoginComponent implements OnInit {
                 })
             )
             .subscribe({
+                next: () => {
+                    this.router.navigate([this.authGuard.useFirstUrl() || '/app/restaurants']);
+                },
                 error: () => {
                     this.loginForm.reset();
                     this.toastService.pushError();
