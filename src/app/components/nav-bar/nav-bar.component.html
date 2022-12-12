@@ -18,7 +18,7 @@
              id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <ng-container *ngFor="let item of menuItems">
-                    <li class="nav-item" *ngIf="item.lang | lowercase | hasAccess">
+                    <li class="nav-item" *ngIf="('route:' + item.lang) | lowercase | hasAccess">
                         <a class="nav-link"
                            [routerLink]="item.path"
                            routerLinkActive="active">

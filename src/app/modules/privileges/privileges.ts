@@ -13,7 +13,23 @@ const featurePrivileges: IFeaturePrivilege[] = [
     {
         name: 'menus:order',
         roles: ['user']
-    }
+    },
+    {
+        name: 'route:restaurants',
+        roles: ['admin']
+    },
+    {
+        name: 'route:menus',
+        roles: ['admin']
+    },
+    {
+        name: 'route:reservations',
+        roles: ['admin']
+    },
+    {
+        name: 'route:users',
+        roles: ['admin']
+    },
 ];
 
 const routePrivileges: IRoutePrivilege[] = [
