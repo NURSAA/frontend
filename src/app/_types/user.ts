@@ -1,5 +1,5 @@
 
-const UserRoles = {
+export const UserRoles = {
     ROLE_USER: 'user',
     ROLE_ADMIN: 'admin',
     ROLE_SUPER_ADMIN: 'super_admin'

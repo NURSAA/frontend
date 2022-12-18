@@ -24,11 +24,15 @@ const featurePrivileges: IFeaturePrivilege[] = [
     },
     {
         name: 'route:reservations',
-        roles: ['admin']
+        roles: ['admin', 'user']
     },
     {
         name: 'route:users',
         roles: ['admin']
+    },
+    {
+        name: 'route:add_reservation',
+        roles: ['admin', 'user']
     },
 ];
 
@@ -52,7 +56,7 @@ const routePrivileges: IRoutePrivilege[] = [
     },
     {
         path: 'reservations',
-        roles: ['admin']
+        roles: ['admin', 'user']
     },
     {
         path: 'users',

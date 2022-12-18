@@ -2,6 +2,7 @@ import {Component, ContentChild, Input, OnDestroy, OnInit, TemplateRef} from '@a
 import {IRestCollection} from 'src/app/modules/rest/rest-collection';
 import {isObservable, Observable, Subject, takeUntil} from 'rxjs';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
+import {IQueryObject} from 'src/app/modules/rest/interfaces';
 
 
 @Component({
@@ -10,6 +11,7 @@ import {RestClient} from 'src/app/modules/rest/rest-client.service';
 })
 export class AppListComponent implements OnInit, OnDestroy {
     @Input() endpoint!: string;
+    @Input() queryObject?: IQueryObject;
     @Input() reload$?: Observable<void>;
 
     @ContentChild(TemplateRef) itemTemplate!: TemplateRef<{$implicit: unknown}>
@@ -39,7 +41,7 @@ export class AppListComponent implements OnInit, OnDestroy {
     }
 
     private loadData(): void {
-        this.restClient.getAll(this.endpoint)
+        this.restClient.getAll(this.endpoint, this.queryObject)
             .subscribe((items) => {
                 this.listItems = items;
             });

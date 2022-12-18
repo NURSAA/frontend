@@ -10,7 +10,9 @@
         </div>
 
         <div class="mt-5">
-            <app-list endpoint="reservations">
+            <app-list endpoint="reservations"
+                      [queryObject]="sameUserQuery"
+                      [reload$]="reload$">
                 <ng-template let-reservation>
                     <div class="d-flex justify-content-between">
                         <div class="d-flex">
@@ -21,9 +23,9 @@
 
                             <div class="row">
                                 <span>{{reservation.user.name}} {{reservation.user.surname}}</span>
-                                <span class="text-muted">
-                                    {{'FLOOR' | translate}}: {{reservation.table.floor.level}}
-                                    {{'TABLE' | translate}}: #{{reservation.table.id}}
+                                <span class="text-muted" *ngFor="let table of reservation.tables">
+                                    {{'FLOOR' | translate}}: {{table.floor.level}}
+                                    {{'TABLE' | translate}}: #{{table.id}}
                                 </span>
                             </div>
                         </div>
@@ -42,8 +44,7 @@
 </div>
 
 <app-modal [(open)]="isModalOpen">
-    <form
-          [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="saveReservation()">
         <div class="modal-header">
             <h5 class="modal-title">{{'ADD_RESTAURANT' | translate}}</h5>
             <button type="button"
@@ -56,21 +57,18 @@
             <loading [loading]="loading"></loading>
 
             <ng-container *ngIf="!loading">
-                <app-input formControlName="name"
-                           [name]="'NAME' | translate">
-                </app-input>
-
                 <app-input formControlName="restaurant"
                            type="select"
                            [options]="restaurantOptions"
                            [name]="'RESTAURANT' | translate">
                 </app-input>
 
-                <app-input formControlName="dateFrom"
+                <app-input formControlName="start"
                            type="datetime-local"
                            [name]="'DATE_FROM' | translate">
                 </app-input>
-                <app-input formControlName="dateTo"
+
+                <app-input formControlName="end"
                            type="datetime-local"
                            [name]="'DATE_TO' | translate">
                 </app-input>

@@ -3,8 +3,10 @@ import {Observable, Subject} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
-import {MockService} from 'src/app/services/mock.service';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
+import {UserService} from 'src/app/services/user.service';
+import {IQueryObject} from 'src/app/modules/rest/interfaces';
+import {UserRoles} from 'src/app/_types/user';
 
 @Component({
     selector: 'reservation-list',
@@ -13,6 +15,7 @@ import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.co
 export class ReservationListComponent implements OnInit {
 
     reload$: Observable<void>;
+    sameUserQuery?: IQueryObject;
     isModalOpen = false;
     form!: FormGroup;
     loading = false;
@@ -23,9 +26,29 @@ export class ReservationListComponent implements OnInit {
     constructor(
         private restClient: RestClient,
         private toastService: ToastsService,
-        private mockService: MockService
+        private userService: UserService
     ) {
         this.reload$ = this.reloadSubject.asObservable();
+    }
+
+    ngOnInit(): void {
+        this.initializeQuery();
+        this.createForm();
+    }
+
+    private initializeQuery(): void {
+        const {id, roles} = this.userService.recoverSavedUser() || {};
+
+        if (
+            Array.isArray(roles) && roles.includes(UserRoles.ROLE_ADMIN)
+            || !id
+        ) {
+            return;
+        }
+
+        this.sameUserQuery = {
+            'user.id': id
+        };
     }
 
     addReservation(): void {
@@ -33,33 +56,44 @@ export class ReservationListComponent implements OnInit {
         this.loading = true;
         this.form.reset();
 
-        this.mockService.getAll('restaurants')
+        this.restClient.getAll('restaurants')
             .subscribe((restaurants) => {
-                this.restaurantOptions = restaurants.map((restaurants) => {
+                this.restaurantOptions = restaurants.map((restaurant) => {
                     return {
-                        label: restaurants.name,
-                        value: restaurants
+                        label: restaurant.name,
+                        value: restaurant['@id']
                     };
                 });
                 this.loading = false;
             });
     }
 
-
-    ngOnInit(): void {
-        this.createForm();
-    }
-
     private createForm(): void {
         this.form = new FormGroup({
-            name: new FormControl(null, Validators.required),
             restaurant: new FormControl(null, Validators.required),
-            dateFrom: new FormControl(null, Validators.required),
-            dateTo: new FormControl(null, Validators.required)
+            start: new FormControl(null, Validators.required),
+            end: new FormControl(null, Validators.required)
         });
     }
 
     toggleModal(): void {
         this.isModalOpen = !this.isModalOpen;
+    }
+
+    saveReservation(): void {
+        const model = this.restClient.createObject(
+            'reservations',
+            {
+                tables: [],
+                user: this.userService.recoverSavedUser()?.['@id'],
+                ...this.form.value
+            }
+        );
+        model.persist()
+            .subscribe(() => {
+                this.toastService.saved();
+                this.isModalOpen = false;
+                this.reloadSubject.next();
+            })
     }
 }

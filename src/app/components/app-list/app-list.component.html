@@ -1,6 +1,10 @@
 <div class="app-list my-3">
-    <loading [loading]="!listItems">
-    </loading>
+    <div class="d-flex my-3"
+         *ngIf="!listItems">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
 
     <ng-container *ngIf="listItems">
         <div class="card mb-4"
