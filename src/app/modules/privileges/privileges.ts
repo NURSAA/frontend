@@ -52,7 +52,8 @@ const routePrivileges: IRoutePrivilege[] = [
     },
     {
         path: 'menus',
-        roles: ['admin', 'user']
+        roles: ['admin'],
+        redirectTo: ['app', 'reservations']
     },
     {
         path: 'reservations',

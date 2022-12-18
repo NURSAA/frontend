@@ -63,6 +63,11 @@
                            [name]="'RESTAURANT' | translate">
                 </app-input>
 
+                <multiple-options-creator [items]="restaurantTables"
+                                          [(selectedItems)]="selectedRestaurantTables"
+                                          itemLabelKey="name">
+                </multiple-options-creator>
+
                 <app-input formControlName="start"
                            type="datetime-local"
                            [name]="'DATE_FROM' | translate">

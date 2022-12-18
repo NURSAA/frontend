@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {mergeMap, Observable, of, Subject, takeUntil} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
@@ -7,19 +7,25 @@ import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.co
 import {UserService} from 'src/app/services/user.service';
 import {IQueryObject} from 'src/app/modules/rest/interfaces';
 import {UserRoles} from 'src/app/_types/user';
+import {UtilsService} from 'src/app/services/utils.service';
+import {ITable} from 'src/app/_types/table';
 
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html'
 })
-export class ReservationListComponent implements OnInit {
+export class ReservationListComponent implements OnInit, OnDestroy {
 
     reload$: Observable<void>;
     sameUserQuery?: IQueryObject;
     isModalOpen = false;
     form!: FormGroup;
     loading = false;
-    restaurantOptions?: IAppInputOptions[];
+    restaurantOptions: IAppInputOptions[] = [];
+    restaurantTables: ITable[] = [];
+    selectedRestaurantTables: ITable[] = [];
+
+    private _destroy$ = new Subject<void>();
 
     private reloadSubject = new Subject<void>();
 
@@ -61,7 +67,7 @@ export class ReservationListComponent implements OnInit {
                 this.restaurantOptions = restaurants.map((restaurant) => {
                     return {
                         label: restaurant.name,
-                        value: restaurant['@id']
+                        value: restaurant
                     };
                 });
                 this.loading = false;
@@ -74,6 +80,25 @@ export class ReservationListComponent implements OnInit {
             start: new FormControl(null, Validators.required),
             end: new FormControl(null, Validators.required)
         });
+
+        this.form.get('restaurant')?.valueChanges
+            .pipe(
+                takeUntil(this._destroy$),
+                mergeMap((restaurant) => {
+                    if (!restaurant) {
+                        return of([]);
+                    }
+
+                    const query = {
+                        'floor.restaurant.id': restaurant.id
+                    };
+                    return this.restClient.getAll('tables', query);
+                })
+            )
+            .subscribe((tables) => {
+                console.log(tables);
+                this.restaurantTables = tables;
+            });
     }
 
     toggleModal(): void {
@@ -89,11 +114,19 @@ export class ReservationListComponent implements OnInit {
                 ...this.form.value
             }
         );
+
+        UtilsService.shortenNestedObjects(model, ['restaurant']);
+
         model.persist()
             .subscribe(() => {
                 this.toastService.saved();
                 this.isModalOpen = false;
                 this.reloadSubject.next();
             })
+    }
+
+    ngOnDestroy(): void {
+        this._destroy$.next();
+        this._destroy$.complete();
     }
 }

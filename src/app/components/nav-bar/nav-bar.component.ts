@@ -25,10 +25,6 @@ export class NavBarComponent {
             path: '/app/reservations'
         },
         {
-            lang: 'ADD_RESERVATION',
-            path: '/app/reservations/create'
-        },
-        {
             lang: 'USERS',
             path: '/app/users'
         },
