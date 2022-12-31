@@ -18,7 +18,11 @@
                         <div class="row">
                             <span class="fs-4">#{{reservation.id}}</span>
                             <span class="text-muted">{{reservation.restaurant.name}}</span>
-                            <span class="text-muted">{{reservation.user.email}}</span>
+
+                            <span class="text-muted"
+                                  *ngIf="!sameUserQuery">
+                                {{reservation.user.email}}
+                            </span>
                         </div>
 
                         <div>
