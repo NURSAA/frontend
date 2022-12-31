@@ -15,19 +15,10 @@
                       [reload$]="reload$">
                 <ng-template let-reservation>
                     <div class="d-flex justify-content-between">
-                        <div class="d-flex">
-                            <div class="row">
-                                <span class="fs-4">#{{reservation.id}}</span>
-                                <span class="text-muted">{{reservation.restaurant.name}}</span>
-                            </div>
-
-                            <div class="row">
-                                <span>{{reservation.user.name}} {{reservation.user.surname}}</span>
-                                <span class="text-muted" *ngFor="let table of reservation.tables">
-                                    {{'FLOOR' | translate}}: {{table.floor.level}}
-                                    {{'TABLE' | translate}}: #{{table.id}}
-                                </span>
-                            </div>
+                        <div class="row">
+                            <span class="fs-4">#{{reservation.id}}</span>
+                            <span class="text-muted">{{reservation.restaurant.name}}</span>
+                            <span class="text-muted">{{reservation.user.email}}</span>
                         </div>
 
                         <div>

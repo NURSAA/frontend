@@ -8,7 +8,7 @@ import {UserService} from 'src/app/services/user.service';
 import {IQueryObject} from 'src/app/modules/rest/interfaces';
 import {UserRoles} from 'src/app/_types/user';
 import {UtilsService} from 'src/app/services/utils.service';
-import {ITable} from 'src/app/_types/table';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 @Component({
     selector: 'reservation-list',
@@ -22,8 +22,8 @@ export class ReservationListComponent implements OnInit, OnDestroy {
     form!: FormGroup;
     loading = false;
     restaurantOptions: IAppInputOptions[] = [];
-    restaurantTables: ITable[] = [];
-    selectedRestaurantTables: ITable[] = [];
+    restaurantTables: IRestObject<'tables'>[] = [];
+    selectedRestaurantTables: IRestObject<'tables'>[] = [];
 
     private _destroy$ = new Subject<void>();
 
@@ -57,23 +57,6 @@ export class ReservationListComponent implements OnInit, OnDestroy {
         };
     }
 
-    addReservation(): void {
-        this.isModalOpen = true;
-        this.loading = true;
-        this.form.reset();
-
-        this.restClient.getAll('restaurants')
-            .subscribe((restaurants) => {
-                this.restaurantOptions = restaurants.map((restaurant) => {
-                    return {
-                        label: restaurant.name,
-                        value: restaurant
-                    };
-                });
-                this.loading = false;
-            });
-    }
-
     private createForm(): void {
         this.form = new FormGroup({
             restaurant: new FormControl(null, Validators.required),
@@ -96,8 +79,24 @@ export class ReservationListComponent implements OnInit, OnDestroy {
                 })
             )
             .subscribe((tables) => {
-                console.log(tables);
                 this.restaurantTables = tables;
+            });
+    }
+
+    addReservation(): void {
+        this.isModalOpen = true;
+        this.loading = true;
+        this.form.reset();
+
+        this.restClient.getAll('restaurants')
+            .subscribe((restaurants) => {
+                this.restaurantOptions = restaurants.map((restaurant) => {
+                    return {
+                        label: restaurant.name,
+                        value: restaurant
+                    };
+                });
+                this.loading = false;
             });
     }
 
@@ -109,7 +108,7 @@ export class ReservationListComponent implements OnInit, OnDestroy {
         const model = this.restClient.createObject(
             'reservations',
             {
-                tables: [],
+                tables: this.selectedRestaurantTables.map((table) => table['@id']),
                 user: this.userService.recoverSavedUser()?.['@id'],
                 ...this.form.value
             }
