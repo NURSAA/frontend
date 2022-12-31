@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 
 @Component({
@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
     templateUrl: './multiple-options-creator.component.html',
     styleUrls: ['./multiple-options-creator.component.scss']
 })
-export class MultipleOptionsCreatorComponent<T extends object, TKeys extends keyof T> implements OnInit {
+export class MultipleOptionsCreatorComponent<T extends object, TKeys extends keyof T> implements OnInit, OnChanges {
     @Input() selectedItems: T[] = [];
     @Output() readonly selectedItemsChange = new EventEmitter<T[]>();
 
@@ -17,6 +17,12 @@ export class MultipleOptionsCreatorComponent<T extends object, TKeys extends key
     ngOnInit(): void {
         if (!this.itemLabelKey) {
             throw new Error('Multiple options creator need `itemLabelKey` input.');
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['items'] || changes['itemLabelKey']) {
+            this.selectedItems = [];
         }
     }
 
