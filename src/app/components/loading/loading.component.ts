@@ -6,5 +6,5 @@ import {Component, Input} from '@angular/core';
     templateUrl: './loading.component.html'
 })
 export class LoadingComponent {
-    @Input() loading: boolean | object | undefined;
+    @Input() loading!: boolean;
 }
