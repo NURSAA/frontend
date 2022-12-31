@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {MockService} from "../../../../services/mock.service";
-import {IReservation} from "../../../../_types/reservation";
+import {IReservation} from "src/app/_types/reservation";
+import {RestClient} from 'src/app/modules/rest/rest-client.service';
 
 
 @Component({
@@ -14,15 +14,16 @@ export class ReservationDetailsComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private mockService: MockService
+        private restClient: RestClient
     ) {
     }
 
     ngOnInit(): void {
         this.reservationId = Number(this.route.snapshot.params['id']);
-        this.mockService.get('reservations', this.reservationId)
-            .subscribe((restaurant) => {
-                this.reservation = restaurant;
+
+        this.restClient.get('reservations', this.reservationId)
+            .subscribe((reservation) => {
+                this.reservation = reservation;
             });
     }
 }

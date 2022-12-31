@@ -1,15 +1,13 @@
 import {IRestaurant} from 'src/app/_types/restaurant';
 import {ITable} from 'src/app/_types/table';
+import {IUser} from 'src/app/_types/user';
 
 
 export interface IReservation {
     id?: number;
     restaurant: IRestaurant;
-    user: {
-        name: string;
-        surname: string;
-    }
+    user: IUser;
     start: string;
     end: string;
-    table: ITable;
+    tables: ITable[];
 }
