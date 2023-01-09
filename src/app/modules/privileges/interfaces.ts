@@ -8,11 +8,11 @@ export const ROLES = {
 export const ROLES_OPTIONS = [
     {
         label: 'ADMIN',
-        value: 'admin',
+        value: ROLES.ADMIN,
     },
     {
         label: 'USER',
-        value: 'user',
+        value: ROLES.USER,
     }
 ]
 

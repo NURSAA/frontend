@@ -2,10 +2,16 @@ import {IReservation} from "./reservation";
 import {IDish} from "./dish";
 
 
+export const ORDER_STATUS = {
+    STATUS_CREATED: 'created',
+    STATUS_COMPLETED: 'completed',
+    STATUS_PROCESSING: 'processing'
+} as const;
+
 export interface IOrder {
     id?: number;
     reservation: IReservation;
-    dishes: IDish[]
+    dishOrders: IDish[];
     price: number;
-    status: 'COMPLETE' | 'NOT_COMPLETE'
+    status: keyof typeof ORDER_STATUS;
 }

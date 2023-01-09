@@ -52,12 +52,47 @@
                   [queryObject]="{'order.reservation': reservation.id}">
             <ng-template let-order>
                 <div class="d-flex justify-content-between">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <span class="fs-4">#{{order.id}}</span>
+                    <div class="left-column col-6">
+                        <div class="order-header d-flex align-items-center">
+                            <div>
+                                <span class="fs-4">#{{order.id}}</span>
+                            </div>
+                            <div class="ms-2">
+                                <small [ngClass]="{
+                                            'text-success': order.status === orderStatus.STATUS_COMPLETED,
+                                            'text-secondary': order.status === orderStatus.STATUS_PROCESSING,
+                                            'text-primary': order.status === orderStatus.STATUS_CREATED
+                                        }">
+                                    {{order.status | uppercase | translate}}
+                                </small>
+                            </div>
                         </div>
-                        <div class="ms-4">
-                            <span [ngClass]="{'text-success': order.status === 'COMPLETE'}">{{order.status}}</span>
+
+                        <div class="order-content mt-3">
+                            <div class="mt-2"
+                                 *ngFor="let dishOrder of order.dishOrders;let index = index">
+                                <span>
+                                    {{index + 1}}. {{dishOrder.dish.name}}
+                                    <small class="ms-1"
+                                           [ngClass]="{
+                                                'text-success': dishOrder.status === dishOrderStatus.STATUS_COMPLETED,
+                                                'text-secondary': dishOrder.status === dishOrderStatus.STATUS_PROCESSING,
+                                                'text-primary': dishOrder.status === dishOrderStatus.STATUS_CREATED
+                                            }">
+                                        {{dishOrder.status | uppercase | translate}}
+                                    </small>
+                                </span>
+
+                                <div class="ms-3">
+                                    <small class="text-muted">{{dishOrder.details || '-'}}</small>
+                                    <div>
+                                        <small *ngFor="let ingredient of dishOrder.dish.ingredients;let last = last">
+                                            {{ingredient.name}}<ng-container *ngIf="!last">, </ng-container>
+                                        </small>
+                                    </div>
+                                </div>
+<!--                                <pre>{{dishOrder | json}}</pre>-->
+                            </div>
                         </div>
                     </div>
                 </div>
