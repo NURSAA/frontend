@@ -9,6 +9,7 @@ import {ITable} from 'src/app/_types/table';
 import {IFloor} from 'src/app/_types/floor';
 import {IOrder} from "./order";
 import {IMenu} from 'src/app/_types/menu';
+import {IDishOrder} from 'src/app/_types/dish-order';
 
 export interface IEndpointMap {
     'users': IUser;
@@ -22,6 +23,7 @@ export interface IEndpointMap {
     'tables': ITable;
     'floors': IFloor;
     'orders': IOrder;
+    'dish_orders': IDishOrder;
     'menus': IMenu;
     [key: string]: unknown;
 }

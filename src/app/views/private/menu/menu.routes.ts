@@ -14,6 +14,10 @@ export const menuRoutes: Routes = [
                 path: '',
                 component: MenuDetailsComponent,
             },
+            {
+                path: ':reservationId',
+                component: MenuDetailsComponent,
+            },
         ]
     },
 ];

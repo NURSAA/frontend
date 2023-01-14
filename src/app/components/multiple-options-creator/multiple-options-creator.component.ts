@@ -21,6 +21,10 @@ export class MultipleOptionsCreatorComponent<T extends object, TKeys extends key
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        if (changes['items']) {
+            this.items = [...this.items];
+        }
+
         if (changes['items'] || changes['itemLabelKey']) {
             this.selectedItems = [];
         }

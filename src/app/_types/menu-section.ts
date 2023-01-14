@@ -1,5 +1,5 @@
-import {IDish} from 'src/app/_types/dish';
 import {IMenu} from 'src/app/_types/menu';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 
 export interface IMenuSection {
@@ -7,6 +7,6 @@ export interface IMenuSection {
     name: string;
     description: string;
     menu: IMenu;
-    dishes: IDish[];
+    dishes: IRestObject<'dishes'>[];
     order: number;
 }

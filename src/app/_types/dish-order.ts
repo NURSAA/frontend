@@ -7,11 +7,11 @@ export const DISH_ORDER_STATUS = {
     STATUS_PROCESSING: 'processing'
 } as const;
 
-export interface DishOrder {
+export interface IDishOrder {
     id: number;
     details: string;
     price: number;
-    status: keyof typeof DISH_ORDER_STATUS;
+    status: typeof DISH_ORDER_STATUS[keyof typeof DISH_ORDER_STATUS];
     order: IOrder;
     dish: IDish;
 }

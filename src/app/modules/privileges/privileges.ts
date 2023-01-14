@@ -34,6 +34,10 @@ const featurePrivileges: IFeaturePrivilege[] = [
         name: 'route:add_reservation',
         roles: ['admin', 'user']
     },
+    {
+        name: 'dishOrder:change_status',
+        roles: ['admin']
+    },
 ];
 
 const routePrivileges: IRoutePrivilege[] = [
@@ -52,7 +56,7 @@ const routePrivileges: IRoutePrivilege[] = [
     },
     {
         path: 'menus',
-        roles: ['admin'],
+        roles: ['admin', 'user'],
         redirectTo: ['app', 'reservations']
     },
     {

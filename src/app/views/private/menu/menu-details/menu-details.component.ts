@@ -34,10 +34,12 @@ export class MenuDetailsComponent implements OnInit {
         dishOrder: new FormControl(1, Validators.required),
     });
     dishSelectedIngredients: IRestObject<'ingredients'>[] = [];
-
     ingredients: IRestObject<'ingredients'>[] = [];
 
+    orderedDishes: IRestObject<'dishes'>[] = [];
+
     menuId: number;
+    reservationId?: number;
 
     constructor(
         private route: ActivatedRoute,
@@ -45,6 +47,7 @@ export class MenuDetailsComponent implements OnInit {
         private toastsService: ToastsService
     ) {
         this.menuId = Number(this.route.snapshot.params['id']);
+        this.reservationId = Number(this.route.snapshot.params['reservationId']) || undefined;
     }
 
     ngOnInit(): void {
@@ -142,5 +145,9 @@ export class MenuDetailsComponent implements OnInit {
                 this.isDishModalOpen = false;
                 this.loadMenuSections();
             });
+    }
+
+    orderDish(dish: IRestObject<'dishes'>): void {
+        this.orderedDishes.push(dish);
     }
 }

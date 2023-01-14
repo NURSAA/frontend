@@ -13,5 +13,5 @@ export interface IOrder {
     reservation: IReservation;
     dishOrders: IDish[];
     price: number;
-    status: keyof typeof ORDER_STATUS;
+    status: typeof ORDER_STATUS[keyof typeof ORDER_STATUS];
 }

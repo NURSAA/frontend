@@ -21,7 +21,18 @@
                 </button>
             </div>
         </div>
+    </div>
+</div>
 
+<div class="card px-4 mt-4" *ngIf="reservationId">
+    <div class="card-body">
+        <menu-order [(dishes)]="orderedDishes" [reservationId]="reservationId">
+        </menu-order>
+    </div>
+</div>
+
+<div class="card px-4 mt-4" >
+    <div class="card-body">
         <div class="mt-5">
             <loading [loading]="loading">
             </loading>
@@ -54,7 +65,7 @@
                                         </div>
                                         <div class="ingredients">
                                             <span class="text-muted small"
-                                                 *ngFor="let ingredient of dish.ingredients;let last = last">
+                                                  *ngFor="let ingredient of dish.ingredients;let last = last">
                                                 {{ingredient.name}}<ng-container *ngIf="!last">,</ng-container>
                                             </span>
                                         </div>
@@ -67,6 +78,7 @@
                                              class="ms-4"
                                              (click)="$event.stopPropagation()">
                                             <div class="text-success"
+                                                 (click)="orderDish(dish)"
                                                  [title]="'ORDER_DISH' | translate">
                                                 <fa-icon icon="shopping-basket"></fa-icon>
                                             </div>
@@ -81,6 +93,7 @@
         </div>
     </div>
 </div>
+
 
 <app-modal [(open)]="isSectionModalOpen">
     <form [formGroup]="sectionForm" (ngSubmit)="saveSection()">
@@ -121,7 +134,9 @@
 </app-modal>
 
 <app-modal [(open)]="isDishModalOpen">
-    <form [formGroup]="dishForm" (ngSubmit)="saveDish()">
+    <form [formGroup]="dishForm"
+          (ngSubmit)="saveDish()"
+          *ngIf="isDishModalOpen">
         <div class="modal-header">
             <h5 class="modal-title">{{'ADD_DISH' | translate}}</h5>
             <button type="button"

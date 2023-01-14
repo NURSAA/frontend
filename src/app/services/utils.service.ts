@@ -7,16 +7,12 @@ export class UtilsService {
                 return key === fieldName;
             });
 
-            console.log(fieldName);
-
             if (
                 !hasField
                 || typeof data[fieldName] === 'string'
             ) {
                 return;
             }
-
-            console.log(fieldName);
 
             if (
                 !(fieldName in data)

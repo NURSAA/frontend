@@ -1,6 +1,6 @@
 <div class="modal fade" #modalEl>
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" *ngIf="open">
             <ng-content></ng-content>
         </div>
     </div>

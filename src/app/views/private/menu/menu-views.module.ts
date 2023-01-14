@@ -10,6 +10,7 @@ import {CommonModule} from '@angular/common';
 import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
+import {MenuOrderComponent} from 'src/app/views/private/menu/menu-order/menu-order.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
     ],
     declarations: [
         MenuListComponent,
-        MenuDetailsComponent
+        MenuDetailsComponent,
+        MenuOrderComponent
     ]
 })
 export class MenuViewsModule {

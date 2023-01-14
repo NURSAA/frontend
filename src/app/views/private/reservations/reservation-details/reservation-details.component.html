@@ -35,8 +35,6 @@
                     </div>
                 </div>
             </div>
-
-
         </ng-container>
     </div>
 </div>
@@ -45,10 +43,19 @@
 <div class="card"
      *ngIf="reservation && reservation.id">
     <div class="card-body">
+        <div class="d-flex my-2">
+            <h3 class="mt-1">{{'ORDERS' | translate}}</h3>
 
-        <h3 class="mt-4">{{'ORDERS' | translate}}</h3>
+            <div class="buttons ms-3 mt-1">
+                <button class="btn btn-outline-success ms-2"
+                        [routerLink]="['/app/menus/4', reservation.id]">
+                    {{'ADD_ORDER' | translate}}
+                </button>
+            </div>
+        </div>
 
         <app-list endpoint="orders"
+                  [reload$]="reload$"
                   [queryObject]="{'order.reservation': reservation.id}">
             <ng-template let-order>
                 <div class="d-flex justify-content-between">
@@ -82,6 +89,11 @@
                                         {{dishOrder.status | uppercase | translate}}
                                     </small>
                                 </span>
+                                <button class="btn btn-outline-success ms-2"
+                                        *ngIf="('dishOrder:change_status' | hasAccess) && dishOrder.status !== dishOrderStatus.STATUS_COMPLETED"
+                                        (click)="changeStatus(dishOrder)">
+                                    {{'NEXT_STATUS' | translate}}
+                                </button>
 
                                 <div class="ms-3">
                                     <small class="text-muted">{{dishOrder.details || '-'}}</small>
@@ -91,7 +103,6 @@
                                         </small>
                                     </div>
                                 </div>
-<!--                                <pre>{{dishOrder | json}}</pre>-->
                             </div>
                         </div>
                     </div>
