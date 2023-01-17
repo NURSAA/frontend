@@ -15,6 +15,10 @@ const featurePrivileges: IFeaturePrivilege[] = [
         roles: ['user']
     },
     {
+        name: 'menus:order:add',
+        roles: ['user', 'admin']
+    },
+    {
         name: 'route:restaurants',
         roles: ['admin']
     },
@@ -24,7 +28,7 @@ const featurePrivileges: IFeaturePrivilege[] = [
     },
     {
         name: 'route:reservations',
-        roles: ['admin', 'user']
+        roles: ['admin', 'user', 'cook']
     },
     {
         name: 'route:users',
@@ -36,18 +40,18 @@ const featurePrivileges: IFeaturePrivilege[] = [
     },
     {
         name: 'dishOrder:change_status',
-        roles: ['admin']
+        roles: ['admin', 'cook']
     },
 ];
 
 const routePrivileges: IRoutePrivilege[] = [
     {
         path: 'login',
-        roles: ['admin', 'user']
+        roles: ['admin', 'user', 'cook']
     },
     {
         path: 'register',
-        roles: ['admin', 'user']
+        roles: ['admin', 'user', 'cook']
     },
     {
         path: 'restaurants',
@@ -61,7 +65,7 @@ const routePrivileges: IRoutePrivilege[] = [
     },
     {
         path: 'reservations',
-        roles: ['admin', 'user']
+        roles: ['admin', 'user', 'cook']
     },
     {
         path: 'users',

@@ -1,12 +1,7 @@
-
-export const UserRoles = {
-    ROLE_USER: 'user',
-    ROLE_ADMIN: 'admin',
-    ROLE_SUPER_ADMIN: 'super_admin'
-} as const;
+import {ROLES} from "../modules/privileges/interfaces";
 
 export interface IUser {
     id?: number;
     email: string,
-    roles: typeof UserRoles[keyof typeof UserRoles][],
+    roles: typeof ROLES[keyof typeof ROLES][],
 }

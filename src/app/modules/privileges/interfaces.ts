@@ -2,7 +2,8 @@
 
 export const ROLES = {
     ADMIN: 'admin',
-    USER: 'user'
+    USER: 'user',
+    COOK: 'cook',
 } as const;
 
 export const ROLES_OPTIONS = [
@@ -12,6 +13,10 @@ export const ROLES_OPTIONS = [
     },
     {
         label: 'USER',
+        value: ROLES.USER,
+    },
+    {
+        label: 'COOK',
         value: ROLES.USER,
     }
 ]

@@ -6,9 +6,9 @@ import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
 import {UserService} from 'src/app/services/user.service';
 import {IQueryObject} from 'src/app/modules/rest/interfaces';
-import {UserRoles} from 'src/app/_types/user';
 import {UtilsService} from 'src/app/services/utils.service';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
+import {ROLES} from "../../../../modules/privileges/interfaces";
 
 @Component({
     selector: 'reservation-list',
@@ -46,7 +46,7 @@ export class ReservationListComponent implements OnInit, OnDestroy {
         const {id, roles} = this.userService.recoverSavedUser() || {};
 
         if (
-            Array.isArray(roles) && roles.includes(UserRoles.ROLE_ADMIN)
+            Array.isArray(roles) && roles.includes(ROLES.ADMIN)
             || !id
         ) {
             return;
