@@ -12,6 +12,7 @@ interface ILoginCheckPayload {
 interface IUserData extends IUser {
     token: string;
     '@id': string;
+    restaurant?: string;
 }
 
 @Injectable({

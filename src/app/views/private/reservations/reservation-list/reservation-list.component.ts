@@ -43,12 +43,22 @@ export class ReservationListComponent implements OnInit, OnDestroy {
     }
 
     private initializeQuery(): void {
-        const {id, roles} = this.userService.recoverSavedUser() || {};
+        const {id, role, restaurant} = this.userService.recoverSavedUser() || {};
 
         if (
-            Array.isArray(roles) && roles.includes(ROLES.ADMIN)
+            role === ROLES.ADMIN
             || !id
         ) {
+            return;
+        }
+
+        if (
+            role === ROLES.COOK
+            && restaurant
+        ) {
+            this.sameUserQuery = {
+                'restaurant.id': this.restClient.getId(restaurant)
+            };
             return;
         }
 

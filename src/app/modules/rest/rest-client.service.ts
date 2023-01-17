@@ -124,4 +124,8 @@ export class RestClient {
     getIri(endpoint: IEndpointName, id: number): string {
         return `${this.API_PATH}${endpoint}/${id}`;
     }
+
+    getId(iri: string): number {
+        return Number(iri.split('/').pop());
+    }
 }

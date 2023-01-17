@@ -4,8 +4,9 @@
             <h1>{{'RESERVATIONS' | translate}}</h1>
 
             <button class="btn btn-outline-success ms-3"
-                    (click)="addReservation()">
-                {{'ADD_RESERVATION' | translate}}
+                    (click)="addReservation()"
+                    *ngIf="'reservations:add' | hasAccess">
+            {{'ADD_RESERVATION' | translate}}
             </button>
         </div>
 

@@ -235,7 +235,7 @@ export class MockService {
         return {
             id,
             restaurant: this.restaurantFactory(id),
-            user: {email: '', roles: []},
+            user: {email: '', role: []},
             start: Date.now().toString(),
             end: Date.now().toString(),
             tables: [this.tableFactory(id)]

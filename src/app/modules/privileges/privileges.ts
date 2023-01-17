@@ -11,6 +11,10 @@ const featurePrivileges: IFeaturePrivilege[] = [
         roles: ['admin']
     },
     {
+        name: 'reservations:add',
+        roles: ['admin', 'user']
+    },
+    {
         name: 'menus:order',
         roles: ['user']
     },

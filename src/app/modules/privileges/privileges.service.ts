@@ -20,9 +20,9 @@ export class PrivilegesService {
             return false;
         }
 
-        const roles = this.userService.recoverSavedUser()?.roles || [];
+        const role = this.userService.recoverSavedUser()?.role || [];
         return privilege.roles.some((privilegeRole) => {
-            return roles.includes(privilegeRole);
+            return role === privilegeRole
         })
     }
 

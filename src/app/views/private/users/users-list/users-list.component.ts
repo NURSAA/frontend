@@ -48,7 +48,7 @@ export class UsersListComponent {
         this.isEditModalOpen = true;
         this.userEditForm.reset({
             id: user.id,
-            role: user.roles[0]
+            role: user.role[0]
         });
     }
 
