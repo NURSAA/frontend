@@ -4,7 +4,7 @@ import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {IUser} from 'src/app/_types/user';
-import {ROLES_OPTIONS} from 'src/app/modules/privileges/interfaces';
+import {ROLES, ROLES_OPTIONS} from 'src/app/modules/privileges/interfaces';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 
@@ -48,7 +48,7 @@ export class UsersListComponent {
         this.isEditModalOpen = true;
         this.userEditForm.reset({
             id: user.id,
-            role: user.role[0]
+            role: user.role
         });
     }
 
