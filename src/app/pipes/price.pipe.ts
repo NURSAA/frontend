@@ -12,12 +12,11 @@ export class PricePipe implements PipeTransform {
     }
 
     transform(value: number | string): string {
-        const stringValue = typeof value === 'string'
+        const numberValue = typeof value === 'number'
                 ? value
-                : value.toString(),
-            firstPart = stringValue.slice(0, 2),
-            secondPart = stringValue.slice(2, 4),
+                : Number(value),
+            priceValue = numberValue / 1000,
             translation = this.translate.get('ZL');
-        return `${firstPart || '0'},${secondPart || '00'} ${translation}`;
+        return `${priceValue} ${translation}`;
     }
 }
