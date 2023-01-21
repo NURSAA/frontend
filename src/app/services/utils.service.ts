@@ -1,3 +1,4 @@
+import {AbstractControl, ValidationErrors, Validators} from '@angular/forms';
 
 
 export class UtilsService {
@@ -26,5 +27,11 @@ export class UtilsService {
                 data[fieldName] = value['@id'] as unknown as T[keyof T];
             }
         });
+    }
+
+    static urlValidator(control: AbstractControl): ValidationErrors | null {
+        const urlPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/,
+            patternResult = Validators.pattern(urlPattern)(control);
+        return patternResult ? {url: true} : null;
     }
 }

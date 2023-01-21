@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
+import {UtilsService} from 'src/app/services/utils.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class RestaurantListComponent implements OnInit {
             id: new FormControl(null),
             name: new FormControl(null, Validators.required),
             description: new FormControl(null, Validators.required),
-            url: new FormControl(null, Validators.required),
+            url: new FormControl(null, [Validators.required, UtilsService.urlValidator]),
         });
     }
 
