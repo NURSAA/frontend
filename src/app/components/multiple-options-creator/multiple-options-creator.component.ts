@@ -3,8 +3,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 
 @Component({
     selector: 'multiple-options-creator',
-    templateUrl: './multiple-options-creator.component.html',
-    styleUrls: ['./multiple-options-creator.component.scss']
+    templateUrl: './multiple-options-creator.component.html'
 })
 export class MultipleOptionsCreatorComponent<T extends object, TKeys extends keyof T> implements OnInit, OnChanges {
     @Input() selectedItems: T[] = [];

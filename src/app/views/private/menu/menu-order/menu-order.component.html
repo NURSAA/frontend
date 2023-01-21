@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="d-flex mb-2">
     <h3 class="mt-1">{{'ORDER' | translate}}</h3>
 
     <div class="buttons ms-3 mt-1">
@@ -33,11 +33,11 @@
                 {{dish.price | price}}
 
                 <div class="ms-4">
-                    <div class="text-danger"
+                    <a class="btn-link text-danger cursor-pointer"
                          (click)="removeDish(index)"
                          [title]="'REMOVE_DISH' | translate">
                         <fa-icon icon="shopping-basket"></fa-icon>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

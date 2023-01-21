@@ -4,8 +4,10 @@ import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ORDER_STATUS} from 'src/app/_types/order';
 import {DISH_ORDER_STATUS, IDishOrder} from 'src/app/_types/dish-order';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
-import {Observable, Subject} from 'rxjs';
+import {concatMap, Observable, of, Subject, tap} from 'rxjs';
 import {UtilsService} from 'src/app/services/utils.service';
+import {MENU_STATUS} from 'src/app/_types/menu';
+import {IReservation} from 'src/app/_types/reservation';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class ReservationDetailsComponent implements OnInit {
     orderStatus = ORDER_STATUS;
     dishOrderStatus = DISH_ORDER_STATUS;
     reload$: Observable<void>;
+    activeMenu?: IRestObject<'menus'>;
     private reloadSubject = new Subject<void>();
 
     constructor(
@@ -30,10 +33,40 @@ export class ReservationDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.reservationId = Number(this.route.snapshot.params['id']);
 
-        this.restClient.get('reservations', this.reservationId)
-            .subscribe((reservation) => {
-                this.reservation = reservation;
+        this.resolveReservation$()
+            .pipe(
+                concatMap((reservation) => this.resolveActiveMenu$(reservation))
+            )
+            .subscribe((activeMenus) => {
+                if (!activeMenus.length) {
+                    return;
+                }
+
+                this.activeMenu = activeMenus.shift();
+                console.log(this.activeMenu);
             });
+    }
+
+    private resolveReservation$(): Observable<IRestObject<'reservations'>> {
+        return this.restClient.get('reservations', this.reservationId)
+            .pipe(
+                tap((reservation) => {
+                    this.reservation = reservation;
+                })
+            );
+    }
+
+    private resolveActiveMenu$(reservation: IReservation): Observable<IRestObject<'menus'>[]> {
+        if (!reservation.restaurant?.id) {
+            return of ([]);
+        }
+
+        const query = {
+            'restaurant.id': reservation.restaurant.id,
+            'status': MENU_STATUS.ACTIVE
+        }
+
+        return this.restClient.getAll('menus', query);
     }
 
     changeStatus(dishOrder: IDishOrder): void {
