@@ -48,8 +48,8 @@
 
             <div class="buttons ms-3 mt-1">
                 <button class="btn btn-outline-success ms-2"
-                        [routerLink]="['/app/menus/1', reservation.id]"
-                        *ngIf="'menus:order:add' | hasAccess">
+                        [routerLink]="['/app/menus', activeMenu.id, reservation.id]"
+                        *ngIf="activeMenu && ('menus:order:add' | hasAccess)">
                     {{'ADD_ORDER' | translate}}
                 </button>
             </div>
