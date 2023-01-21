@@ -14,7 +14,6 @@ type IMenuDetailsSection = IRestObject<'menu_sections'> & {collapsed: boolean;};
     templateUrl: './menu-details.component.html'
 })
 export class MenuDetailsComponent implements OnInit {
-    isEditView = false;
     sections!: IMenuDetailsSection[];
     loading = true;
 

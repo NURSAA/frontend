@@ -1,3 +1,10 @@
+<label class="form-label">
+    {{label | translate}}
+    <span *ngIf="isRequired"
+          class="text-danger">
+            *
+        </span>
+</label>
 <div class="card mb-2">
     <div class="d-flex flex-row mt-2 px-2">
         <div class="col-6">

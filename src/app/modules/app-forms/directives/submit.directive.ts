@@ -1,4 +1,4 @@
-import {Directive, HostBinding, OnDestroy, OnInit, Optional} from '@angular/core';
+import {Directive, HostBinding, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges} from '@angular/core';
 import {FormDirective} from 'src/app/modules/app-forms/directives/form.directive';
 import {Subject, takeUntil} from 'rxjs';
 import {FormGroup} from '@angular/forms';
@@ -7,8 +7,9 @@ import {FormGroup} from '@angular/forms';
 @Directive({
     selector: 'button[type=submit]'
 })
-export class SubmitDirective implements OnInit, OnDestroy {
-    @HostBinding('disabled') disabled!: boolean;
+export class SubmitDirective implements OnInit, OnChanges, OnDestroy {
+    @Input() disabled?: boolean;
+    @HostBinding('disabled') isButtonDisabled!: boolean;
 
     private form?: FormGroup;
     private _destroy$ = new Subject<void>();
@@ -24,6 +25,12 @@ export class SubmitDirective implements OnInit, OnDestroy {
         this.watchStatusChange();
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['disabled']) {
+            this.updateDisabledValue();
+        }
+    }
+
     private extractForm(): void {
         if (!this.formDirective.formGroup) {
             return;
@@ -35,7 +42,8 @@ export class SubmitDirective implements OnInit, OnDestroy {
         if (!this.form) {
             return;
         }
-        this.disabled = this.form.invalid;
+
+        this.isButtonDisabled = this.disabled || this.form.invalid;
     }
 
     private watchStatusChange(): void {

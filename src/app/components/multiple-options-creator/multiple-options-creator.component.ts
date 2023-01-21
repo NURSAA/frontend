@@ -13,6 +13,7 @@ export class MultipleOptionsCreatorComponent<T extends object, TKeys extends key
     @Input() items: T[] = [];
     @Input() itemLabelKey!: TKeys;
     @Input() label = 'SELECT_MULTIPLE_OPTIONS';
+    @Input() isRequired = false;
 
     ngOnInit(): void {
         if (!this.itemLabelKey) {

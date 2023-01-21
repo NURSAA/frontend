@@ -2,19 +2,11 @@
     <div class="card-body">
         <div class="d-flex mt-4">
             <h1>
-                {{(isEditView ? 'EDIT_MENU' : 'MENU_DETAILS') | translate}}
+                {{'MENU_DETAILS' | translate}}
             </h1>
 
-            <div *ngIf="'menus:edit' | hasAccess"
-                 class="buttons ms-3 mt-1">
-                <button class="btn btn-outline-secondary"
-                        (click)="isEditView = !isEditView">
-                    <fa-icon [icon]="!isEditView ? 'edit': 'arrow-left'"></fa-icon>
-                </button>
-            </div>
-
             <div class="buttons ms-3 mt-1"
-                 *ngIf="isEditView">
+                 *ngIf="'menus:edit' | hasAccess">
                 <button class="btn btn-outline-success"
                         (click)="openSectionModal()">
                     {{'ADD_SECTION' | translate}}
@@ -44,7 +36,7 @@
                             {{section.name}}
 
                             <div class="buttons fs-5"
-                                 *ngIf="isEditView"
+                                 *ngIf="'menus:edit' | hasAccess"
                                  (click)="$event.stopPropagation()">
                                 <div class="text-success"
                                      (click)="openDishModal(section)"
@@ -166,6 +158,8 @@
 
             <multiple-options-creator [items]="ingredients"
                                       [(selectedItems)]="dishSelectedIngredients"
+                                      label="SELECT_INGREDIENTS"
+                                      [isRequired]="true"
                                       itemLabelKey="name">
             </multiple-options-creator>
         </div>
@@ -176,6 +170,7 @@
                 {{'CLOSE_MODAL' | translate}}
             </button>
             <button type="submit"
+                    [disabled]="!dishSelectedIngredients?.length"
                     class="btn btn-success">
                 {{'SAVE' | translate}}
             </button>
