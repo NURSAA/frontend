@@ -17,7 +17,7 @@ export const ROLES_OPTIONS = [
     },
     {
         label: 'COOK',
-        value: ROLES.USER,
+        value: ROLES.COOK,
     }
 ]
 

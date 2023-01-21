@@ -68,6 +68,7 @@
 
 <app-modal [(open)]="isEditModalOpen">
     <form (ngSubmit)="saveUser()"
+          *ngIf="isEditModalOpen"
           [formGroup]="userEditForm">
         <div class="modal-header">
             <h5 class="modal-title">{{'EDIT_USER' | translate}}</h5>
@@ -78,10 +79,22 @@
             </button>
         </div>
         <div class="modal-body">
+            <app-input formControlName="email"
+                       type="email"
+                       [name]="'EMAIL' | translate">
+            </app-input>
+
             <app-input formControlName="role"
                        type="select"
                        [options]="userRoles"
                        [name]="'ROLE' | translate">
+            </app-input>
+
+            <app-input formControlName="restaurant"
+                       *ngIf="userEditForm.controls?.['restaurant']"
+                       type="select"
+                       [options]="restaurantOptions"
+                       [name]="'RESTAURANT' | translate">
             </app-input>
         </div>
         <div class="modal-footer">
