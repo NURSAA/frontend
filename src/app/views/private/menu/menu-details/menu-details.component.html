@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <div class="card px-4 mt-4" *ngIf="reservationId">
+    <div class="card px-4 mt-4" *ngIf="reservationId && ('menus:order' | hasAccess)">
         <div class="card-body">
             <menu-order [(dishes)]="orderedDishes" [reservationId]="reservationId">
             </menu-order>
