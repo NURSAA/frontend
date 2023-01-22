@@ -1,4 +1,4 @@
-import {Injectable, Input} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
 
