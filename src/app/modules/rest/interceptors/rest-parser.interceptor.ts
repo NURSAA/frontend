@@ -40,6 +40,10 @@ export class RestParser implements HttpInterceptor {
         body: Record<string, unknown | unknown[]>,
         req: HttpRequest<unknown>
     ): unknown {
+        if (!body) {
+            return {};
+        }
+
         if (Array.isArray(body['hydra:member'])) {
             const originalData = {...body},
                 collectionData = body['hydra:member'].filter((item) => {
