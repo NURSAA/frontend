@@ -19,13 +19,17 @@
                 <div class="d-flex justify-content-between">
                     {{ingredientGroup.name}}
 
-                    <div class="buttons fs-5"
+                    <div class="align-items-center d-flex fs-5"
                          (click)="$event.stopPropagation()">
                         <div class="text-success"
                              (click)="openIngredientModal(ingredientGroup)"
                              [title]="'ADD_DISH' | translate">
                             <fa-icon icon="plus-square"></fa-icon>
                         </div>
+
+                        <remove-button [objectToRemove]="ingredientGroup | transformToRest : 'ingredient_groups'"
+                                       viewType="icon">
+                        </remove-button>
                     </div>
                 </div>
             </ng-template>
@@ -43,7 +47,8 @@
                             <div class="align-items-center d-flex">
                                 {{ingredient.price | price}}
 
-                                <remove-button [objectToRemove]="ingredient | transformToRest : 'ingredients'">
+                                <remove-button [objectToRemove]="ingredient | transformToRest : 'ingredients'"
+                                               viewType="icon">
                                 </remove-button>
                             </div>
                         </div>

@@ -11,6 +11,7 @@ export class RemoveButtonComponent {
     @Input() objectToRemove?: IRestObject<string>;
     @Input() label = 'REMOVE_OBJECT';
     @Input() message = 'REMOVE_OBJECT_CONFIRM';
+    @Input() viewType: 'textButton' | 'icon' = 'textButton';
 
     isRemoveModalOpen = false;
 

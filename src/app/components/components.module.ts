@@ -15,6 +15,7 @@ import {
 } from 'src/app/components/multiple-options-creator/multiple-options-creator.component';
 import {RemoveButtonComponent} from 'src/app/components/remove-button/remove-button.component';
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
+import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
         RouterModule,
         FontAwesomeModule,
         AppPipesModule,
-        AppFormsModule
+        AppFormsModule,
+        AppDirectivesModule
     ],
     declarations: [
         AppListComponent,
