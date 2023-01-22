@@ -6,6 +6,7 @@ import {CommonModule} from '@angular/common';
 import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {RemoveObjectModule} from 'src/app/modules/remove-object/remove-object.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         AppPipesModule,
         AppFormsModule,
         FontAwesomeModule,
+        RemoveObjectModule,
     ],
     declarations: [
         IngredientsComponent

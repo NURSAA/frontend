@@ -1,0 +1,15 @@
+<ng-container [ngSwitch]="viewType">
+    <ng-container *ngSwitchCase="'textButton'">
+        <button class="btn btn-outline-danger ms-2"
+                (click)="confirmRemove()">
+            {{label | translate}}
+        </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'icon'">
+        <button class="btn text-danger ms-2"
+                (click)="confirmRemove()">
+            <fa-icon icon="trash"></fa-icon>
+        </button>
+    </ng-container>
+</ng-container>

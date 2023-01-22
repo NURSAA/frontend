@@ -7,6 +7,7 @@ import {httpInterceptorProviders} from 'src/app/modules/rest/interceptors';
 import {ToastsModule} from 'src/app/modules/toasts/toasts.module';
 import {ComponentsModule} from 'src/app/components/components.module';
 import {AppConfigService} from 'src/app/views/app-config.service';
+import {RemoveObjectModule} from 'src/app/modules/remove-object/remove-object.module';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import {AppConfigService} from 'src/app/views/app-config.service';
         HttpClientModule,
         ToastsModule,
         ComponentsModule,
+        RemoveObjectModule,
     ],
     providers: [
         {

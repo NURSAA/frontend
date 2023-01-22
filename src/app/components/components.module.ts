@@ -13,7 +13,6 @@ import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
 import {
     MultipleOptionsCreatorComponent
 } from 'src/app/components/multiple-options-creator/multiple-options-creator.component';
-import {RemoveButtonComponent} from 'src/app/components/remove-button/remove-button.component';
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
 
@@ -36,7 +35,6 @@ import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
         LoadingComponent,
         AppCollapseComponent,
         MultipleOptionsCreatorComponent,
-        RemoveButtonComponent
     ],
     exports: [
         AppListComponent,
@@ -46,7 +44,6 @@ import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
         LoadingComponent,
         AppCollapseComponent,
         MultipleOptionsCreatorComponent,
-        RemoveButtonComponent
     ]
 })
 export class ComponentsModule {

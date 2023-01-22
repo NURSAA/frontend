@@ -1,26 +1,8 @@
-
-<ng-container [ngSwitch]="viewType">
-    <ng-container *ngSwitchCase="'textButton'">
-        <button class="btn btn-outline-danger ms-2"
-                (click)="confirmRemove()">
-            {{label | translate}}
-        </button>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="'icon'">
-        <button class="btn text-danger ms-2"
-                [title]="label | translate"
-                (click)="confirmRemove()">
-            <fa-icon icon="trash"></fa-icon>
-        </button>
-    </ng-container>
-</ng-container>
-
-
 <app-modal [(open)]="isRemoveModalOpen">
-    <form (ngSubmit)="removeObject()">
+    <form (ngSubmit)="removeObject()"
+          *ngIf="currentRemoveObjectInfo">
         <div class="modal-header">
-            <h5 class="modal-title">{{label | translate}}</h5>
+            <h5 class="modal-title">{{currentRemoveObjectInfo.config.label | translate}}</h5>
             <button type="button"
                     class="btn-close"
                     (click)="isRemoveModalOpen = !isRemoveModalOpen"
@@ -28,7 +10,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <p>{{message | translate}}</p>
+            <p>{{currentRemoveObjectInfo.config.message | translate}}</p>
         </div>
         <div class="modal-footer">
             <button type="button"

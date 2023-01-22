@@ -43,7 +43,7 @@ export class IngredientsComponent implements OnInit {
         this.loadIngredients();
     }
 
-    private loadIngredients(): void {
+    loadIngredients(): void {
         const query = {
             'restaurant.id': this.restaurantDetails.restaurantId
         };

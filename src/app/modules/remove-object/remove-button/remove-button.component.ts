@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
-import {ToastsService} from 'src/app/modules/toasts/toasts.service';
+import {RemoveObjectService} from 'src/app/modules/remove-object/remove-object.service';
 
 
 @Component({
@@ -13,26 +13,24 @@ export class RemoveButtonComponent {
     @Input() message = 'REMOVE_OBJECT_CONFIRM';
     @Input() viewType: 'textButton' | 'icon' = 'textButton';
 
-    isRemoveModalOpen = false;
+    @Output() readonly removed = new EventEmitter<void>();
 
     constructor(
-        private toastsService: ToastsService
+        private removeObjectService: RemoveObjectService
     ) {
     }
 
     confirmRemove(): void {
-        this.isRemoveModalOpen = true;
-    }
-
-    removeObject(): void {
         if (!this.objectToRemove) {
             return;
         }
-
-        this.objectToRemove.delete()
+        const config = {
+            label: this.label,
+            message: this.message
+        };
+        this.removeObjectService.removeObject(this.objectToRemove, config)
             .subscribe(() => {
-                this.toastsService.saved();
-                this.isRemoveModalOpen = false;
+                this.removed.emit();
             });
     }
 }
