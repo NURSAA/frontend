@@ -28,8 +28,7 @@
                         </div>
 
                         <remove-button [objectToRemove]="ingredientGroup | transformToRest : 'ingredient_groups'"
-                                       (removed)="loadIngredients()"
-                                       viewType="icon">
+                                       (removed)="loadIngredients()">
                         </remove-button>
                     </div>
                 </div>
@@ -49,8 +48,7 @@
                                 {{ingredient.price | price}}
 
                                 <remove-button [objectToRemove]="ingredient | transformToRest : 'ingredients'"
-                                               (removed)="loadIngredients()"
-                                               viewType="icon">
+                                               (removed)="loadIngredients()">
                                 </remove-button>
                             </div>
                         </div>

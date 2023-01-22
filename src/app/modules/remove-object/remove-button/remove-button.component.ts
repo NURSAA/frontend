@@ -11,7 +11,7 @@ export class RemoveButtonComponent {
     @Input() objectToRemove?: IRestObject<string>;
     @Input() label = 'REMOVE_OBJECT';
     @Input() message = 'REMOVE_OBJECT_CONFIRM';
-    @Input() viewType: 'textButton' | 'icon' = 'textButton';
+    @Input() viewType: 'textButton' | 'icon' = 'icon';
 
     @Output() readonly removed = new EventEmitter<void>();
 
