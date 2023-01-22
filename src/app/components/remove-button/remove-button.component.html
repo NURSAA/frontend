@@ -1,0 +1,32 @@
+<button class="btn btn-outline-danger ms-2"
+        (click)="confirmRemove()">
+    {{label | translate}}
+</button>
+
+
+<app-modal [(open)]="isRemoveModalOpen">
+    <form (ngSubmit)="removeObject()">
+        <div class="modal-header">
+            <h5 class="modal-title">{{label | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="isRemoveModalOpen = !isRemoveModalOpen"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>{{message | translate}}</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="isRemoveModalOpen = !isRemoveModalOpen">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-danger">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>

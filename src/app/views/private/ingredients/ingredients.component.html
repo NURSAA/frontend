@@ -33,15 +33,18 @@
             <ng-template #bodyTemplate>
                 <div class="card ms-4 my-2" *ngFor="let ingredient of ingredientGroup.ingredients">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <div>
                                     {{ingredient.name}}
                                 </div>
                             </div>
 
-                            <div>
+                            <div class="align-items-center d-flex">
                                 {{ingredient.price | price}}
+
+                                <remove-button [objectToRemove]="ingredient | transformToRest : 'ingredients'">
+                                </remove-button>
                             </div>
                         </div>
                     </div>

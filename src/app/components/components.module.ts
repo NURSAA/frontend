@@ -13,6 +13,8 @@ import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
 import {
     MultipleOptionsCreatorComponent
 } from 'src/app/components/multiple-options-creator/multiple-options-creator.component';
+import {RemoveButtonComponent} from 'src/app/components/remove-button/remove-button.component';
+import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import {
         RouterModule,
         FontAwesomeModule,
         AppPipesModule,
+        AppFormsModule
     ],
     declarations: [
         AppListComponent,
@@ -30,7 +33,8 @@ import {
         NavBarComponent,
         LoadingComponent,
         AppCollapseComponent,
-        MultipleOptionsCreatorComponent
+        MultipleOptionsCreatorComponent,
+        RemoveButtonComponent
     ],
     exports: [
         AppListComponent,
@@ -39,7 +43,8 @@ import {
         NavBarComponent,
         LoadingComponent,
         AppCollapseComponent,
-        MultipleOptionsCreatorComponent
+        MultipleOptionsCreatorComponent,
+        RemoveButtonComponent
     ]
 })
 export class ComponentsModule {
