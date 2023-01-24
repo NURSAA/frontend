@@ -1,9 +1,42 @@
+<ng-template #paginationTemplate>
+    <nav *ngIf="hasPagination">
+        <ul class="pagination justify-content-end">
+            <li class="page-item"
+                [ngClass]="{'disabled': page === 1}">
+                <a class="page-link"
+                   href="javascript:"
+                   (click)="changePage('prev')">
+                    {{'PAGINATION_PREV' | translate}}
+                </a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link text-secondary"
+                   href="javascript:">
+                    {{page}}
+                </a>
+            </li>
+            <li class="page-item"
+                [ngClass]="{'disabled': page === lastPage}">
+                <a class="page-link"
+                   href="javascript:"
+                   (click)="changePage('next')">
+                    {{'PAGINATION_NEXT' | translate}}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</ng-template>
+
 <div class="app-list my-3">
     <div class="d-flex my-3"
          *ngIf="!listItems">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
+    </div>
+
+    <div class="mb-4">
+        <ng-container *ngTemplateOutlet="paginationTemplate"></ng-container>
     </div>
 
     <ng-container *ngIf="listItems">
@@ -15,4 +48,6 @@
             </div>
         </div>
     </ng-container>
+
+    <ng-container *ngTemplateOutlet="paginationTemplate"></ng-container>
 </div>
