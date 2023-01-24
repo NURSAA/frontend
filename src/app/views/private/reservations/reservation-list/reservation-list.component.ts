@@ -30,18 +30,18 @@ export class ReservationListComponent implements OnInit {
     }
 
     private initializeQuery(): void {
-        const {id, role, restaurant} = this.userService.recoverSavedUser() || {};
+        const {id, role, restaurant} = this.userService.recoverSavedUser() || {},
+            baseQuery = {
+                'order[id]': 'desc'
+            };
 
         if (
             role === ROLES.ADMIN
             || !id
         ) {
+            this.queryObject = baseQuery;
             return;
         }
-
-        const baseQuery = {
-            'order[id]': 'desc'
-        };
 
         if (
             role === ROLES.COOK
