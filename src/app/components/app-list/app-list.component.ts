@@ -63,11 +63,13 @@ export class AppListComponent implements OnInit, OnDestroy {
             page: this.page
         };
 
+        if (!this.queryObject) {
+            this.queryObject = {};
+        }
         Object.assign(this.queryObject, paginationQuery);
     }
 
     private computePagination(collection: IRestCollection<string>): void {
-        console.log(collection.hydra);
         const totalItems = collection.hydra?.['hydra:totalItems'] as number;
 
         if (!totalItems) {
