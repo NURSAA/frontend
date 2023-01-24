@@ -4,6 +4,7 @@
             <h1>{{'RESTAURANTS' | translate}}</h1>
             <div class="buttons ms-3 mt-1">
                 <button class="btn btn-outline-success"
+                        *ngIf="'restaurant:add' | hasAccess"
                         (click)="editRestaurant()">
                     {{'ADD_RESTAURANT' | translate}}
                 </button>
@@ -20,12 +21,14 @@
                         </div>
 
                         <div>
-                            <button class="btn btn-outline-primary"
+                            <button class="btn btn-outline-secondary"
+                                    *ngIf="'restaurant:edit' | hasAccess"
                                     (click)="editRestaurant(restaurant)">
                                 {{'EDIT' | translate}}
                             </button>
 
                             <button class="btn ms-2 btn-outline-secondary"
+                                    *ngIf="'restaurant:details' | hasAccess"
                                     [routerLink]="['.', restaurant.id]">
                                 {{'DETAILS' | translate}}
                             </button>

@@ -7,7 +7,39 @@ const featurePrivileges: IFeaturePrivilege[] = [
         roles: ['admin']
     },
     {
+        name: 'dish:edit',
+        roles: ['admin']
+    },
+    {
+        name: 'dish:delete',
+        roles: ['admin']
+    },
+    {
+        name: 'ingredient_group:add',
+        roles: ['admin']
+    },
+    {
         name: 'menus:edit',
+        roles: ['admin']
+    },
+    {
+        name: 'table:add',
+        roles: ['admin']
+    },
+    {
+        name: 'floor:edit',
+        roles: ['admin']
+    },
+    {
+        name: 'restaurant:edit',
+        roles: ['admin']
+    },
+    {
+        name: 'restaurant:details',
+        roles: ['admin']
+    },
+    {
+        name: 'restaurant:add',
         roles: ['admin']
     },
     {
@@ -24,7 +56,7 @@ const featurePrivileges: IFeaturePrivilege[] = [
     },
     {
         name: 'route:restaurants',
-        roles: ['admin']
+        roles: ['admin', 'user']
     },
     {
         name: 'route:menus',
@@ -59,7 +91,7 @@ const routePrivileges: IRoutePrivilege[] = [
     },
     {
         path: 'restaurants',
-        roles: ['admin'],
+        roles: ['admin', 'user'],
         redirectTo: ['app', 'menus']
     },
     {

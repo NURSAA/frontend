@@ -4,6 +4,7 @@ import {TranslationsModule} from 'src/app/modules/translate/translate.module';
 import {ComponentsModule} from 'src/app/components/components.module';
 import {CommonModule} from '@angular/common';
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
+import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
         ComponentsModule,
         CommonModule,
         AppFormsModule,
+        AppPipesModule,
     ],
     declarations: [
         TablesComponent

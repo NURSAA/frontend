@@ -3,6 +3,7 @@
 
     <div class="buttons ms-3" *ngIf="ingredientGroups">
         <button class="btn btn-outline-success ms-2"
+                *ngIf="'ingredient_group:add' | hasAccess"
                 (click)="openIngredientGroupModal()">
             {{'ADD_INGREDIENT_GROUP' | translate}}
         </button>
@@ -23,11 +24,14 @@
                          (click)="$event.stopPropagation()">
                         <div class="text-success"
                              (click)="openIngredientModal(ingredientGroup)"
+                             *ngIf="'dish:edit' | hasAccess"
                              [title]="'ADD_DISH' | translate">
                             <fa-icon icon="plus-square"></fa-icon>
                         </div>
 
                         <remove-button [objectToRemove]="ingredientGroup | transformToRest : 'ingredient_groups'"
+                                       [title]="'REMOVE_DISH' | translate"
+                                       *ngIf="'dish:remove' | hasAccess"
                                        (removed)="loadIngredients()">
                         </remove-button>
                     </div>

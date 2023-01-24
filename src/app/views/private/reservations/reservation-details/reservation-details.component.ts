@@ -43,7 +43,6 @@ export class ReservationDetailsComponent implements OnInit {
                 }
 
                 this.activeMenu = activeMenus.shift();
-                console.log(this.activeMenu);
             });
     }
 

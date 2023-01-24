@@ -3,11 +3,13 @@
 
     <div class="buttons ms-3" *ngIf="floors">
         <button class="btn btn-outline-success"
+                *ngIf="'floor:add' | hasAccess"
                 (click)="openFloorModal()">
             {{'ADD_FLOOR' | translate}}
         </button>
 
         <button class="btn btn-outline-success ms-2"
+                *ngIf="'table:add' | hasAccess"
                 (click)="openTableModal()">
             {{'ADD_TABLE' | translate}}
         </button>
