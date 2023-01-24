@@ -55,7 +55,6 @@ export class UtilsService {
 
                     return false;
                 });
-            console.log(wrongValueControl ? {fieldsNotSame: fields} : null);
             return wrongValueControl ? {fieldsNotSame: fields} : null;
         };
     }

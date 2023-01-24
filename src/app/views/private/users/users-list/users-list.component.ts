@@ -80,7 +80,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._destroy$))
             .subscribe((value) => {
                 const controlName = 'restaurant';
-                console.log(value);
                 if (value === ROLES.COOK) {
                     const restaurantControl = new FormControl(this.editedUser?.restaurant, Validators.required);
                     this.userEditForm.addControl(controlName, restaurantControl);
