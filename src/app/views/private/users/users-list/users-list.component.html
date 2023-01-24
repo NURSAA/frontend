@@ -51,6 +51,17 @@
                        type="password"
                        [name]="'PASSWORD' | translate">
             </app-input>
+
+            <app-input [name]="'REPEAT_PASSWORD' | translate"
+                       type="password"
+                       formControlName="repeatPassword">
+            </app-input>
+
+            <div class="mb-3">
+                <app-form-error [control]="userAddForm"
+                                overrideError="PASSWORDS_DONT_MATCH">
+                </app-form-error>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button"

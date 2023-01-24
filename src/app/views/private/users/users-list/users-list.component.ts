@@ -7,6 +7,7 @@ import {IUser} from 'src/app/_types/user';
 import {ROLES, ROLES_OPTIONS} from 'src/app/modules/privileges/interfaces';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
+import {UtilsService} from 'src/app/services/utils.service';
 
 
 @Component({
@@ -17,10 +18,14 @@ export class UsersListComponent implements OnInit, OnDestroy {
     reload$: Observable<void>;
 
     isAddModalOpen = false;
-    userAddForm = new FormGroup({
-        email: new FormControl(null, [Validators.email, Validators.required]),
-        password: new FormControl(null, Validators.required),
-    });
+    userAddForm = new FormGroup(
+        {
+            email: new FormControl(null, [Validators.email, Validators.required]),
+            password: new FormControl(null, Validators.required),
+            repeatPassword: new FormControl(null, Validators.required),
+        },
+        UtilsService.sameValueValidator(['password', 'repeatPassword'])
+    );
 
     isEditModalOpen = false;
     editedUser?: IUser;

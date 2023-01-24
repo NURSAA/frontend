@@ -37,7 +37,6 @@ export class UtilsService {
 
     static sameValueValidator(fields: string[]): ValidatorFn {
         return (formGroup: AbstractControl): ValidationErrors | null => {
-            console.log('fields', fields);
             if (
                 !fields.length
             ) {
