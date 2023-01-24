@@ -6,6 +6,7 @@ import {SubmitDirective} from 'src/app/modules/app-forms/directives/submit.direc
 import {AppInputComponent} from 'src/app/modules/app-forms/app-input/app-input.component';
 import {CommonModule} from '@angular/common';
 import {TranslationsModule} from 'src/app/modules/translate/translate.module';
+import {AppFormErrorComponent} from 'src/app/modules/app-forms/app-form-error/app-form-error.component';
 
 
 @NgModule({
@@ -17,11 +18,13 @@ import {TranslationsModule} from 'src/app/modules/translate/translate.module';
     ],
     declarations: [
         AppInputComponent,
+        AppFormErrorComponent,
         FormDirective,
         SubmitDirective
     ],
     exports: [
         AppInputComponent,
+        AppFormErrorComponent,
         FormDirective,
         SubmitDirective,
         FormsModule,

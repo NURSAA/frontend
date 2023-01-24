@@ -4,14 +4,25 @@
           class="card-body my-5 py-5">
         <h1 class="mb-5 text-center">{{'REGISTER_PAGE' | translate}}</h1>
 
-        <app-input name="Email:"
+        <app-input [name]="'EMAIL' | translate"
                    formControlName="email">
         </app-input>
 
-        <app-input name="Password:"
+        <app-input [name]="'PASSWORD' | translate"
                    type="password"
                    formControlName="password">
         </app-input>
+
+        <app-input [name]="'REPEAT_PASSWORD' | translate"
+                   type="password"
+                   formControlName="repeatPassword">
+        </app-input>
+
+        <div class="mb-3">
+            <app-form-error [control]="registerForm"
+                            overrideError="PASSWORDS_DONT_MATCH">
+            </app-form-error>
+        </div>
 
         <button type="submit"
                 [disabled]="loading"

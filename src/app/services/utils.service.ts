@@ -1,4 +1,4 @@
-import {AbstractControl, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 
 
 export class UtilsService {
@@ -33,5 +33,31 @@ export class UtilsService {
         const urlPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/,
             patternResult = Validators.pattern(urlPattern)(control);
         return patternResult ? {url: true} : null;
+    }
+
+    static sameValueValidator(fields: string[]): ValidatorFn {
+        return (formGroup: AbstractControl): ValidationErrors | null => {
+            console.log('fields', fields);
+            if (
+                !fields.length
+            ) {
+                return null;
+            }
+
+            if (!(formGroup instanceof FormGroup)) {
+                return null;
+            }
+
+            const firstFieldValue = formGroup.controls[fields[0]].value,
+                wrongValueControl = Object.entries(formGroup.controls).find(([name, control]) => {
+                    if (fields.includes(name)) {
+                        return control.value !== firstFieldValue;
+                    }
+
+                    return false;
+                });
+            console.log(wrongValueControl ? {fieldsNotSame: fields} : null);
+            return wrongValueControl ? {fieldsNotSame: fields} : null;
+        };
     }
 }

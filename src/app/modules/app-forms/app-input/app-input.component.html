@@ -6,6 +6,7 @@
             *
         </span>
     </label>
+
     <ng-container [ngSwitch]="type">
         <select *ngSwitchCase="'select'"
                 class="form-select"
@@ -35,10 +36,8 @@
                (blur)="_onTouched ? _onTouched() : null"
         />
     </ng-container>
-    <ng-container *ngIf="inputControl.touched">
-        <div class="text-danger small ms-1"
-             *ngFor="let error of $any(parentControl?.errors) | keyvalue">
-            {{$any(error.key) | translate}}
-        </div>
-    </ng-container>
+
+    <app-form-error *ngIf="inputControl.touched"
+                    [control]="parentControl">
+    </app-form-error>
 </div>

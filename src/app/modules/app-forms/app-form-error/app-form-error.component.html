@@ -1,0 +1,4 @@
+<div class="text-danger small ms-1"
+     *ngFor="let error of $any(control?.errors) | keyvalue">
+    {{(overrideError ? overrideError : $any(error.key)) | translate}}
+</div>

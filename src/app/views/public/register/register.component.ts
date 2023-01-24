@@ -4,6 +4,7 @@ import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {finalize} from 'rxjs';
 import {Router} from '@angular/router';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
+import {UtilsService} from 'src/app/services/utils.service';
 
 
 @Component({
@@ -22,11 +23,17 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.registerForm = new FormGroup({
-            email: new FormControl(null, [Validators.email, Validators.required]),
-            password: new FormControl(null, Validators.required)
-        });
+        this.registerForm = new FormGroup(
+            {
+                email: new FormControl(null, [Validators.email, Validators.required]),
+                password: new FormControl(null, Validators.required),
+                repeatPassword: new FormControl(null, Validators.required)
+            },
+            UtilsService.sameValueValidator(['password', 'repeatPassword'])
+        );
     }
+
+
 
     register(): void {
         this.loading = true;
