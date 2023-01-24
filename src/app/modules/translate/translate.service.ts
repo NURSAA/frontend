@@ -1,27 +1,32 @@
 import {Injectable} from '@angular/core';
-import {ITranslation} from 'src/app/modules/translate/interfaces';
-import {enTranslations} from 'src/app/modules/translate/translations/en';
+import {ILanguageKey, translations} from './translations/translations';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class TranslateService {
-    private language = 'en';
-    private translations: Record<string, ITranslation[]> = {
-        en: enTranslations
-    };
+    private translations = translations;
+    private currentLanguage: ILanguageKey = 'en';
 
     get(key: string): string {
-        if (!this.translations[this.language]) {
+        if (!this.translations[this.currentLanguage]) {
             return key;
         }
 
-        const searched = this.translations[this.language].find((translation) => {
+        const searched = this.translations[this.currentLanguage].find((translation) => {
             return translation.key === key;
         });
         return searched
             ? searched.value
             : key;
+    }
+
+    changeLanguage(key: ILanguageKey): void {
+        this.currentLanguage = key;
+    }
+
+    getCurrentLanguage(): ILanguageKey {
+        return this.currentLanguage;
     }
 }

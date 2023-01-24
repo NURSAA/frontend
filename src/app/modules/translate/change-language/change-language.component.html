@@ -1,0 +1,12 @@
+<select class="form-select cursor-pointer"
+        [(ngModel)]="currentLanguage"
+        (ngModelChange)="changeLanguage($event)">
+    <option [ngValue]="null"
+            *ngIf="!currentLanguage">
+        {{'CHOOSE_OPTION' | translate}}
+    </option>
+    <option *ngFor="let option of availableLanguages"
+            [ngValue]="option">
+        {{option | uppercase | translate}}
+    </option>
+</select>

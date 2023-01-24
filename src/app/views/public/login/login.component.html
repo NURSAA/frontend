@@ -4,11 +4,11 @@
           (ngSubmit)="login()">
         <h1 class="mb-5 text-center">{{'LOGIN_PAGE' | translate}}</h1>
 
-        <app-input name="Email:"
+        <app-input [name]="'EMAIL' | translate"
                    formControlName="username">
         </app-input>
 
-        <app-input name="Password:"
+        <app-input [name]="'PASSWORD' | translate"
                    type="password"
                    formControlName="password">
         </app-input>
