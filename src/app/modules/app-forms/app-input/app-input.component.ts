@@ -12,8 +12,8 @@ import {Subject, takeUntil} from 'rxjs';
 
 let appInputId = 0;
 
-export interface IAppInputOptions {
-    value: unknown;
+export interface IAppInputOptions<T = unknown> {
+    value: T;
     label: string;
 }
 

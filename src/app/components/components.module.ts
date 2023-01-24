@@ -15,6 +15,9 @@ import {
 } from 'src/app/components/multiple-options-creator/multiple-options-creator.component';
 import {AppFormsModule} from 'src/app/modules/app-forms/app-forms.module';
 import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
+import {
+    AddReservationButtonComponent
+} from 'src/app/components/add-reservation-button/add-reservation-button.component';
 
 
 @NgModule({
@@ -30,15 +33,17 @@ import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
     declarations: [
         AppListComponent,
         AppModalComponent,
+        AddReservationButtonComponent,
         LoginCardComponent,
         NavBarComponent,
         LoadingComponent,
         AppCollapseComponent,
-        MultipleOptionsCreatorComponent,
+        MultipleOptionsCreatorComponent
     ],
     exports: [
         AppListComponent,
         AppModalComponent,
+        AddReservationButtonComponent,
         LoginCardComponent,
         NavBarComponent,
         LoadingComponent,

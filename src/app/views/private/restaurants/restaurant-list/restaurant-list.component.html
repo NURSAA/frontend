@@ -32,6 +32,10 @@
                                     [routerLink]="['.', restaurant.id]">
                                 {{'DETAILS' | translate}}
                             </button>
+
+                            <add-reservation-button *ngIf="'restaurant:add_reservation' | hasAccess"
+                                                    [restaurant]="restaurant">
+                            </add-reservation-button>
                         </div>
                     </div>
 

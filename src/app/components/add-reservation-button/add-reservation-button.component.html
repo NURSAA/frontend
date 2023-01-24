@@ -1,0 +1,55 @@
+<button class="btn btn-outline-success ms-3"
+        (click)="addReservation()"
+        *ngIf="'reservations:add' | hasAccess">
+    {{'ADD_RESERVATION' | translate}}
+</button>
+
+<app-modal [(open)]="isModalOpen">
+    <form [formGroup]="form" (ngSubmit)="saveReservation()">
+        <div class="modal-header">
+            <h5 class="modal-title">{{'ADD_RESTAURANT' | translate}}</h5>
+            <button type="button"
+                    class="btn-close"
+                    (click)="toggleModal()"
+                    aria-label="Close">
+            </button>
+        </div>
+        <div class="modal-body">
+            <loading [loading]="loading"></loading>
+
+            <ng-container *ngIf="!loading">
+                <app-input formControlName="restaurant"
+                           type="select"
+                           [options]="restaurantOptions"
+                           [name]="'RESTAURANT' | translate">
+                </app-input>
+
+                <multiple-options-creator [items]="restaurantTables"
+                                          [(selectedItems)]="selectedRestaurantTables"
+                                          itemLabelKey="name">
+                </multiple-options-creator>
+
+                <app-input formControlName="start"
+                           type="datetime-local"
+                           [name]="'DATE_FROM' | translate">
+                </app-input>
+
+                <app-input formControlName="end"
+                           type="datetime-local"
+                           [name]="'DATE_TO' | translate">
+                </app-input>
+            </ng-container>
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="toggleModal()">
+                {{'CLOSE_MODAL' | translate}}
+            </button>
+            <button type="submit"
+                    class="btn btn-success">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</app-modal>

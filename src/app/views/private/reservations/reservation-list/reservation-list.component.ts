@@ -1,33 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {mergeMap, Observable, of, Subject, takeUntil} from 'rxjs';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
-import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
 import {UserService} from 'src/app/services/user.service';
 import {IQueryObject} from 'src/app/modules/rest/interfaces';
-import {UtilsService} from 'src/app/services/utils.service';
-import {IRestObject} from 'src/app/modules/rest/rest-object';
-import {ROLES} from "../../../../modules/privileges/interfaces";
+import {ROLES} from 'src/app/modules/privileges/interfaces';
 
 @Component({
     selector: 'reservation-list',
     templateUrl: './reservation-list.component.html'
 })
-export class ReservationListComponent implements OnInit, OnDestroy {
+export class ReservationListComponent implements OnInit {
 
     reload$: Observable<void>;
-    sameUserQuery?: IQueryObject;
-    isModalOpen = false;
-    form!: FormGroup;
-    loading = false;
-    restaurantOptions: IAppInputOptions[] = [];
-    restaurantTables: IRestObject<'tables'>[] = [];
-    selectedRestaurantTables: IRestObject<'tables'>[] = [];
+    queryObject?: IQueryObject;
 
-    private _destroy$ = new Subject<void>();
-
-    private reloadSubject = new Subject<void>();
+    reloadSubject = new Subject<void>();
 
     constructor(
         private restClient: RestClient,
@@ -39,7 +27,6 @@ export class ReservationListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.initializeQuery();
-        this.createForm();
     }
 
     private initializeQuery(): void {
@@ -52,90 +39,24 @@ export class ReservationListComponent implements OnInit, OnDestroy {
             return;
         }
 
+        const baseQuery = {
+            'order[id]': 'desc'
+        };
+
         if (
             role === ROLES.COOK
             && restaurant
         ) {
-            this.sameUserQuery = {
+            this.queryObject = {
+                ...baseQuery,
                 'restaurant.id': this.restClient.getId(restaurant)
             };
             return;
         }
 
-        this.sameUserQuery = {
+        this.queryObject = {
+            ...baseQuery,
             'user.id': id
         };
-    }
-
-    private createForm(): void {
-        this.form = new FormGroup({
-            restaurant: new FormControl(null, Validators.required),
-            start: new FormControl(null, Validators.required),
-            end: new FormControl(null, Validators.required)
-        });
-
-        this.form.get('restaurant')?.valueChanges
-            .pipe(
-                takeUntil(this._destroy$),
-                mergeMap((restaurant) => {
-                    if (!restaurant) {
-                        return of([]);
-                    }
-
-                    const query = {
-                        'floor.restaurant.id': restaurant.id
-                    };
-                    return this.restClient.getAll('tables', query);
-                })
-            )
-            .subscribe((tables) => {
-                this.restaurantTables = tables;
-            });
-    }
-
-    addReservation(): void {
-        this.isModalOpen = true;
-        this.loading = true;
-        this.form.reset();
-
-        this.restClient.getAll('restaurants')
-            .subscribe((restaurants) => {
-                this.restaurantOptions = restaurants.map((restaurant) => {
-                    return {
-                        label: restaurant.name,
-                        value: restaurant
-                    };
-                });
-                this.loading = false;
-            });
-    }
-
-    toggleModal(): void {
-        this.isModalOpen = !this.isModalOpen;
-    }
-
-    saveReservation(): void {
-        const model = this.restClient.createObject(
-            'reservations',
-            {
-                tables: this.selectedRestaurantTables.map((table) => table['@id']),
-                user: this.userService.recoverSavedUser()?.['@id'],
-                ...this.form.value
-            }
-        );
-
-        UtilsService.shortenNestedObjects(model, ['restaurant']);
-
-        model.persist()
-            .subscribe(() => {
-                this.toastService.saved();
-                this.isModalOpen = false;
-                this.reloadSubject.next();
-            })
-    }
-
-    ngOnDestroy(): void {
-        this._destroy$.next();
-        this._destroy$.complete();
     }
 }

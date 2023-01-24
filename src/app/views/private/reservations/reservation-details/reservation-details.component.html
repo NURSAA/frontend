@@ -20,20 +20,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex">
-                    <div class="row ms-3">
-                        <div class="mb-3" *ngFor="let table of reservation.tables">
-                            <div class="ms-2">
-                                <span class="text-muted">{{'FLOOR' | translate}}</span>:
-                                {{table.floor.name}}
-                            </div>
-                            <div class="ms-2">
-                                <span class="text-muted">{{'TABLE' | translate}}</span>:
-                                {{table.name}}
-                            </div>
+            </div>
+
+            <div class="mt-4">
+                <app-collapse [(collapse)]="tablesCollapsed" viewType="text">
+                    <ng-template #headerTemplate>
+                        <h4 class="m-0 p-0">{{'TABLES' | translate}}</h4>
+                    </ng-template>
+
+                    <ng-template #bodyTemplate>
+                        <div class="my-2" *ngFor="let table of reservation.tables">
+                            <span class="text-muted">{{'FLOOR' | translate}}</span>: {{table.floor.name}} <br/>
+                            <span class="text-muted">{{'TABLE' | translate}}</span>: {{table.name}}
                         </div>
-                    </div>
-                </div>
+                    </ng-template>
+                </app-collapse>
             </div>
         </ng-container>
     </div>

@@ -17,6 +17,7 @@ import {Collapse} from 'bootstrap';
     templateUrl: './app-collapse.component.html'
 })
 export class AppCollapseComponent implements OnInit, OnDestroy {
+    @Input() viewType: 'card' | 'text' = 'card';
     @Input() set collapse(value: boolean | undefined) {
         this._collapse = value;
         this.syncWithInput();
@@ -42,7 +43,7 @@ export class AppCollapseComponent implements OnInit, OnDestroy {
     }
 
     private createBsCollapse(): void {
-        this.bsCollapse = new Collapse(this.collapseEl.nativeElement);
+        this.bsCollapse = new Collapse(this.collapseEl.nativeElement, {toggle: !this._collapse});
     }
 
     private syncWithInput(): void {

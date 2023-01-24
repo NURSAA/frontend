@@ -21,6 +21,7 @@ export class ReservationDetailsComponent implements OnInit {
     dishOrderStatus = DISH_ORDER_STATUS;
     reload$: Observable<void>;
     activeMenu?: IRestObject<'menus'>;
+    tablesCollapsed = true;
     private reloadSubject = new Subject<void>();
 
     constructor(
