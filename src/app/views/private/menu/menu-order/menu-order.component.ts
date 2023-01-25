@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {IRestObject} from 'src/app/modules/rest/rest-object';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -15,13 +15,13 @@ export class MenuOrderComponent {
 
     constructor(
         private restClient: RestClient,
-        private router: Router
+        private router: Router,
+        private activatedRoute: ActivatedRoute
     ) {
     }
     removeDish(dishIndex: number): void {
         this.dishes.splice(dishIndex, 1);
         this.dishesChange.next(this.dishes);
-
     }
 
     makeOrder(): void {
@@ -37,7 +37,10 @@ export class MenuOrderComponent {
 
         this.restClient.post('orders/create', payload)
             .subscribe(() => {
-                this.router.navigate(['/app/reservations', this.reservationId]);
+                this.router.navigate(
+                    ['payment', this.reservationId],
+                    {relativeTo: this.activatedRoute.parent}
+                );
             });
     }
 }

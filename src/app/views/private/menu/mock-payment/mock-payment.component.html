@@ -1,0 +1,15 @@
+<div class="w-100 d-flex align-items-center justify-content-center"
+     style="height: calc(100vh - 56px - 24px)">
+    <div style="width: 25vw; text-align: center;font-size: 6rem;">
+        <div class="d-flex align-items-center text-info mt-5">
+            <fa-icon icon="cash-register">
+            </fa-icon>
+
+            <span class=" fs-3 ms-5 mb-5 align-self-end">{{'CONFIRM_PAYMENT' | translate}}</span>
+        </div>
+
+        <button class="btn btn-outline-success w-25 fs-3" (click)="confirmPayment()">
+            {{'PAY' | translate}}
+        </button>
+    </div>
+</div>

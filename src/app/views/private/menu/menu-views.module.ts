@@ -11,6 +11,7 @@ import {AppPipesModule} from 'src/app/pipes/app-pipes.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AppDirectivesModule} from 'src/app/directives/app-directives.module';
 import {MenuOrderComponent} from 'src/app/views/private/menu/menu-order/menu-order.component';
+import {MockPaymentComponent} from 'src/app/views/private/menu/mock-payment/mock-payment.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {MenuOrderComponent} from 'src/app/views/private/menu/menu-order/menu-ord
     declarations: [
         MenuListComponent,
         MenuDetailsComponent,
-        MenuOrderComponent
+        MenuOrderComponent,
+        MockPaymentComponent
     ]
 })
 export class MenuViewsModule {
