@@ -6,7 +6,7 @@ import {UserService} from 'src/app/services/user.service';
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-    private LOGOUT_URLS = ['/login', '/register'];
+    readonly LOGOUT_URLS = ['/login', '/register'];
     private firstUrl?: string | null;
 
     constructor(

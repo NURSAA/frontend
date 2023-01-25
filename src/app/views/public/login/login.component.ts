@@ -43,7 +43,16 @@ export class LoginComponent implements OnInit {
             )
             .subscribe({
                 next: () => {
-                    this.router.navigate([this.authGuard.useFirstUrl() || '/app/restaurants']);
+                    const firstUrl = this.authGuard.useFirstUrl();
+                    if (
+                        !firstUrl
+                        || this.authGuard.LOGOUT_URLS.includes(firstUrl)
+                    ) {
+                        this.router.navigate(['/app/restaurants']);
+                        return;
+                    }
+
+                    this.router.navigate([firstUrl]);
                 },
                 error: () => {
                     this.loginForm.reset();
