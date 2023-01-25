@@ -165,5 +165,161 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'RESERVATION',
         value: 'Reservation'
+    },
+    {
+        key: 'USERS',
+        value: 'Users'
+    },
+    {
+        key: 'ADDRESS',
+        value: 'Address'
+    },
+    {
+        key: 'EDIT',
+        value: 'Edit'
+    },
+    {
+        key: 'ADD_USER',
+        value: 'Add User'
+    },
+    {
+        key: 'EMAIL',
+        value: 'Email'
+    },
+    {
+        key: 'FIRST_NAME',
+        value: 'First Name'
+    },
+    {
+        key: 'LAST_NAME',
+        value: 'Last Name'
+    },
+    {
+        key: 'PHONE',
+        value: 'Phone'
+    },
+    {
+        key: 'PASSWORD',
+        value: 'Password'
+    },
+    {
+        key: 'REPEAT_PASSWORD',
+        value: 'Repeat Password'
+    },
+    {
+        key: 'EDIT_USER',
+        value: 'Edit User'
+    },
+    {
+        key: 'ROLE',
+        value: 'Role'
+    },
+    {
+        key: 'ADD_RESERVATION',
+        value: 'Add Reservation'
+    },
+    {
+        key: 'DATE_FROM',
+        value: 'Date From'
+    },
+    {
+        key: 'DATE_TO',
+        value: 'Date To'
+    },
+    {
+        key: 'SELECT_MULTIPLE_OPTIONS',
+        value: 'Select Multiple Options'
+    },
+    {
+        key: 'ITEMS',
+        value: 'Items'
+    },
+    {
+        key: 'SELECTED',
+        value: 'Selected'
+    },
+    {
+        key: 'PAGINATION_PREV',
+        value: 'Back'
+    },
+    {
+        key: 'PAGINATION_NEXT',
+        value: 'Next'
+    },
+    {
+        key: 'EMPTY_LIST',
+        value: 'Empty List'
+    },
+    {
+        key: 'CREATED',
+        value: 'Created'
+    },
+    {
+        key: 'NEXT_STATUS',
+        value: 'Next Status'
+    },
+    {
+        key: 'PROCESSING',
+        value: 'Processing'
+    },
+    {
+        key: 'COMPLETED',
+        value: 'Completed'
+    },
+    {
+        key: 'ORDER',
+        value: 'Order'
+    },
+    {
+        key: 'PRICE',
+        value: 'Price'
+    },
+    {
+        key: 'SELECT_INGREDIENTS',
+        value: 'Select Ingredients'
+    },
+    {
+        key: 'LEVEL',
+        value: 'Level'
+    },
+    {
+        key: 'SEATS',
+        value: 'Seats'
+    },
+    {
+        key: 'REMOVE_OBJECT',
+        value: 'Remove Item'
+    },
+    {
+        key: 'REMOVE_OBJECT_CONFIRM',
+        value: 'Confirm Remove Object'
+    },
+    {
+        key: 'ADD_ORDER',
+        value: 'Add Order'
+    },
+    {
+        key: 'MENU_ORDERS_EMPTY',
+        value: 'Menu Orders Empty'
+    },
+    {
+        key: 'ORDER_DISH',
+        value: 'Order Dish'
+    },
+    {
+        key: 'MAKE_ORDER',
+        value: 'Make Order'
+    },
+    {
+        key: 'REMOVE_DISH',
+        value: 'Remove Dish'
+    },
+    {
+        key: 'CONFIRM_PAYMENT',
+        value: 'Confirm Payment'
+    },
+    {
+        key: 'PAY',
+        value: 'Pay'
     }
 ];
