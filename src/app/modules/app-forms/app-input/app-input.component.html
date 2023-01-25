@@ -25,7 +25,17 @@
                [id]="inputId"
                class="form-control"
                [formControl]="inputControl"
-               (blur)="_onTouched ? _onTouched() : null"
+               (blur)="handleBlur($event)"
+        />
+
+        <input type="text"
+               *ngSwitchCase="'price'"
+               step="0.01"
+               min="0"
+               [id]="inputId"
+               class="form-control"
+               [formControl]="inputControl"
+               (blur)="handleBlur($event)"
         />
 
         <input [type]="type"
@@ -33,7 +43,7 @@
                [id]="inputId"
                class="form-control"
                [formControl]="inputControl"
-               (blur)="_onTouched ? _onTouched() : null"
+               (blur)="handleBlur($event)"
         />
     </ng-container>
 

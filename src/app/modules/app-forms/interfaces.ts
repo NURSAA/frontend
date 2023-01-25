@@ -1,6 +1,7 @@
 
 
 export type IInputType = 'button'
+    | 'price'
     | 'select'
     | 'checkbox'
     | 'color'

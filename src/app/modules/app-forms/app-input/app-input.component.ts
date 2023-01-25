@@ -9,6 +9,7 @@ import {
     Validators
 } from '@angular/forms';
 import {Subject, takeUntil} from 'rxjs';
+import {PriceService} from 'src/app/services/price.service';
 
 let appInputId = 0;
 
@@ -84,6 +85,30 @@ export class AppInputComponent implements OnInit, OnDestroy, ControlValueAccesso
             parentReset(value, options);
             this.inputControl.reset(value, options);
         }
+    }
+
+    handleBlur(event: Event): void {
+        if (this.type === 'price') {
+            this.transformAmount(event);
+        }
+
+        if (this._onTouched) {
+            this._onTouched();
+        }
+    }
+
+    private transformAmount(event: Event): void {
+        let inputValue = this.inputControl.value;
+        if (typeof inputValue === 'string') {
+            inputValue = PriceService.removeCurrency(inputValue);
+        }
+
+        const floatPrice = Number(inputValue),
+            formattedValue = PriceService.transformToCurrency(floatPrice),
+            backendValue = PriceService.transformToBackendPrice(formattedValue);
+        this.inputControl.setValue(backendValue);
+
+        (event.target as unknown as HTMLInputElement).value = formattedValue;
     }
 
     registerOnChange(fn: (value: unknown) => unknown): void {
