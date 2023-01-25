@@ -34,6 +34,7 @@ export class RestaurantListComponent implements OnInit {
             id: new FormControl(null),
             name: new FormControl(null, Validators.required),
             description: new FormControl(null, Validators.required),
+            address: new FormControl(null, Validators.required),
             url: new FormControl(null, [Validators.required, UtilsService.urlValidator]),
         });
     }
