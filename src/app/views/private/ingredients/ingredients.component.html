@@ -93,7 +93,9 @@
 </app-modal>
 
 <app-modal [(open)]="isIngredientModalOpen">
-    <form [formGroup]="ingredientForm" (ngSubmit)="saveIngredient()">
+    <form [formGroup]="ingredientForm"
+          *ngIf="isIngredientModalOpen"
+          (ngSubmit)="saveIngredient()">
         <div class="modal-header">
             <h5 class="modal-title">{{'ADD_DISH' | translate}}</h5>
             <button type="button"

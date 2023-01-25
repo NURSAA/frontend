@@ -28,7 +28,7 @@ export class IngredientsComponent implements OnInit {
     ingredientParentGroup: IIngredientGroupsExtended | null = null;
     ingredientForm = new FormGroup({
         name: new FormControl(null, Validators.required),
-        price: new FormControl(1, Validators.required),
+        price: new FormControl(null, Validators.required),
     });
 
     constructor(
@@ -85,6 +85,7 @@ export class IngredientsComponent implements OnInit {
     openIngredientModal(ingredientGroup: IIngredientGroupsExtended): void {
         this.isIngredientModalOpen = true;
         this.ingredientParentGroup = ingredientGroup;
+        this.ingredientForm.reset();
     }
 
     saveIngredient(): void {
