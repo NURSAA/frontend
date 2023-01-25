@@ -21,6 +21,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
     userAddForm = new FormGroup(
         {
             email: new FormControl(null, [Validators.email, Validators.required]),
+            firstName: new FormControl(null, Validators.required),
+            lastName: new FormControl(null, Validators.required),
+            phone: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required),
             repeatPassword: new FormControl(null, Validators.required),
         },
@@ -32,6 +35,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
     userEditForm = new FormGroup({
         id: new FormControl(null),
         email: new FormControl({value: null, disabled: true}),
+        firstName: new FormControl(null, Validators.required),
+        lastName: new FormControl(null, Validators.required),
+        phone: new FormControl(null, Validators.required),
         role: new FormControl(null, Validators.required),
     });
 
@@ -101,6 +107,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
         this.userEditForm.reset({
             id: user.id,
             email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phone: user.phone,
             role: user.role,
             restaurant: user.restaurant
         });
@@ -114,12 +123,15 @@ export class UsersListComponent implements OnInit, OnDestroy {
                 this.userAddForm.value
             );
         } else {
-            const {id, role, restaurant} = this.userEditForm.value;
+            const {id, role, restaurant, firstName, lastName, phone} = this.userEditForm.value;
             model = this.restClient.createObject<string, Partial<IUser>>(
                 'users',
                 {
                     id,
                     role,
+                    firstName,
+                    lastName,
+                    phone,
                     restaurant: restaurant || null
                 }
             );

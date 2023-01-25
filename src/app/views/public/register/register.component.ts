@@ -26,8 +26,11 @@ export class RegisterComponent implements OnInit {
         this.registerForm = new FormGroup(
             {
                 email: new FormControl(null, [Validators.email, Validators.required]),
+                firstName: new FormControl(null, Validators.required),
+                lastName: new FormControl(null, Validators.required),
                 password: new FormControl(null, Validators.required),
-                repeatPassword: new FormControl(null, Validators.required)
+                phone: new FormControl(null, Validators.required),
+                repeatPassword: new FormControl(null, Validators.required),
             },
             UtilsService.sameValueValidator(['password', 'repeatPassword'])
         );
