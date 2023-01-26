@@ -102,11 +102,6 @@
             <app-input formControlName="description"
                        [name]="'DESCRIPTION' | translate">
             </app-input>
-
-            <app-input formControlName="sectionOrder"
-                       type="number"
-                       [name]="'ORDER' | translate">
-            </app-input>
         </div>
         <div class="modal-footer">
             <button type="button"
@@ -146,11 +141,6 @@
             <app-input formControlName="price"
                        type="price"
                        [name]="'PRICE' | translate">
-            </app-input>
-
-            <app-input formControlName="dishOrder"
-                       type="number"
-                       [name]="'ORDER' | translate">
             </app-input>
 
             <multiple-options-creator [items]="ingredients"

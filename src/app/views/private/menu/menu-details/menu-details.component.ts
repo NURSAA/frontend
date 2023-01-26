@@ -20,8 +20,7 @@ export class MenuDetailsComponent implements OnInit {
     isSectionModalOpen = false;
     sectionForm = new FormGroup({
         name: new FormControl(null, Validators.required),
-        description: new FormControl(null),
-        sectionOrder: new FormControl(1, Validators.required),
+        description: new FormControl(null)
     });
 
     isDishModalOpen = false;
@@ -29,8 +28,7 @@ export class MenuDetailsComponent implements OnInit {
     dishForm = new FormGroup({
         name: new FormControl(null, Validators.required),
         description: new FormControl(null),
-        price: new FormControl(0, Validators.required),
-        dishOrder: new FormControl(1, Validators.required),
+        price: new FormControl(0, Validators.required)
     });
     dishSelectedIngredients: IRestObject<'ingredients'>[] = [];
     ingredients: IRestObject<'ingredients'>[] = [];
@@ -82,7 +80,7 @@ export class MenuDetailsComponent implements OnInit {
 
         this.restClient.getAll(
             'menu_sections',
-            {'menu.id': this.menuId}
+            {'menu.id': this.menuId, pagination: false}
         )
             .subscribe((sections) => {
                 this.sections = sections;
@@ -100,6 +98,7 @@ export class MenuDetailsComponent implements OnInit {
             'menu_sections',
             {
                 ...this.sectionForm.value,
+                sectionOrder: 1,
                 menu: this.restClient.getIri('menus', this.menuId)
             }
         );
@@ -129,6 +128,7 @@ export class MenuDetailsComponent implements OnInit {
             'dishes',
             {
                 ...this.dishForm.value,
+                dishOrder: 1,
                 menuSection: this.dishParentSection['@id'],
                 ingredients: this.dishSelectedIngredients.map((ingredient) => {
                     return ingredient['@id'];
