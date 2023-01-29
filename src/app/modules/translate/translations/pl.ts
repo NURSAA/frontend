@@ -321,5 +321,9 @@ export const plTranslations: ITranslation[] = [
     {
         key: 'PAY',
         value: 'Zapłać'
+    },
+    {
+        key: 'OR_LOGIN',
+        value: 'lub Zaloguj'
     }
 ];

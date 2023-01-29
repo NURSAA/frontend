@@ -321,5 +321,9 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'PAY',
         value: 'Pay'
+    },
+    {
+        key: 'OR_LOGIN',
+        value: 'or Login'
     }
 ];
