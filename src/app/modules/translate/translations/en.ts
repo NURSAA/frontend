@@ -325,5 +325,9 @@ export const enTranslations: ITranslation[] = [
     {
         key: 'OR_LOGIN',
         value: 'or Login'
+    },
+    {
+        key: 'PASSWORDS_DONT_MATCH',
+        value: 'Passwords Dont Match'
     }
 ];

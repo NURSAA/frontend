@@ -325,5 +325,9 @@ export const plTranslations: ITranslation[] = [
     {
         key: 'OR_LOGIN',
         value: 'lub Zaloguj'
+    },
+    {
+        key: 'PASSWORDS_DONT_MATCH',
+        value: 'Hasła nie są takie same'
     }
 ];
