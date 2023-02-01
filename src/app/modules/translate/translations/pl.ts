@@ -2,13 +2,17 @@ import {ITranslation} from 'src/app/modules/translate/interfaces';
 
 
 export const plTranslations: ITranslation[] = [
-     {
+    {
         key: 'required',
         value: 'Pole jest wymagane'
     },
     {
         key: 'ADD_INGREDIENT',
         value: 'Dodaj składnik'
+    },
+    {
+        key: 'MARK_AS_ACTIVE',
+        value: 'Oznacz jako aktywne'
     },
     {
         key: 'REMOVE_INGREDIENT',

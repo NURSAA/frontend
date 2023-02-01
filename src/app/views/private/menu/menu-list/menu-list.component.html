@@ -18,10 +18,17 @@
                         <div class="d-flex row">
                             <span class="fs-4">{{menu.name}}</span>
                             <span class="text-muted">{{menu.restaurant.name}}</span>
+                            <span class="text-muted">{{menu.status | uppercase | translate}}</span>
                         </div>
 
                         <div>
                             <button class="btn btn-outline-secondary"
+                                    (click)="markMenuAsActive(menu)"
+                                    *ngIf="('menu:set_active' | hasAccess) && menu.status === menuStatus.INACTIVE">
+                                {{'MARK_AS_ACTIVE' | translate}}
+                            </button>
+
+                            <button class="btn btn-outline-secondary ms-2"
                                     [routerLink]="['.', menu.id]">
                                 {{'DETAILS' | translate}}
                             </button>

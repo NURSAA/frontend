@@ -5,6 +5,8 @@ import {RestClient} from 'src/app/modules/rest/rest-client.service';
 import {ToastsService} from 'src/app/modules/toasts/toasts.service';
 import {IAppInputOptions} from 'src/app/modules/app-forms/app-input/app-input.component';
 import {UtilsService} from 'src/app/services/utils.service';
+import {MENU_STATUS} from 'src/app/_types/menu';
+import {IRestObject} from 'src/app/modules/rest/rest-object';
 
 
 @Component({
@@ -17,6 +19,7 @@ export class MenuListComponent implements OnInit {
     form!: FormGroup;
     loading = false;
     restaurantOptions?: IAppInputOptions[];
+    menuStatus = MENU_STATUS;
 
     private reloadSubject = new Subject<void>();
 
@@ -36,6 +39,14 @@ export class MenuListComponent implements OnInit {
             name: new FormControl(null, Validators.required),
             restaurant: new FormControl(null, Validators.required)
         });
+    }
+
+    markMenuAsActive(menu: IRestObject<'menus'>): void {
+        this.restClient.post('menu/set-active', {menuIri: menu['@id']})
+            .subscribe(() => {
+                this.reloadSubject.next();
+                this.toastService.saved();
+            });
     }
 
     addMenu(): void {
