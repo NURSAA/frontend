@@ -16,7 +16,7 @@ export const enTranslations: ITranslation[] = [
     },
     {
         key: 'INACTIVE',
-        value: 'Active'
+        value: 'Inactive'
     },
     {
         key: 'MARK_AS_ACTIVE',
