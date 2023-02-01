@@ -27,6 +27,10 @@ const featurePrivileges: IFeaturePrivilege[] = [
         roles: ['admin']
     },
     {
+        name: 'floor:add',
+        roles: ['admin']
+    },
+    {
         name: 'floor:edit',
         roles: ['admin']
     },
