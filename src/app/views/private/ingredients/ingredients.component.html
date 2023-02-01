@@ -25,12 +25,12 @@
                         <div class="text-success"
                              (click)="openIngredientModal(ingredientGroup)"
                              *ngIf="'dish:edit' | hasAccess"
-                             [title]="'ADD_DISH' | translate">
+                             [title]="'ADD_INGREDIENT' | translate">
                             <fa-icon icon="plus-square"></fa-icon>
                         </div>
 
                         <remove-button [objectToRemove]="ingredientGroup | transformToRest : 'ingredient_groups'"
-                                       [title]="'REMOVE_DISH' | translate"
+                                       [title]="'REMOVE_INGREDIENT' | translate"
                                        *ngIf="'dish:remove' | hasAccess"
                                        (removed)="loadIngredients()">
                         </remove-button>
@@ -66,7 +66,7 @@
 <app-modal [(open)]="isIngredientGroupModalOpen">
     <form [formGroup]="ingredientGroupForm" (ngSubmit)="saveIngredientGroup()">
         <div class="modal-header">
-            <h5 class="modal-title">{{'ADD_DISH' | translate}}</h5>
+            <h5 class="modal-title">{{'ADD_INGREDIENT_GROUP' | translate}}</h5>
             <button type="button"
                     class="btn-close"
                     (click)="isIngredientGroupModalOpen = !isIngredientGroupModalOpen"
@@ -97,7 +97,7 @@
           *ngIf="isIngredientModalOpen"
           (ngSubmit)="saveIngredient()">
         <div class="modal-header">
-            <h5 class="modal-title">{{'ADD_DISH' | translate}}</h5>
+            <h5 class="modal-title">{{'ADD_INGREDIENT' | translate}}</h5>
             <button type="button"
                     class="btn-close"
                     (click)="isIngredientModalOpen = !isIngredientModalOpen"

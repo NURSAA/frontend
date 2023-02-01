@@ -7,6 +7,18 @@ export const enTranslations: ITranslation[] = [
         value: 'Field is required'
     },
     {
+        key: 'ADD_INGREDIENT',
+        value: 'Add ingredient'
+    },
+    {
+        key: 'REMOVE_INGREDIENT',
+        value: 'Remove ingredient'
+    },
+    {
+        key: 'ADD_INGREDIENT_GROUP',
+        value: 'Add ingredient group'
+    },
+    {
         key: 'email',
         value: 'Use proper e-mail address'
     },

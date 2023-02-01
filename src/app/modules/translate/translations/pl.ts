@@ -7,6 +7,18 @@ export const plTranslations: ITranslation[] = [
         value: 'Pole jest wymagane'
     },
     {
+        key: 'ADD_INGREDIENT',
+        value: 'Dodaj składnik'
+    },
+    {
+        key: 'REMOVE_INGREDIENT',
+        value: 'Usuń składnik'
+    },
+    {
+        key: 'ADD_INGREDIENT_GROUP',
+        value: 'Usuń grupę składników'
+    },
+    {
         key: 'email',
         value: 'Użyj poprawnego adresu e-mail'
     },
