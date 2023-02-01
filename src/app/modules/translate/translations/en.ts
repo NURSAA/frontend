@@ -11,6 +11,14 @@ export const enTranslations: ITranslation[] = [
         value: 'Add ingredient'
     },
     {
+        key: 'ACTIVE',
+        value: 'Active'
+    },
+    {
+        key: 'INACTIVE',
+        value: 'Active'
+    },
+    {
         key: 'MARK_AS_ACTIVE',
         value: 'Mark as active'
     },

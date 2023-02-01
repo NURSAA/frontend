@@ -7,6 +7,14 @@ export const plTranslations: ITranslation[] = [
         value: 'Pole jest wymagane'
     },
     {
+        key: 'ACTIVE',
+        value: 'Aktywne'
+    },
+    {
+        key: 'INACTIVE',
+        value: 'Nieaktywne'
+    },
+    {
         key: 'ADD_INGREDIENT',
         value: 'Dodaj składnik'
     },
