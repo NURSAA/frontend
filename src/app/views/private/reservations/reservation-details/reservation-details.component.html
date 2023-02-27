@@ -58,7 +58,7 @@
 
         <app-list endpoint="orders"
                   [reload$]="reload$"
-                  [queryObject]="{'reservation.id': reservation.id}">
+                  [queryObject]="{'reservation.id': reservation.id, 'order[dishOrders.id]': 'desc'}">
             <ng-template let-order>
                 <div class="d-flex justify-content-between">
                     <div class="left-column col-6">
