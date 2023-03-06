@@ -47,9 +47,13 @@
                 </ng-container>
             </div>
         </div>
+
+        <ng-container *ngIf="!listItems?.length">
+            {{'LIST_EMPTY' | translate}}
+        </ng-container>
     </ng-container>
 
-    <ng-container *ngIf="!hasPagination">
+    <ng-container *ngIf="!hasPagination || !listItems?.length">
         <ng-container *ngTemplateOutlet="paginationTemplate">
         </ng-container>
     </ng-container>

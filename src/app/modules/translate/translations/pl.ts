@@ -3,6 +3,10 @@ import {ITranslation} from 'src/app/modules/translate/interfaces';
 
 export const plTranslations: ITranslation[] = [
     {
+        key: 'LIST_EMPTY',
+        value: 'Lista jest pusta'
+    },
+    {
         key: 'required',
         value: 'Pole jest wymagane'
     },

@@ -3,6 +3,10 @@ import {ITranslation} from 'src/app/modules/translate/interfaces';
 
 export const enTranslations: ITranslation[] = [
     {
+        key: 'LIST_EMPTY',
+        value: 'List is empty.'
+    },
+    {
         key: 'required',
         value: 'Field is required'
     },
